@@ -2,20 +2,20 @@
 
 Sito vetrina per **Soffice Essenza**, candele artigianali. Tre collezioni, ognuna con la sua landing page immersiva.
 
-## Collezioni
-- **Abissi** (`index.html`) — tema fondale marino, toni pastello, lettere azzurre. ✅ Completa
-- **Giardino** (`giardino.html`) — tema floreale, verde pastello. 🚧 Teaser "presto"
-- **Ambra** (`ambra.html`) — tema caldo/ambrato. 🚧 Teaser "presto"
+## Collections
+- **Abyss** (`index.html`) — deep-sea theme, pastel tones, blue lettering, gold accents. ✅ Complete
+- **Mini Pets** (`minipets.html`) — playful peach/cream theme. 🚧 "Coming soon" teaser
+- **Namastê** (`namaste.html`) — calm lavender/zen theme. 🚧 "Coming soon" teaser
 
 ## Stack
-HTML/CSS/JS puro, single-file per pagina. Nessuna dipendenza oltre ai Google Fonts (Cormorant Garamond + Jost).
+Plain HTML/CSS/JS, single file per page. No dependencies beyond Google Fonts (Cormorant Garamond + Jost).
 
-Effetti della pagina Abissi: raggi di luce, bolle che salgono, plancton alla deriva, parallax del mouse, indicatore di profondità che scende con lo scroll, fiamme bioluminescenti disegnate in CSS.
+Abyss page effects: light rays, rising bubbles, drifting plankton, drifting fish, seabed with shells & starfish, gold details, mouse parallax, a depth meter that descends as you scroll, and CSS-drawn bioluminescent flames.
 
-## Pubblicazione
-Ospitato su GitHub Pages.
+## Hosting
+Served via GitHub Pages.
 
-## Da personalizzare
-- Link Instagram / WhatsApp nel footer di `index.html`
-- Nomi, profumi e prezzi delle candele
-- Contenuto delle collezioni Giardino e Ambra
+## To customise
+- Instagram / WhatsApp links in the `index.html` footer
+- Candle names, scents and prices
+- Mini Pets and Namastê collection content

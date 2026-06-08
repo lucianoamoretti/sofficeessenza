@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Soffice Essenza — Collezione Abissi</title>
-<meta name="description" content="Collezione Abissi di Soffice Essenza — candele artigianali ispirate alle profondità del mare. Profumi che affiorano dal blu.">
+<title>Soffice Essenza — Abyss Collection</title>
+<meta name="description" content="The Abyss Collection by Soffice Essenza — hand-poured candles inspired by the deep sea. Scents that rise from the blue.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -25,6 +25,11 @@
   --blue-deep: #3a648c;   /* emphasis */
   --blue-pale: #aecbe2;   /* faint */
 
+  /* golden details */
+  --gold:      #c9a86a;
+  --gold-soft: #e2c994;
+  --gold-deep: #a8843f;
+
   --glow:      #fbe4c4;   /* candle warm glow */
   --glow-core: #fff4e2;
 
@@ -40,11 +45,11 @@ body{
   -webkit-tap-highlight-color:transparent;
   -webkit-font-smoothing:antialiased;
 }
-::selection{background:var(--blue-pale);color:#fff}
+::selection{background:var(--gold-soft);color:#fff}
 a{color:inherit;text-decoration:none}
 
 /* ============ FIXED OCEAN BACKDROP ============ */
-.ocean{position:fixed;inset:0;z-index:-2;
+.ocean{position:fixed;inset:0;z-index:-3;
   background:linear-gradient(180deg,
     var(--surface) 0%,
     var(--shallow) 18%,
@@ -54,9 +59,9 @@ a{color:inherit;text-decoration:none}
     var(--abyss) 100%);
 }
 /* god-rays / caustics */
-.rays{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.rays{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
 .ray{position:absolute;top:-30vh;width:24vw;height:160vh;
-  background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);
+  background:linear-gradient(180deg,rgba(255,250,235,.6),rgba(255,255,255,0) 70%);
   filter:blur(14px);transform-origin:top center;opacity:.5;
   animation:sway 14s ease-in-out infinite alternate}
 .ray:nth-child(1){left:8%;transform:rotate(8deg);animation-delay:0s}
@@ -65,8 +70,8 @@ a{color:inherit;text-decoration:none}
 .ray:nth-child(4){left:80%;transform:rotate(-9deg);opacity:.3;animation-delay:-9s}
 @keyframes sway{from{transform:translateX(-2vw) rotate(6deg)}to{transform:translateX(2vw) rotate(-6deg)}}
 
-/* bubbles + particles injected by JS */
-#bubbles,#motes{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+/* bubbles, motes, fish injected by JS */
+#bubbles,#motes,#fish{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .bubble{position:absolute;bottom:-60px;border-radius:50%;
   background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.9),rgba(255,255,255,.15) 60%,transparent 70%);
   border:1px solid rgba(255,255,255,.35);
@@ -76,13 +81,24 @@ a{color:inherit;text-decoration:none}
   10%{opacity:.8}
   90%{opacity:.6}
   100%{transform:translateY(-115vh) translateX(var(--drift));opacity:0}}
-.mote{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);
+.mote{position:absolute;border-radius:50%;background:rgba(255,248,235,.6);
   animation:float linear infinite}
 @keyframes float{
   0%{transform:translate(0,0);opacity:0}
   20%{opacity:.5}
   80%{opacity:.4}
   100%{transform:translate(var(--mx),var(--my));opacity:0}}
+/* drifting fish */
+.fish{position:absolute;opacity:.5;animation:swim linear infinite}
+.fish svg{display:block}
+.fish.flip{transform:scaleX(-1)}
+@keyframes swim{
+  0%{transform:translateX(-14vw)}
+  100%{transform:translateX(118vw)}}
+.fish.flip{animation-name:swim-rev}
+@keyframes swim-rev{
+  0%{transform:translateX(118vw) scaleX(-1)}
+  100%{transform:translateX(-14vw) scaleX(-1)}}
 
 /* ============ NAV (the 3 collections) ============ */
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;
@@ -90,42 +106,43 @@ a{color:inherit;text-decoration:none}
   padding:22px clamp(20px,5vw,60px);
   transition:background .4s ease,padding .4s ease,box-shadow .4s ease}
 .nav.scrolled{background:rgba(230,244,248,.72);backdrop-filter:blur(12px);
-  padding-top:14px;padding-bottom:14px;box-shadow:0 1px 0 rgba(77,127,171,.12)}
+  padding-top:14px;padding-bottom:14px;box-shadow:0 1px 0 rgba(201,168,106,.3)}
 .brand{font-family:var(--serif);font-size:clamp(20px,2.4vw,26px);font-weight:500;
   letter-spacing:.5px;color:var(--blue-deep);line-height:1}
 .brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:5px;
-  text-transform:uppercase;color:var(--blue-soft);margin-top:4px;font-weight:400}
+  text-transform:uppercase;color:var(--gold-deep);margin-top:4px;font-weight:400}
 .collections{display:flex;gap:clamp(14px,2.4vw,32px);align-items:center}
 .col-link{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue-soft);
   position:relative;padding:6px 2px;transition:color .25s}
 .col-link::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
-  background:var(--blue-deep);transition:width .3s ease}
-.col-link:hover{color:var(--blue-deep)}
+  background:var(--gold);transition:width .3s ease}
+.col-link:hover{color:var(--gold-deep)}
 .col-link:hover::after{width:100%}
 .col-link.active{color:var(--blue-deep)}
 .col-link.active::after{width:100%}
-.col-link .soon{display:block;font-size:7px;letter-spacing:2px;color:var(--blue-pale);text-align:center;margin-top:1px}
+.col-link .soon{display:block;font-size:7px;letter-spacing:2px;color:var(--gold);text-align:center;margin-top:1px}
 
 /* ============ DEPTH METER ============ */
 .depth{position:fixed;right:clamp(14px,3vw,40px);top:50%;transform:translateY(-50%);
   z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:0;
   font-size:10px;letter-spacing:1px;color:var(--blue-soft);pointer-events:none}
-.depth-line{width:1px;height:34vh;background:linear-gradient(180deg,transparent,var(--blue-pale),transparent);
+.depth-line{width:1px;height:34vh;background:linear-gradient(180deg,transparent,var(--gold-soft),transparent);
   position:relative;margin:10px 0}
 .depth-dot{position:absolute;right:-3px;width:7px;height:7px;border-radius:50%;
-  background:var(--blue-deep);box-shadow:0 0 0 3px rgba(174,203,226,.5);top:0;transition:top .15s linear}
+  background:var(--gold);box-shadow:0 0 0 3px rgba(226,201,148,.5);top:0;transition:top .15s linear}
 .depth-val{font-family:var(--serif);font-size:15px;color:var(--blue-deep);font-weight:500;min-width:54px;text-align:right}
-.depth-cap{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-pale)}
+.depth-cap{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
 @media(max-width:760px){.depth{display:none}}
 
 /* ============ LAYOUT ============ */
 section{position:relative;padding:0 clamp(20px,6vw,80px)}
 .reveal{opacity:0;transform:translateY(34px);transition:opacity 1.1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
+.rule{width:46px;height:1px;background:var(--gold);margin:0 auto;opacity:.8}
 
 /* ============ HERO ============ */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.hero .eyebrow{font-size:12px;letter-spacing:8px;text-transform:uppercase;color:var(--blue-soft);
+.hero .eyebrow{font-size:12px;letter-spacing:8px;text-transform:uppercase;color:var(--gold-deep);
   margin-bottom:26px}
 .hero h1{font-family:var(--serif);font-weight:300;color:var(--blue-deep);
   font-size:clamp(58px,13vw,180px);line-height:.92;letter-spacing:2px}
@@ -133,9 +150,9 @@ section{position:relative;padding:0 clamp(20px,6vw,80px)}
 .hero .sub{margin-top:30px;max-width:520px;font-size:clamp(14px,1.5vw,17px);font-weight:300;
   line-height:1.9;color:var(--blue);letter-spacing:.4px}
 .scroll-cue{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
-  font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-soft);
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-deep);
   display:flex;flex-direction:column;align-items:center;gap:12px}
-.scroll-cue .dot{width:5px;height:5px;border-radius:50%;background:var(--blue-soft);
+.scroll-cue .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);
   animation:sink 2.2s ease-in-out infinite}
 @keyframes sink{0%{transform:translateY(-6px);opacity:0}40%{opacity:1}100%{transform:translateY(14px);opacity:0}}
 
@@ -144,21 +161,22 @@ section{position:relative;padding:0 clamp(20px,6vw,80px)}
 .intro .mark{font-family:var(--serif);font-style:italic;font-size:clamp(26px,4.5vw,52px);
   font-weight:300;color:var(--blue-deep);line-height:1.4;max-width:14ch}
 .intro p{margin-top:34px;max-width:560px;font-size:15px;font-weight:300;line-height:2;color:var(--blue);letter-spacing:.3px}
+.intro .rule{margin-top:38px}
 
 /* ============ CANDLES ============ */
 .candles{padding-top:8vh;padding-bottom:14vh}
 .sec-head{text-align:center;margin-bottom:7vh}
-.sec-head .kick{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--blue-soft)}
+.sec-head .kick{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--gold-deep)}
 .sec-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(36px,6vw,72px);color:var(--blue-deep);margin-top:14px;letter-spacing:1px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(28px,4vw,56px);max-width:1180px;margin:0 auto}
 .card{display:flex;flex-direction:column;align-items:center;text-align:center}
 .card .vessel{margin-bottom:30px}
 .card h3{font-family:var(--serif);font-size:30px;font-weight:500;color:var(--blue-deep);letter-spacing:.5px}
-.card .notes{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-soft);margin-top:10px}
+.card .notes{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-deep);margin-top:10px}
 .card .desc{font-size:13.5px;font-weight:300;line-height:1.8;color:var(--blue);margin-top:16px;max-width:30ch}
-.card .price{font-family:var(--serif);font-size:22px;color:var(--blue-deep);margin-top:20px;letter-spacing:1px}
+.card .price{font-family:var(--serif);font-size:22px;color:var(--gold-deep);margin-top:20px;letter-spacing:1px}
 
-/* CSS candle (frosted glass + bioluminescent flame) */
+/* CSS candle (frosted glass + bioluminescent flame, gold rim) */
 .vessel{position:relative;width:120px;height:170px}
 .glass{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
   width:108px;height:128px;border-radius:14px 14px 18px 18px;
@@ -166,9 +184,10 @@ section{position:relative;padding:0 clamp(20px,6vw,80px)}
   border:1px solid rgba(255,255,255,.6);
   box-shadow:inset 0 8px 20px rgba(255,255,255,.5),inset 0 -16px 26px rgba(77,127,171,.18),0 14px 30px rgba(58,100,140,.18);
   backdrop-filter:blur(2px)}
+.glass::before{content:'';position:absolute;left:6px;right:6px;top:10px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);opacity:.8}
 .wax{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:108px;height:46px;
   border-radius:0 0 18px 18px;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(236,247,251,.9))}
-.wick{position:absolute;left:50%;top:30px;transform:translateX(-50%);width:2px;height:14px;background:var(--blue-deep);border-radius:2px}
+.wick{position:absolute;left:50%;top:30px;transform:translateX(-50%);width:2px;height:14px;background:var(--gold-deep);border-radius:2px}
 .flame{position:absolute;left:50%;top:8px;transform:translateX(-50%);
   width:18px;height:30px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
   background:radial-gradient(circle at 50% 70%,var(--glow-core),var(--glow) 55%,rgba(251,228,196,0) 78%);
@@ -186,22 +205,22 @@ section{position:relative;padding:0 clamp(20px,6vw,80px)}
   line-height:1.45;color:var(--blue-deep);max-width:18ch}
 .facts{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(28px,6vw,80px);margin-top:7vh}
 .fact{display:flex;flex-direction:column;gap:8px}
-.fact b{font-family:var(--serif);font-size:40px;font-weight:400;color:var(--blue-deep)}
+.fact b{font-family:var(--serif);font-size:40px;font-weight:400;color:var(--gold-deep)}
 .fact span{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-soft)}
 
 /* ============ FOOTER / SEABED ============ */
 .seabed{position:relative;padding-top:18vh;padding-bottom:60px;overflow:hidden}
-.weeds{position:absolute;left:0;right:0;bottom:0;height:220px;pointer-events:none;opacity:.6}
+.bed{position:absolute;left:0;right:0;bottom:0;height:260px;pointer-events:none}
 .footer-inner{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px}
 .footer-inner .fbrand{font-family:var(--serif);font-size:clamp(34px,7vw,68px);font-weight:300;color:var(--blue-deep);letter-spacing:1px}
-.footer-inner .ftag{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-soft)}
+.footer-inner .ftag{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-deep)}
 .social{display:flex;gap:14px;margin-top:6px}
 .social a{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:1.5px;
-  padding:11px 22px;border:1px solid var(--blue-pale);border-radius:40px;color:var(--blue-deep);
-  transition:background .25s,border-color .25s,transform .25s}
-.social a:hover{background:rgba(255,255,255,.45);border-color:var(--blue-soft);transform:translateY(-2px)}
-.copyright{margin-top:34px;font-size:10px;letter-spacing:2px;color:var(--blue-soft);opacity:.8}
-.copyright a{color:var(--blue-deep)}
+  padding:11px 22px;border:1px solid var(--gold);border-radius:40px;color:var(--blue-deep);
+  transition:background .25s,border-color .25s,transform .25s,color .25s}
+.social a:hover{background:var(--gold);border-color:var(--gold);color:#fff;transform:translateY(-2px)}
+.copyright{margin-top:34px;font-size:10px;letter-spacing:2px;color:var(--blue-soft);opacity:.85}
+.copyright a{color:var(--gold-deep)}
 
 @media(max-width:760px){
   .collections{gap:14px}
@@ -222,68 +241,70 @@ section{position:relative;padding:0 clamp(20px,6vw,80px)}
 <div class="rays"><span class="ray"></span><span class="ray"></span><span class="ray"></span><span class="ray"></span></div>
 <div id="bubbles"></div>
 <div id="motes"></div>
+<div id="fish"></div>
 
 <!-- nav: the 3 collections -->
 <nav class="nav" id="nav">
-  <a class="brand" href="index.html">Soffice Essenza<small>Candele d'Autore</small></a>
+  <a class="brand" href="index.html">Soffice Essenza<small>Artisan Candles</small></a>
   <div class="collections">
-    <a class="col-link active" href="index.html">Abissi</a>
-    <a class="col-link" href="giardino.html">Giardino<span class="soon">presto</span></a>
-    <a class="col-link" href="ambra.html">Ambra<span class="soon">presto</span></a>
+    <a class="col-link active" href="index.html">Abyss</a>
+    <a class="col-link" href="minipets.html">Mini Pets<span class="soon">soon</span></a>
+    <a class="col-link" href="namaste.html">Namastê<span class="soon">soon</span></a>
   </div>
 </nav>
 
 <!-- depth meter -->
 <div class="depth" aria-hidden="true">
   <span class="depth-val" id="depthVal">0 m</span>
-  <span class="depth-cap">profondità</span>
+  <span class="depth-cap">depth</span>
   <div class="depth-line"><span class="depth-dot" id="depthDot"></span></div>
-  <span class="depth-cap">abissi</span>
+  <span class="depth-cap">abyss</span>
 </div>
 
 <!-- HERO -->
 <header class="hero">
-  <p class="eyebrow reveal">Collezione</p>
-  <h1 class="reveal">Abissi<em>dal profondo</em></h1>
-  <p class="sub reveal">Profumi che affiorano dal blu. Una collezione di candele artigianali nate dove la luce diventa silenzio — sale, alga, brezza salmastra e legni sommersi.</p>
-  <div class="scroll-cue"><span>immergiti</span><span class="dot"></span></div>
+  <p class="eyebrow reveal">Collection</p>
+  <h1 class="reveal">Abyss<em>from the deep</em></h1>
+  <p class="sub reveal">Scents that rise from the blue. A collection of hand-poured candles born where light turns to silence — sea salt, seaweed, briny air and sunken woods.</p>
+  <div class="scroll-cue"><span>dive in</span><span class="dot"></span></div>
 </header>
 
 <!-- INTRO -->
 <section class="intro">
-  <p class="mark reveal">Ogni fiamma è una luce che scende nel blu.</p>
-  <p class="reveal">Le candele Abissi sono colate a mano in cera di soia, con stoppini in cotone e fragranze che ricordano il mare profondo. Accendile e lascia che il profumo salga lentamente, come una bolla verso la superficie.</p>
+  <p class="mark reveal">Every flame is a light descending into the blue.</p>
+  <p class="reveal">The Abyss candles are hand-poured in soy wax, with cotton wicks and fragrances that echo the deep sea. Light one and let the scent rise slowly, like a bubble toward the surface.</p>
+  <span class="rule reveal"></span>
 </section>
 
 <!-- CANDLES -->
 <section class="candles">
   <div class="sec-head reveal">
-    <p class="kick">La Collezione</p>
-    <h2>Tre profumi dal fondale</h2>
+    <p class="kick">The Collection</p>
+    <h2>Three scents from the seabed</h2>
   </div>
   <div class="grid">
 
     <article class="card reveal">
       <div class="vessel"><span class="halo"></span><span class="glass"></span><span class="wax"></span><span class="wick"></span><span class="flame"></span></div>
-      <h3>Salsedine</h3>
-      <p class="notes">Sale · Iodio · Muschio bianco</p>
-      <p class="desc">L'aria appena sopra le onde. Fresca, minerale, avvolgente come la prima boccata di mare.</p>
+      <h3>Sea Salt</h3>
+      <p class="notes">Salt · Iodine · White musk</p>
+      <p class="desc">The air just above the waves. Fresh, mineral, as enveloping as the first breath of the sea.</p>
       <p class="price">€ 28</p>
     </article>
 
     <article class="card reveal">
       <div class="vessel"><span class="halo"></span><span class="glass"></span><span class="wax"></span><span class="wick"></span><span class="flame"></span></div>
-      <h3>Corallo</h3>
-      <p class="notes">Alga · Fiore d'acqua · Ambra grigia</p>
-      <p class="desc">Il respiro tiepido della barriera. Floreale e profondo, sospeso tra luce e penombra.</p>
+      <h3>Coral</h3>
+      <p class="notes">Seaweed · Water flower · Ambergris</p>
+      <p class="desc">The warm breath of the reef. Floral and deep, suspended between light and shadow.</p>
       <p class="price">€ 32</p>
     </article>
 
     <article class="card reveal">
       <div class="vessel"><span class="halo"></span><span class="glass"></span><span class="wax"></span><span class="wick"></span><span class="flame"></span></div>
-      <h3>Abisso</h3>
-      <p class="notes">Legni sommersi · Vetiver · Sale nero</p>
-      <p class="desc">Dove la luce diventa silenzio. Scuro, legnoso, misterioso — la nota più profonda della collezione.</p>
+      <h3>Abyss</h3>
+      <p class="notes">Sunken woods · Vetiver · Black salt</p>
+      <p class="desc">Where light turns to silence. Dark, woody, mysterious — the deepest note of the collection.</p>
       <p class="price">€ 34</p>
     </article>
 
@@ -292,35 +313,61 @@ section{position:relative;padding:0 clamp(20px,6vw,80px)}
 
 <!-- CRAFT -->
 <section class="craft">
-  <p class="quote reveal">Fatte a mano, una colata alla volta, nel nostro piccolo laboratorio.</p>
+  <p class="quote reveal">Hand-poured, one small batch at a time, in our little workshop.</p>
   <div class="facts reveal">
-    <div class="fact"><b>100%</b><span>Cera di soia</span></div>
-    <div class="fact"><b>40h+</b><span>Di durata</span></div>
+    <div class="fact"><b>100%</b><span>Soy wax</span></div>
+    <div class="fact"><b>40h+</b><span>Burn time</span></div>
     <div class="fact"><b>Vegan</b><span>& cruelty free</span></div>
   </div>
 </section>
 
 <!-- FOOTER / SEABED -->
 <footer class="seabed">
-  <svg class="weeds" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
-    <g fill="none" stroke="#3a648c" stroke-width="6" stroke-linecap="round" opacity="0.5">
-      <path class="weed" d="M120 220 C100 150 150 120 120 40"/>
-      <path class="weed" d="M150 220 C170 160 130 130 160 60"/>
-      <path class="weed" d="M1300 220 C1280 150 1330 120 1300 30"/>
-      <path class="weed" d="M1330 220 C1350 160 1310 130 1340 70"/>
-      <path class="weed" d="M700 220 C680 160 720 130 700 50"/>
-      <path class="weed" d="M730 220 C750 150 710 120 740 40"/>
+  <svg class="bed" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true">
+    <!-- seaweed -->
+    <g fill="none" stroke="#3a648c" stroke-width="6" stroke-linecap="round" opacity="0.45">
+      <path d="M120 260 C100 180 150 150 120 60"/>
+      <path d="M150 260 C170 190 130 160 160 80"/>
+      <path d="M1300 260 C1280 180 1330 150 1300 50"/>
+      <path d="M1330 260 C1350 190 1310 160 1340 90"/>
+      <path d="M700 260 C680 190 720 160 700 70"/>
+      <path d="M730 260 C750 180 710 150 740 60"/>
     </g>
-    <path d="M0 200 Q360 160 720 195 T1440 185 V220 H0 Z" fill="#6ba6cf" opacity="0.55"/>
+    <!-- scallop shells (gold) -->
+    <g transform="translate(300,196)">
+      <g fill="none" stroke="#a8843f" stroke-width="2.5" opacity="0.8">
+        <path d="M-30 28 A30 30 0 0 1 30 28 Z" fill="#e2c994" fill-opacity="0.35"/>
+        <path d="M0 28 L-22 2 M0 28 L-11 -2 M0 28 L0 -4 M0 28 L11 -2 M0 28 L22 2"/>
+      </g>
+    </g>
+    <g transform="translate(560,214) scale(0.7) rotate(-12)">
+      <g fill="none" stroke="#a8843f" stroke-width="3" opacity="0.75">
+        <path d="M-30 28 A30 30 0 0 1 30 28 Z" fill="#e2c994" fill-opacity="0.3"/>
+        <path d="M0 28 L-22 2 M0 28 L-11 -2 M0 28 L0 -4 M0 28 L11 -2 M0 28 L22 2"/>
+      </g>
+    </g>
+    <g transform="translate(1050,208) scale(0.85) rotate(8)">
+      <g fill="none" stroke="#a8843f" stroke-width="2.6" opacity="0.78">
+        <path d="M-30 28 A30 30 0 0 1 30 28 Z" fill="#e2c994" fill-opacity="0.32"/>
+        <path d="M0 28 L-22 2 M0 28 L-11 -2 M0 28 L0 -4 M0 28 L11 -2 M0 28 L22 2"/>
+      </g>
+    </g>
+    <!-- starfish (gold) -->
+    <g transform="translate(880,206)" fill="#e2c994" fill-opacity="0.5" stroke="#a8843f" stroke-width="2" opacity="0.85">
+      <path d="M0 -26 L7 -8 L26 -8 L11 5 L16 24 L0 12 L-16 24 L-11 5 L-26 -8 L-7 -8 Z"/>
+    </g>
+    <!-- sand -->
+    <path d="M0 230 Q360 196 720 224 T1440 214 V260 H0 Z" fill="#6ba6cf" opacity="0.5"/>
+    <path d="M0 244 Q360 220 720 240 T1440 234 V260 H0 Z" fill="#a8843f" opacity="0.12"/>
   </svg>
   <div class="footer-inner">
     <p class="ftag reveal">Soffice Essenza</p>
-    <p class="fbrand reveal">Profumi dal profondo.</p>
+    <p class="fbrand reveal">Scents from the deep.</p>
     <div class="social reveal">
       <a href="https://instagram.com/sofficeessenza" target="_blank" rel="noopener">Instagram</a>
       <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
     </div>
-    <p class="copyright">© <span id="yr"></span> Soffice Essenza · Candele artigianali · Collezione Abissi</p>
+    <p class="copyright">© <span id="yr"></span> Soffice Essenza · Handmade candles · Abyss Collection</p>
   </div>
 </footer>
 
@@ -378,6 +425,24 @@ for(let i=0;i<40;i++){
   m.style.animationDelay=(-Math.random()*20)+'s';
   motes.appendChild(m);
 }
+
+/* drifting fish */
+const fishLayer=document.getElementById('fish');
+const FISH_SVG='<svg width="46" height="22" viewBox="0 0 46 22"><g fill="#6f9ec4"><path d="M2 11 C12 1 30 1 38 11 C30 21 12 21 2 11 Z"/><path d="M38 11 L46 4 L44 11 L46 18 Z"/></g><circle cx="12" cy="9" r="1.6" fill="#fff"/></svg>';
+function spawnFish(){
+  const f=document.createElement('div');f.className='fish'+(Math.random()<.5?' flip':'');
+  const scale=.5+Math.random()*.9;
+  f.style.top=(8+Math.random()*78)+'vh';
+  f.style.transform='scale('+scale+')';
+  f.style.opacity=(.25+Math.random()*.35).toFixed(2);
+  const dur=26+Math.random()*30;
+  f.style.animationDuration=dur+'s';
+  f.innerHTML=FISH_SVG;
+  fishLayer.appendChild(f);
+  setTimeout(()=>f.remove(),dur*1000);
+}
+for(let i=0;i<5;i++)setTimeout(spawnFish,i*4000);
+setInterval(spawnFish,7000);
 
 /* subtle mouse parallax on rays */
 const rays=document.querySelector('.rays');
