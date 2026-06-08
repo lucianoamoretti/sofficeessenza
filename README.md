@@ -7,7 +7,7 @@ Minimalist, editorial design (inspired by premium candle brands like Osar): off-
 ## Collections
 - **Mare** (`index.html`) — sea, dusty-blue accent. ✅ Complete
 - **Mini Pets** (`minipets.html`) — warm taupe accent, give-back story (supports animals). ✅ Complete
-- **Namastê** (`namaste.html`) — sage accent, meditative. ✅ Complete
+- **Namaste** (`namaste.html`) — sage accent, meditative. ✅ Complete
 
 Each page: sticky header with the **Soffice Essenza by Paola** logo, split hero, brand statement, 3-product grid (each "Buy" opens WhatsApp), specs strip and footer. Shared identity: gold flame logo (`favicon.svg`), gold scallop-shell divider, gold accents, specs (Soy wax · 170 g · 20 h burn) — matching the label.
 
