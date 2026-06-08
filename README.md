@@ -5,12 +5,12 @@ Storefront for **Soffice Essenza by Paola**, artisan scented candles. A vibrant 
 Minimalist, editorial design (inspired by premium candle brands like Osar): off-white background, generous whitespace, refined serif + clean sans typography, subtle gold accents, product-centric grid. The home page adds modern, interactive movement for Pride Month.
 
 ## Pages
-- **Orgoglio** (`index.html`) — **home / Pride Month** landing. Animated rainbow aurora, flowing gradient headline, mouse parallax, scrolling marquee, count-up 10% donation, Pride collection + a portal to the other collections. 🌈
+- **Light Your Pride** (`index.html`) — **home / Pride** landing. Decorative, unscented soy-wax candles handmade in Dublin, in the six rainbow-flag colours. Three shapes — The Arc (157 g · €8), The Trunk (195 g · €10), The Pillar (187 g · €9) — each in 6 colours or as a full set. Animated rainbow aurora, flowing gradient headline, mouse parallax, marquee, count-up 10% donation, colour palette, how-to-order, portal to other collections. 🌈
 - **Mare** (`mare.html`) — sea, dusty-blue accent.
 - **Mini Pets** (`minipets.html`) — warm taupe accent, give-back (supports animals).
 - **Namaste** (`namaste.html`) — sage accent, meditative.
 
-**Orgoglio** is a limited Pride collection: **10% of every sale** is donated to an LGBTQIAP+ NGO. ⚠️ The NGO name (`Casa 1`) in `index.html` is a placeholder — confirm/replace it (search `TODO: confirm/replace NGO`).
+**Light Your Pride**: **10% of every sale** goes to **Outhouse LGBTQ+ Centre, Dublin** (outhouse.ie). Instagram: **@soffice.essenza** · Dublin, Ireland. Content from the official brochure.
 
 Collection pages: sticky header with the **Soffice Essenza by Paola** logo, split hero, brand statement, 3-product grid (each "Buy" opens WhatsApp), specs strip and footer. Shared identity: official logo (`images/logo.png`), gold scallop-shell divider, gold accents, specs (Soy wax · 170 g · 20 h burn).
 
