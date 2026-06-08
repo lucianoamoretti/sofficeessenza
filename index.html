@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Soffice Essenza — Collezione Abissi</title>
+<meta name="description" content="Collezione Abissi di Soffice Essenza — candele artigianali ispirate alle profondità del mare. Profumi che affiorano dal blu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ BASE ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* pastel sea palette */
+  --surface:   #e6f4f8;
+  --shallow:   #cfeaf2;
+  --mid:       #b4dceb;
+  --deep:      #97c9e2;
+  --deeper:    #7fb6d8;
+  --abyss:     #6ba6cf;
+
+  --blue:      #4d7fab;   /* main pastel-blue text */
+  --blue-soft: #6f9ec4;   /* softer */
+  --blue-deep: #3a648c;   /* emphasis */
+  --blue-pale: #aecbe2;   /* faint */
+
+  --glow:      #fbe4c4;   /* candle warm glow */
+  --glow-core: #fff4e2;
+
+  --serif: 'Cormorant Garamond', serif;
+  --sans:  'Jost', sans-serif;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  color:var(--blue);
+  background:var(--surface);
+  overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--blue-pale);color:#fff}
+a{color:inherit;text-decoration:none}
+
+/* ============ FIXED OCEAN BACKDROP ============ */
+.ocean{position:fixed;inset:0;z-index:-2;
+  background:linear-gradient(180deg,
+    var(--surface) 0%,
+    var(--shallow) 18%,
+    var(--mid) 40%,
+    var(--deep) 62%,
+    var(--deeper) 82%,
+    var(--abyss) 100%);
+}
+/* god-rays / caustics */
+.rays{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.ray{position:absolute;top:-30vh;width:24vw;height:160vh;
+  background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);
+  filter:blur(14px);transform-origin:top center;opacity:.5;
+  animation:sway 14s ease-in-out infinite alternate}
+.ray:nth-child(1){left:8%;transform:rotate(8deg);animation-delay:0s}
+.ray:nth-child(2){left:32%;transform:rotate(-6deg);opacity:.35;animation-delay:-3s}
+.ray:nth-child(3){left:58%;transform:rotate(10deg);opacity:.45;animation-delay:-6s}
+.ray:nth-child(4){left:80%;transform:rotate(-9deg);opacity:.3;animation-delay:-9s}
+@keyframes sway{from{transform:translateX(-2vw) rotate(6deg)}to{transform:translateX(2vw) rotate(-6deg)}}
+
+/* bubbles + particles injected by JS */
+#bubbles,#motes{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bubble{position:absolute;bottom:-60px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.9),rgba(255,255,255,.15) 60%,transparent 70%);
+  border:1px solid rgba(255,255,255,.35);
+  animation:rise linear infinite}
+@keyframes rise{
+  0%{transform:translateY(0) translateX(0);opacity:0}
+  10%{opacity:.8}
+  90%{opacity:.6}
+  100%{transform:translateY(-115vh) translateX(var(--drift));opacity:0}}
+.mote{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);
+  animation:float linear infinite}
+@keyframes float{
+  0%{transform:translate(0,0);opacity:0}
+  20%{opacity:.5}
+  80%{opacity:.4}
+  100%{transform:translate(var(--mx),var(--my));opacity:0}}
+
+/* ============ NAV (the 3 collections) ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px clamp(20px,5vw,60px);
+  transition:background .4s ease,padding .4s ease,box-shadow .4s ease}
+.nav.scrolled{background:rgba(230,244,248,.72);backdrop-filter:blur(12px);
+  padding-top:14px;padding-bottom:14px;box-shadow:0 1px 0 rgba(77,127,171,.12)}
+.brand{font-family:var(--serif);font-size:clamp(20px,2.4vw,26px);font-weight:500;
+  letter-spacing:.5px;color:var(--blue-deep);line-height:1}
+.brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:5px;
+  text-transform:uppercase;color:var(--blue-soft);margin-top:4px;font-weight:400}
+.collections{display:flex;gap:clamp(14px,2.4vw,32px);align-items:center}
+.col-link{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue-soft);
+  position:relative;padding:6px 2px;transition:color .25s}
+.col-link::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
+  background:var(--blue-deep);transition:width .3s ease}
+.col-link:hover{color:var(--blue-deep)}
+.col-link:hover::after{width:100%}
+.col-link.active{color:var(--blue-deep)}
+.col-link.active::after{width:100%}
+.col-link .soon{display:block;font-size:7px;letter-spacing:2px;color:var(--blue-pale);text-align:center;margin-top:1px}
+
+/* ============ DEPTH METER ============ */
+.depth{position:fixed;right:clamp(14px,3vw,40px);top:50%;transform:translateY(-50%);
+  z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:0;
+  font-size:10px;letter-spacing:1px;color:var(--blue-soft);pointer-events:none}
+.depth-line{width:1px;height:34vh;background:linear-gradient(180deg,transparent,var(--blue-pale),transparent);
+  position:relative;margin:10px 0}
+.depth-dot{position:absolute;right:-3px;width:7px;height:7px;border-radius:50%;
+  background:var(--blue-deep);box-shadow:0 0 0 3px rgba(174,203,226,.5);top:0;transition:top .15s linear}
+.depth-val{font-family:var(--serif);font-size:15px;color:var(--blue-deep);font-weight:500;min-width:54px;text-align:right}
+.depth-cap{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-pale)}
+@media(max-width:760px){.depth{display:none}}
+
+/* ============ LAYOUT ============ */
+section{position:relative;padding:0 clamp(20px,6vw,80px)}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1.1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ HERO ============ */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero .eyebrow{font-size:12px;letter-spacing:8px;text-transform:uppercase;color:var(--blue-soft);
+  margin-bottom:26px}
+.hero h1{font-family:var(--serif);font-weight:300;color:var(--blue-deep);
+  font-size:clamp(58px,13vw,180px);line-height:.92;letter-spacing:2px}
+.hero h1 em{font-style:italic;display:block;font-weight:400}
+.hero .sub{margin-top:30px;max-width:520px;font-size:clamp(14px,1.5vw,17px);font-weight:300;
+  line-height:1.9;color:var(--blue);letter-spacing:.4px}
+.scroll-cue{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-soft);
+  display:flex;flex-direction:column;align-items:center;gap:12px}
+.scroll-cue .dot{width:5px;height:5px;border-radius:50%;background:var(--blue-soft);
+  animation:sink 2.2s ease-in-out infinite}
+@keyframes sink{0%{transform:translateY(-6px);opacity:0}40%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+
+/* ============ INTRO ============ */
+.intro{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.intro .mark{font-family:var(--serif);font-style:italic;font-size:clamp(26px,4.5vw,52px);
+  font-weight:300;color:var(--blue-deep);line-height:1.4;max-width:14ch}
+.intro p{margin-top:34px;max-width:560px;font-size:15px;font-weight:300;line-height:2;color:var(--blue);letter-spacing:.3px}
+
+/* ============ CANDLES ============ */
+.candles{padding-top:8vh;padding-bottom:14vh}
+.sec-head{text-align:center;margin-bottom:7vh}
+.sec-head .kick{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--blue-soft)}
+.sec-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(36px,6vw,72px);color:var(--blue-deep);margin-top:14px;letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(28px,4vw,56px);max-width:1180px;margin:0 auto}
+.card{display:flex;flex-direction:column;align-items:center;text-align:center}
+.card .vessel{margin-bottom:30px}
+.card h3{font-family:var(--serif);font-size:30px;font-weight:500;color:var(--blue-deep);letter-spacing:.5px}
+.card .notes{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-soft);margin-top:10px}
+.card .desc{font-size:13.5px;font-weight:300;line-height:1.8;color:var(--blue);margin-top:16px;max-width:30ch}
+.card .price{font-family:var(--serif);font-size:22px;color:var(--blue-deep);margin-top:20px;letter-spacing:1px}
+
+/* CSS candle (frosted glass + bioluminescent flame) */
+.vessel{position:relative;width:120px;height:170px}
+.glass{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:108px;height:128px;border-radius:14px 14px 18px 18px;
+  background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.18) 40%,rgba(127,182,216,.25));
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:inset 0 8px 20px rgba(255,255,255,.5),inset 0 -16px 26px rgba(77,127,171,.18),0 14px 30px rgba(58,100,140,.18);
+  backdrop-filter:blur(2px)}
+.wax{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:108px;height:46px;
+  border-radius:0 0 18px 18px;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(236,247,251,.9))}
+.wick{position:absolute;left:50%;top:30px;transform:translateX(-50%);width:2px;height:14px;background:var(--blue-deep);border-radius:2px}
+.flame{position:absolute;left:50%;top:8px;transform:translateX(-50%);
+  width:18px;height:30px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  background:radial-gradient(circle at 50% 70%,var(--glow-core),var(--glow) 55%,rgba(251,228,196,0) 78%);
+  filter:blur(.4px);transform-origin:bottom center;
+  animation:flick 2.6s ease-in-out infinite}
+.halo{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,244,226,.55),rgba(255,244,226,0) 65%);
+  animation:breathe 4s ease-in-out infinite}
+@keyframes flick{0%,100%{transform:translateX(-50%) rotate(-2deg) scaleY(1)}50%{transform:translateX(-48%) rotate(2deg) scaleY(1.08)}}
+@keyframes breathe{0%,100%{opacity:.7;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.08)}}
+
+/* ============ CRAFT STRIP ============ */
+.craft{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0}
+.craft .quote{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(24px,4vw,46px);
+  line-height:1.45;color:var(--blue-deep);max-width:18ch}
+.facts{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(28px,6vw,80px);margin-top:7vh}
+.fact{display:flex;flex-direction:column;gap:8px}
+.fact b{font-family:var(--serif);font-size:40px;font-weight:400;color:var(--blue-deep)}
+.fact span{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-soft)}
+
+/* ============ FOOTER / SEABED ============ */
+.seabed{position:relative;padding-top:18vh;padding-bottom:60px;overflow:hidden}
+.weeds{position:absolute;left:0;right:0;bottom:0;height:220px;pointer-events:none;opacity:.6}
+.footer-inner{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px}
+.footer-inner .fbrand{font-family:var(--serif);font-size:clamp(34px,7vw,68px);font-weight:300;color:var(--blue-deep);letter-spacing:1px}
+.footer-inner .ftag{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-soft)}
+.social{display:flex;gap:14px;margin-top:6px}
+.social a{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:1.5px;
+  padding:11px 22px;border:1px solid var(--blue-pale);border-radius:40px;color:var(--blue-deep);
+  transition:background .25s,border-color .25s,transform .25s}
+.social a:hover{background:rgba(255,255,255,.45);border-color:var(--blue-soft);transform:translateY(-2px)}
+.copyright{margin-top:34px;font-size:10px;letter-spacing:2px;color:var(--blue-soft);opacity:.8}
+.copyright a{color:var(--blue-deep)}
+
+@media(max-width:760px){
+  .collections{gap:14px}
+  .col-link{font-size:10px;letter-spacing:1.5px}
+  .col-link .soon{display:none}
+  .brand small{letter-spacing:3px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- backdrop -->
+<div class="ocean"></div>
+<div class="rays"><span class="ray"></span><span class="ray"></span><span class="ray"></span><span class="ray"></span></div>
+<div id="bubbles"></div>
+<div id="motes"></div>
+
+<!-- nav: the 3 collections -->
+<nav class="nav" id="nav">
+  <a class="brand" href="index.html">Soffice Essenza<small>Candele d'Autore</small></a>
+  <div class="collections">
+    <a class="col-link active" href="index.html">Abissi</a>
+    <a class="col-link" href="giardino.html">Giardino<span class="soon">presto</span></a>
+    <a class="col-link" href="ambra.html">Ambra<span class="soon">presto</span></a>
+  </div>
+</nav>
+
+<!-- depth meter -->
+<div class="depth" aria-hidden="true">
+  <span class="depth-val" id="depthVal">0 m</span>
+  <span class="depth-cap">profondità</span>
+  <div class="depth-line"><span class="depth-dot" id="depthDot"></span></div>
+  <span class="depth-cap">abissi</span>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <p class="eyebrow reveal">Collezione</p>
+  <h1 class="reveal">Abissi<em>dal profondo</em></h1>
+  <p class="sub reveal">Profumi che affiorano dal blu. Una collezione di candele artigianali nate dove la luce diventa silenzio — sale, alga, brezza salmastra e legni sommersi.</p>
+  <div class="scroll-cue"><span>immergiti</span><span class="dot"></span></div>
+</header>
+
+<!-- INTRO -->
+<section class="intro">
+  <p class="mark reveal">Ogni fiamma è una luce che scende nel blu.</p>
+  <p class="reveal">Le candele Abissi sono colate a mano in cera di soia, con stoppini in cotone e fragranze che ricordano il mare profondo. Accendile e lascia che il profumo salga lentamente, come una bolla verso la superficie.</p>
+</section>
+
+<!-- CANDLES -->
+<section class="candles">
+  <div class="sec-head reveal">
+    <p class="kick">La Collezione</p>
+    <h2>Tre profumi dal fondale</h2>
+  </div>
+  <div class="grid">
+
+    <article class="card reveal">
+      <div class="vessel"><span class="halo"></span><span class="glass"></span><span class="wax"></span><span class="wick"></span><span class="flame"></span></div>
+      <h3>Salsedine</h3>
+      <p class="notes">Sale · Iodio · Muschio bianco</p>
+      <p class="desc">L'aria appena sopra le onde. Fresca, minerale, avvolgente come la prima boccata di mare.</p>
+      <p class="price">€ 28</p>
+    </article>
+
+    <article class="card reveal">
+      <div class="vessel"><span class="halo"></span><span class="glass"></span><span class="wax"></span><span class="wick"></span><span class="flame"></span></div>
+      <h3>Corallo</h3>
+      <p class="notes">Alga · Fiore d'acqua · Ambra grigia</p>
+      <p class="desc">Il respiro tiepido della barriera. Floreale e profondo, sospeso tra luce e penombra.</p>
+      <p class="price">€ 32</p>
+    </article>
+
+    <article class="card reveal">
+      <div class="vessel"><span class="halo"></span><span class="glass"></span><span class="wax"></span><span class="wick"></span><span class="flame"></span></div>
+      <h3>Abisso</h3>
+      <p class="notes">Legni sommersi · Vetiver · Sale nero</p>
+      <p class="desc">Dove la luce diventa silenzio. Scuro, legnoso, misterioso — la nota più profonda della collezione.</p>
+      <p class="price">€ 34</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- CRAFT -->
+<section class="craft">
+  <p class="quote reveal">Fatte a mano, una colata alla volta, nel nostro piccolo laboratorio.</p>
+  <div class="facts reveal">
+    <div class="fact"><b>100%</b><span>Cera di soia</span></div>
+    <div class="fact"><b>40h+</b><span>Di durata</span></div>
+    <div class="fact"><b>Vegan</b><span>& cruelty free</span></div>
+  </div>
+</section>
+
+<!-- FOOTER / SEABED -->
+<footer class="seabed">
+  <svg class="weeds" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="none" stroke="#3a648c" stroke-width="6" stroke-linecap="round" opacity="0.5">
+      <path class="weed" d="M120 220 C100 150 150 120 120 40"/>
+      <path class="weed" d="M150 220 C170 160 130 130 160 60"/>
+      <path class="weed" d="M1300 220 C1280 150 1330 120 1300 30"/>
+      <path class="weed" d="M1330 220 C1350 160 1310 130 1340 70"/>
+      <path class="weed" d="M700 220 C680 160 720 130 700 50"/>
+      <path class="weed" d="M730 220 C750 150 710 120 740 40"/>
+    </g>
+    <path d="M0 200 Q360 160 720 195 T1440 185 V220 H0 Z" fill="#6ba6cf" opacity="0.55"/>
+  </svg>
+  <div class="footer-inner">
+    <p class="ftag reveal">Soffice Essenza</p>
+    <p class="fbrand reveal">Profumi dal profondo.</p>
+    <div class="social reveal">
+      <a href="https://instagram.com/sofficeessenza" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <p class="copyright">© <span id="yr"></span> Soffice Essenza · Candele artigianali · Collezione Abissi</p>
+  </div>
+</footer>
+
+<script>
+/* year */
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* nav background on scroll */
+const nav=document.getElementById('nav');
+const onScroll=()=>{nav.classList.toggle('scrolled',window.scrollY>40);updateDepth();};
+
+/* depth meter — descend as you scroll */
+const dDot=document.getElementById('depthDot'),dVal=document.getElementById('depthVal');
+function updateDepth(){
+  const max=document.body.scrollHeight-window.innerHeight;
+  const p=max>0?Math.min(window.scrollY/max,1):0;
+  dDot.style.top=(p*100)+'%';
+  dVal.textContent=Math.round(p*120)+' m';
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+
+/* reveal on scroll */
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.18});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* rising bubbles */
+const bubbles=document.getElementById('bubbles');
+function spawnBubble(){
+  const b=document.createElement('span');b.className='bubble';
+  const size=4+Math.random()*22;
+  b.style.width=b.style.height=size+'px';
+  b.style.left=Math.random()*100+'vw';
+  b.style.setProperty('--drift',(Math.random()*60-30)+'px');
+  const dur=8+Math.random()*12;
+  b.style.animationDuration=dur+'s';
+  bubbles.appendChild(b);
+  setTimeout(()=>b.remove(),dur*1000);
+}
+for(let i=0;i<14;i++)setTimeout(spawnBubble,i*500);
+setInterval(spawnBubble,900);
+
+/* drifting motes / plankton */
+const motes=document.getElementById('motes');
+for(let i=0;i<40;i++){
+  const m=document.createElement('span');m.className='mote';
+  const s=1+Math.random()*3;
+  m.style.width=m.style.height=s+'px';
+  m.style.left=Math.random()*100+'vw';
+  m.style.top=Math.random()*100+'vh';
+  m.style.setProperty('--mx',(Math.random()*120-60)+'px');
+  m.style.setProperty('--my',(Math.random()*-120-30)+'px');
+  m.style.animationDuration=(12+Math.random()*16)+'s';
+  m.style.animationDelay=(-Math.random()*20)+'s';
+  motes.appendChild(m);
+}
+
+/* subtle mouse parallax on rays */
+const rays=document.querySelector('.rays');
+window.addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-.5)*16;
+  rays.style.transform=`translateX(${x}px)`;
+},{passive:true});
+
+updateDepth();
+</script>
+</body>
+</html>
