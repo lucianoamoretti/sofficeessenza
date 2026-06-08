@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Soffice Essenza — Mini Pets Collection</title>
-<meta name="description" content="Mini Pets Collection by Soffice Essenza — soft, comforting hand-poured candles. A part of every candle supports animals in need.">
+<title>Soffice Essenza â Mini Pets Collection</title>
+<meta name="description" content="Mini Pets Collection by Soffice Essenza â soft, comforting hand-poured candles. A part of every candle supports animals in need.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .header{position:sticky;top:0;z-index:50;background:rgba(247,244,239,.85);backdrop-filter:blur(10px);transition:box-shadow .3s}
 .header.scrolled{box-shadow:0 1px 0 var(--line)}
 .header-in{display:flex;align-items:center;justify-content:space-between;height:78px}
-.brand{display:flex;align-items:center;gap:11px}
+.brand{display:inline-flex;align-items:center;line-height:0}.brand-logo{height:60px;width:auto;display:block}.footer-brand .brand-logo{height:88px}
 .brand-flame{width:22px;flex-shrink:0}
 .brand-text{display:flex;flex-direction:column;line-height:1.05}
 .brand-name{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.4px;background:linear-gradient(180deg,#caa14d,#a8843f);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#a8843f}
@@ -41,7 +41,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .nav a::after{content:'';position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--gold);transition:width .3s}
 .nav a:hover{color:var(--ink)}.nav a:hover::after{width:100%}
 .nav a.active{color:var(--ink)}.nav a.active::after{width:100%}
-@media(max-width:640px){.brand-sub{display:none}.nav{gap:16px}.nav a{font-size:10.5px;letter-spacing:1.3px}.header-in{height:64px}}
+@media(max-width:640px){.brand-sub{display:none}.brand-logo{height:46px}.nav{gap:16px}.nav a{font-size:10.5px;letter-spacing:1.3px}.header-in{height:64px}}
 
 .hero{padding:clamp(40px,7vw,86px) 0 clamp(50px,8vw,96px)}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,6vw,80px);align-items:center}
@@ -114,10 +114,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 
 <header class="header" id="header">
   <div class="wrap header-in">
-    <a class="brand" href="index.html">
-      <img class="brand-flame" src="favicon.svg" alt="Soffice Essenza">
-      <span class="brand-text"><span class="brand-name">Soffice Essenza</span><span class="brand-sub"><i>by Paola</i> Scented Candles</span></span>
-    </a>
+    <a class="brand" href="index.html"><img class="brand-logo" src="images/logo.png" alt="Soffice Essenza by Paola — Scented Candles"></a>
     <nav class="nav">
       <a href="index.html">Mare</a>
       <a href="minipets.html" class="active">Mini Pets</a>
@@ -132,11 +129,11 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
       <p class="eyebrow reveal">Collection</p>
       <h1 class="hero-title reveal">Mini Pets</h1>
       <p class="hero-sub reveal">Soft comforts for home.</p>
-      <p class="hero-desc reveal">Warm, understated candles for slow days at home — and a way to give back. A part of every Mini Pets candle supports animals still waiting for a home.</p>
-      <a href="#products" class="hero-cta reveal">Shop the collection →</a>
+      <p class="hero-desc reveal">Warm, understated candles for slow days at home â and a way to give back. A part of every Mini Pets candle supports animals still waiting for a home.</p>
+      <a href="#products" class="hero-cta reveal">Shop the collection â</a>
     </div>
     <div class="hero-media reveal">
-      <span class="stamp">Mini Pets · 170 g</span>
+      <span class="stamp">Mini Pets Â· 170 g</span>
       <svg class="candle" viewBox="0 0 120 150" aria-hidden="true">
         <ellipse cx="60" cy="143" rx="38" ry="5" fill="#000" opacity=".06"/>
         <rect x="30" y="44" width="60" height="96" rx="7" fill="#ffffff" fill-opacity=".55" stroke="rgba(0,0,0,.10)"/>
@@ -153,7 +150,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <div class="shell-div reveal"><span class="hr"></span>
       <svg class="shell" viewBox="0 0 40 36" aria-hidden="true"><path d="M20 33 L3 15 A 18 13 0 0 1 37 15 Z" fill="#e2c994" fill-opacity=".4" stroke="#a8843f" stroke-width="1.3"/><path d="M20 33 L20 4 M20 33 L10 9 M20 33 L30 9 M20 33 L5 16 M20 33 L35 16" fill="none" stroke="#a8843f" stroke-width="1" opacity=".7"/></svg>
     <span class="hr r"></span></div>
-    <h2 class="reveal">Made with care — for your home, and for those without one.</h2>
+    <h2 class="reveal">Made with care â for your home, and for those without one.</h2>
     <p class="reveal">Soft, comforting scents poured by hand in soy wax. With every candle, a part of what you spend goes to shelters and animals in need. Quiet comfort, with a purpose.</p>
   </div>
 </section>
@@ -173,8 +170,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         <div class="product-info">
           <p class="product-coll">Mini Pets</p>
           <h3 class="product-name">Cashmere</h3>
-          <p class="product-notes">Vanilla · Cashmere · Sandalwood</p>
-          <div class="product-foot"><span class="product-price">€ 28</span><a class="btn-buy" href="https://wa.me/?text=Hi%2C%20I%27d%20like%20the%20Cashmere%20candle%20(Mini%20Pets%20Collection)." target="_blank" rel="noopener">Buy</a></div>
+          <p class="product-notes">Vanilla Â· Cashmere Â· Sandalwood</p>
+          <div class="product-foot"><span class="product-price">â¬ 28</span><a class="btn-buy" href="https://wa.me/?text=Hi%2C%20I%27d%20like%20the%20Cashmere%20candle%20(Mini%20Pets%20Collection)." target="_blank" rel="noopener">Buy</a></div>
         </div>
       </article>
 
@@ -185,8 +182,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         <div class="product-info">
           <p class="product-coll">Mini Pets</p>
           <h3 class="product-name">Linen</h3>
-          <p class="product-notes">Cotton · White tea · Musk</p>
-          <div class="product-foot"><span class="product-price">€ 28</span><a class="btn-buy" href="https://wa.me/?text=Hi%2C%20I%27d%20like%20the%20Linen%20candle%20(Mini%20Pets%20Collection)." target="_blank" rel="noopener">Buy</a></div>
+          <p class="product-notes">Cotton Â· White tea Â· Musk</p>
+          <div class="product-foot"><span class="product-price">â¬ 28</span><a class="btn-buy" href="https://wa.me/?text=Hi%2C%20I%27d%20like%20the%20Linen%20candle%20(Mini%20Pets%20Collection)." target="_blank" rel="noopener">Buy</a></div>
         </div>
       </article>
 
@@ -197,8 +194,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         <div class="product-info">
           <p class="product-coll">Mini Pets</p>
           <h3 class="product-name">Honey Oat</h3>
-          <p class="product-notes">Honey · Oat milk · Tonka</p>
-          <div class="product-foot"><span class="product-price">€ 30</span><a class="btn-buy" href="https://wa.me/?text=Hi%2C%20I%27d%20like%20the%20Honey%20Oat%20candle%20(Mini%20Pets%20Collection)." target="_blank" rel="noopener">Buy</a></div>
+          <p class="product-notes">Honey Â· Oat milk Â· Tonka</p>
+          <div class="product-foot"><span class="product-price">â¬ 30</span><a class="btn-buy" href="https://wa.me/?text=Hi%2C%20I%27d%20like%20the%20Honey%20Oat%20candle%20(Mini%20Pets%20Collection)." target="_blank" rel="noopener">Buy</a></div>
         </div>
       </article>
 
@@ -216,10 +213,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand" href="index.html">
-          <img class="brand-flame" src="favicon.svg" alt="Soffice Essenza">
-          <span class="brand-text"><span class="brand-name">Soffice Essenza</span><span class="brand-sub"><i>by Paola</i> Scented Candles</span></span>
-        </a>
+        <a class="brand" href="index.html"><img class="brand-logo" src="images/logo.png" alt="Soffice Essenza by Paola — Scented Candles"></a>
         <p class="footer-note">Hand-poured scented candles, made in small batches. Soy wax, cotton wicks, considered scents.</p>
         <div class="footer-social">
           <a href="https://instagram.com/sofficeessenza" target="_blank" rel="noopener">Instagram</a>
@@ -227,9 +221,9 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         </div>
       </div>
       <div><h5>Collections</h5><ul><li><a href="index.html">Mare</a></li><li><a href="minipets.html">Mini Pets</a></li><li><a href="namaste.html">Namaste</a></li></ul></div>
-      <div><h5>Details</h5><ul><li class="footer-note">Soy wax · 170 g</li><li class="footer-note">20 h burn time</li><li class="footer-note">Vegan &amp; cruelty-free</li><li class="footer-note">Order via WhatsApp</li></ul></div>
+      <div><h5>Details</h5><ul><li class="footer-note">Soy wax Â· 170 g</li><li class="footer-note">20 h burn time</li><li class="footer-note">Vegan &amp; cruelty-free</li><li class="footer-note">Order via WhatsApp</li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© <span id="yr"></span> Soffice Essenza by Paola</span><span>Mini Pets Collection</span></div>
+    <div class="footer-bottom"><span>Â© <span id="yr"></span> Soffice Essenza by Paola</span><span>Mini Pets Collection</span></div>
   </div>
 </footer>
 
