@@ -2,15 +2,19 @@
 
 Sito vetrina per **Soffice Essenza**, candele artigianali. Tre collezioni, ognuna con la sua landing page immersiva.
 
-## Collections
-- **Mare** (`index.html`) — deep-sea theme. Light rays, rising bubbles, drifting fish, seabed with shells & starfish, mouse parallax, a depth meter that descends as you scroll. ✅ Complete
-- **Mini Pets** (`minipets.html`) — warm meadow theme. Floating paws & petals, drifting butterflies, a paw-trail meter, give-back story. ✅ Complete
-- **Namastê** (`namaste.html`) — calm zen theme. Rising incense smoke, drifting lotus petals, a breathing (inhale/exhale) meter, zen-garden footer. ✅ Complete
+Minimalist, editorial design (inspired by premium candle brands like Osar): off-white background, generous whitespace, refined serif + clean sans typography, subtle gold accents, product-centric grid, understated fade-in motion.
 
-All three share: the **Soffice Essenza by Paola** logo lockup (gold flame `favicon.svg`), pastel palette, blue/ink lettering, gold details, a gold scallop-shell divider, CSS-drawn candles, and per-product specs (170 g · 20 h burn time) — matching the label identity.
+## Collections
+- **Mare** (`index.html`) — sea, dusty-blue accent. ✅ Complete
+- **Mini Pets** (`minipets.html`) — warm taupe accent, give-back story (supports animals). ✅ Complete
+- **Namastê** (`namaste.html`) — sage accent, meditative. ✅ Complete
+
+Each page: sticky header with the **Soffice Essenza by Paola** logo, split hero, brand statement, 3-product grid (each "Buy" opens WhatsApp), specs strip and footer. Shared identity: gold flame logo (`favicon.svg`), gold scallop-shell divider, gold accents, specs (Soy wax · 170 g · 20 h burn) — matching the label.
+
+Product images are elegant placeholders (minimal CSS candle in a tinted tile). Swap any for a real photo: replace the inline `<svg class="candle">` with `<img src="images/your-photo.jpg" alt="">`.
 
 ## Stack
-Plain HTML/CSS/JS, single file per page. No dependencies beyond Google Fonts (Cormorant Garamond, Jost, Pinyon Script). Logo is `favicon.svg` (recreated in SVG — swap for the official PNG if preferred).
+Plain HTML/CSS/JS, single file per page. Google Fonts: Cormorant Garamond, Inter, Pinyon Script. Logo is `favicon.svg` (recreated in SVG — swap for the official PNG if preferred).
 
 ## Hosting
 Served via GitHub Pages.
