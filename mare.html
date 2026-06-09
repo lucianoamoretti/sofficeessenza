@@ -133,6 +133,10 @@ img{max-width:100%;display:block}
 @media(max-width:460px){.footer-grid{grid-template-columns:1fr}}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none}}
+.nav a.pride{font-weight:600;background:linear-gradient(90deg,#e63946,#f4a261,#2a9d8f,#3a86ff,#8338ec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav{min-width:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:0 0 auto;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -142,10 +146,11 @@ img{max-width:100%;display:block}
   <div class="wrap header-in">
     <a class="brand" href="index.html"><img class="brand-logo" src="images/logo.png" alt="Soffice Essenza by Paola — Scented Candles"></a>
     <nav class="nav">
-      <a href="index.html">Pride</a>
+      <a href="index.html" class="pride">Pride</a>
       <a href="mare.html" class="active">Mare</a>
       <a href="minipets.html">Mini Pets</a>
       <a href="namaste.html">Namaste</a>
+      <a href="index.html#scents">Scents</a>
     </nav>
   </div>
 </header>
