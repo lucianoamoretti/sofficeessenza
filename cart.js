@@ -47,6 +47,7 @@
   + ".sc-it-main{flex:1;min-width:0}"
   + ".sc-it .nm{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:#1b1916}"
   + ".sc-it .mt{font-size:12px;color:#6b6358;margin-top:2px}"
+  + ".sc-cdot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;outline:1px solid rgba(0,0,0,.15);vertical-align:middle}"
   + ".sc-it .cl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#a8843f;font-weight:600;margin-top:4px}"
   + ".sc-it-r{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:8px}"
   + ".sc-pr{font-size:14px;color:#1b1916;white-space:nowrap}"
@@ -91,6 +92,8 @@
   function toast(msg){ toastEl.textContent=msg; toastEl.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(function(){ toastEl.classList.remove("show"); },1800); }
   function pop(){ fab.classList.remove("bump"); void fab.offsetWidth; fab.classList.add("bump"); }
 
+  var COLMAP={White:"#f4f1ea",Cream:"#efe2c8",Sand:"#e3cfa3",Gold:"#c9a86a",Yellow:"#ffd166",Orange:"#f4a261",Coral:"#ff7f6b",Red:"#e63946",Pink:"#ff8fab",Fuchsia:"#d6336c",Purple:"#8338ec",Lavender:"#b8a4e3",Navy:"#2b3a67",Blue:"#3a86ff",Sky:"#7ec8e3",Teal:"#2a9d8f",Green:"#4caf50",Sage:"#9caf88",Brown:"#8a5a44",Grey:"#9aa0a6",Black:"#2b2b2b"};
+  function colDot(c){ if(!c) return ""; return '<span class="sc-cdot" style="background:'+(COLMAP[c]||"#d8cdbb")+'"></span>'; }
   function lineLabel(i){ var p=[]; if(i.scent) p.push(i.scent); if(i.model) p.push(i.model); if(i.colour) p.push(i.colour); return p.join(" · "); }
   function render(){
     var n=count();
@@ -108,7 +111,7 @@
       html += '<div class="sc-it"><div class="sc-it-main">'
         + '<div class="cl">'+esc(i.coll||"")+'</div>'
         + '<div class="nm">'+esc(i.name||"")+'</div>'
-        + (lineLabel(i)?'<div class="mt">'+esc(lineLabel(i))+'</div>':'')
+        + (lineLabel(i)?'<div class="mt">'+colDot(i.colour)+esc(lineLabel(i))+'</div>':'')
         + (i.note?'<div class="mt">“'+esc(i.note)+'”</div>':'')
         + '<button class="sc-rm" data-rm="'+idx+'">'+ct("Remove")+'</button>'
         + '</div><div class="sc-it-r">'
