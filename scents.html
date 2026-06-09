@@ -113,9 +113,10 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .m-send:hover{transform:translateY(-2px)}
 .m-send svg{width:17px;height:17px;fill:currentColor}
 .m-send[disabled]{opacity:.45;cursor:not-allowed;transform:none;background:var(--ink-2)}
-.m-total{display:flex;align-items:center;justify-content:space-between;margin-top:26px;padding-top:18px;border-top:1px solid var(--line);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-2);font-weight:600}
-.m-total-val{font-family:var(--serif);font-size:26px;letter-spacing:.5px;color:var(--ink);text-transform:none}
-.m-send{margin-top:16px}
+.m-input{width:100%;font-family:var(--sans);font-size:15px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 16px;outline:none;transition:border-color .2s}
+.m-input:focus{border-color:var(--gold)}
+.m-input::placeholder{color:var(--ink-3)}
+.m-send{margin-top:30px}
 .m-hint{text-align:center;font-size:11px;color:var(--ink-3);margin-top:12px}
 
 /* FOOTER */
@@ -279,12 +280,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <button class="modal-close" data-close aria-label="Close">&times;</button>
     <p class="m-eyebrow">Order your candle</p>
     <h3 id="mScent">Scent</h3>
-    <p class="m-label">Choose a model</p>
-    <div class="opts" id="mModels">
-      <button class="opt" data-model="The Arc" data-price="8">The Arc · €8</button>
-      <button class="opt" data-model="The Trunk" data-price="10">The Trunk · €10</button>
-      <button class="opt" data-model="The Pillar" data-price="9">The Pillar · €9</button>
-    </div>
+    <p class="m-label">Model / candle name</p>
+    <input class="m-input" id="mModel" type="text" placeholder="Type the candle name…" autocomplete="off" aria-label="Candle name">
     <p class="m-label">Choose a colour</p>
     <div class="colors" id="mColors">
       <button class="color" data-color="Red" title="Red" style="background:#e63946"></button>
@@ -294,7 +291,6 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
       <button class="color" data-color="Blue" title="Blue" style="background:#3a86ff"></button>
       <button class="color" data-color="Purple" title="Purple" style="background:#8338ec"></button>
     </div>
-    <div class="m-total" id="mTotal"><span>Total</span><span class="m-total-val" id="mPrice">—</span></div>
     <button class="m-send" id="mSend" disabled>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.7.7-2.8-.2-.3A8 8 0 1 1 12 20zm4.6-5.9c-.3-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c2 .8 2 .5 2.4.5a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c-.1-.1-.3-.2-.6-.3z"/></svg>
       Send on WhatsApp
@@ -339,27 +335,24 @@ const modal=document.getElementById('modal');
 const mScent=document.getElementById('mScent');
 const mSend=document.getElementById('mSend');
 const mHint=document.getElementById('mHint');
-const mPrice=document.getElementById('mPrice');
-const cur={scent:null,model:null,color:null,price:null};
+const mModel=document.getElementById('mModel');
+const cur={scent:null,model:null,color:null};
 function updSend(){const ok=cur.model&&cur.color;mSend.disabled=!ok;mHint.style.display=ok?'none':'block';}
 function openModal(name){
-  cur.scent=name;cur.model=null;cur.color=null;cur.price=null;
-  mScent.textContent=name;mPrice.textContent='—';
-  document.querySelectorAll('#mModels .opt').forEach(o=>o.classList.remove('sel'));
+  cur.scent=name;cur.model=null;cur.color=null;
+  mScent.textContent=name;mModel.value='';
   document.querySelectorAll('#mColors .color').forEach(o=>o.classList.remove('sel'));
   updSend();
   modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
 }
 function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-document.querySelectorAll('#mModels .opt').forEach(o=>o.addEventListener('click',()=>{
-  document.querySelectorAll('#mModels .opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');cur.model=o.dataset.model;cur.price=o.dataset.price;mPrice.textContent='€ '+o.dataset.price;updSend();
-}));
+mModel.addEventListener('input',()=>{cur.model=mModel.value.trim();updSend();});
 document.querySelectorAll('#mColors .color').forEach(o=>o.addEventListener('click',()=>{
   document.querySelectorAll('#mColors .color').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');cur.color=o.dataset.color;updSend();
 }));
 mSend.addEventListener('click',()=>{
   if(!cur.model||!cur.color)return;
-  const txt="Hi! I'd like to order a candle.\nScent: "+cur.scent+"\nModel: "+cur.model+"\nColour: "+cur.color+"\nPrice: €"+cur.price;
+  const txt="Hi! I'd like to order a candle.\nScent: "+cur.scent+"\nModel: "+cur.model+"\nColour: "+cur.color;
   window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank','noopener');
   closeModal();
 });
