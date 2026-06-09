@@ -9,6 +9,7 @@ Minimalist, editorial design (inspired by premium candle brands like Osar): off-
 - **Mare** (`mare.html`) — sea, dusty-blue accent.
 - **Mini Pets** (`minipets.html`) — warm taupe accent, give-back (supports animals).
 - **Namaste** (`namaste.html`) — sage accent, meditative.
+- **Scents** (`scents.html`) — full fragrance menu (34 scents, 7 families) with live search, category filter and per-scent WhatsApp ordering. Linked from the nav on every page.
 
 **Light Your Pride**: **10% of every sale** goes to **Outhouse LGBTQ+ Centre, Dublin** (outhouse.ie). Instagram: **@soffice.essenza** · Dublin, Ireland. Content from the official brochure.
 
