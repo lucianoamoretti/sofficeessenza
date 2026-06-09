@@ -282,12 +282,38 @@
     var msg = parts.join("\n").replace(/\n{3,}/g, "\n\n").replace(/\n+$/, "");
     bot("Here's your order, " + state.name + ":\n\n" + disp.join("\n"), function(){
       bot("Tap below to send it to us on WhatsApp and we'll confirm everything 💛", function(){
-        chips([
+        var acts = [
           { label:"✓ Send on WhatsApp", cls:"go", on:function(){ send(msg); } },
-          { label:"↺ Start over", cls:"alt", on:function(){ start(); } }
-        ]);
+          { label:"➕ Add another", on:function(){ user("Add another"); newItem(); } }
+        ];
+        if(state.items.length){ acts.push({ label:"✎ Edit / remove", on:function(){ manageItems(); } }); }
+        acts.push({ label:"↺ Start over", cls:"alt", on:function(){ start(); } });
+        chips(acts);
       });
     });
+  }
+
+  /* edit / remove items */
+  function manageItems(){
+    bot("Which candle would you like to change?", function(){
+      var opts = state.items.map(function(it, i){ return { label:(i + 1) + ". " + itemShort(it), on:function(){ itemActions(i); } }; });
+      opts.push({ label:"← Back", cls:"alt", on:function(){ finalize(); } });
+      chips(opts);
+    });
+  }
+  function itemActions(i){
+    var it = state.items[i];
+    bot("“" + itemShort(it) + "” — what would you like to do?", function(){
+      chips([
+        { label:"✎ Edit", on:function(){ user("Edit item " + (i + 1)); state.items.splice(i, 1); bot("No problem — let's set it up again.", function(){ newItem(); }); } },
+        { label:"🗑 Remove", on:function(){ user("Remove item " + (i + 1)); state.items.splice(i, 1); afterRemove(); } },
+        { label:"← Back", cls:"alt", on:function(){ manageItems(); } }
+      ]);
+    });
+  }
+  function afterRemove(){
+    if(state.items.length === 0){ bot("Your order is empty now — let's add a candle.", function(){ newItem(); }); }
+    else { bot("Done ✓ Item removed.", function(){ finalize(); }); }
   }
 
   /* ---------- open/close ---------- */
