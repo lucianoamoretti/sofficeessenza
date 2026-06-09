@@ -16,7 +16,7 @@
   function save(c){ try{ localStorage.setItem(KEY, JSON.stringify(c)); }catch(e){} }
   var cart = load();
   function count(){ var n=0; cart.forEach(function(i){ n+=i.qty; }); return n; }
-  function keyOf(i){ return [i.coll||"",i.name||"",i.model||"",i.colour||""].join("|").toLowerCase(); }
+  function keyOf(i){ return [i.coll||"",i.name||"",i.model||"",i.colour||"",i.note||""].join("|").toLowerCase(); }
   function add(item){
     item.qty = item.qty || 1;
     var k = keyOf(item), found = null;
@@ -96,6 +96,7 @@
     var n=count();
     badge.textContent=n; fab.classList.toggle("empty", n===0);
     titleEl.textContent = ct("Your cart") + (n? " ("+n+")":"");
+    try{ window.dispatchEvent(new CustomEvent("se-cart")); }catch(e){}
     if(!cart.length){
       itemsEl.innerHTML = '<div class="sc-empty"><b>'+ct("Your cart is empty")+'</b><span>'+ct("Add candles from any collection.")+'</span></div>';
       footEl.innerHTML=""; return;
@@ -108,6 +109,7 @@
         + '<div class="cl">'+esc(i.coll||"")+'</div>'
         + '<div class="nm">'+esc(i.name||"")+'</div>'
         + (lineLabel(i)?'<div class="mt">'+esc(lineLabel(i))+'</div>':'')
+        + (i.note?'<div class="mt">“'+esc(i.note)+'”</div>':'')
         + '<button class="sc-rm" data-rm="'+idx+'">'+ct("Remove")+'</button>'
         + '</div><div class="sc-it-r">'
         + '<div class="sc-pr">'+(price!=null?('€ '+(price*i.qty)):'—')+'</div>'
@@ -131,9 +133,12 @@
   function checkout(){
     if(!cart.length) return;
     var lines=["Hi! I'd like to order from Soffice Essenza.",""], total=0, anyNull=false;
+    var nm=""; try{ nm=localStorage.getItem("se_name")||""; }catch(e){}
+    if(nm){ lines.splice(1,0,"Name: "+nm); }
     cart.forEach(function(i){
       var p=(typeof i.price==="number")?i.price:null; if(p!=null) total+=p*i.qty; else anyNull=true;
       var l="• "+i.qty+"× "+i.name+" ("+(i.coll||"")+")"; var opt=lineLabel(i); if(opt) l+=" — "+opt;
+      if(i.note) l+=" — “"+i.note+"”";
       if(p!=null) l+=" — €"+(p*i.qty);
       lines.push(l);
     });
@@ -163,7 +168,7 @@
   }
 
   /* ---- public API (used by scents.html modal) ---- */
-  window.SECart = { add:add, open:open };
+  window.SECart = { add:add, open:open, items:function(){ return cart.slice(); }, count:count, remove:function(i){ setQty(i,0); }, setName:function(n){ try{ localStorage.setItem("se_name", n); }catch(e){} } };
 
   window.addEventListener("se-lang", function(){ wire2labels(); render(); });
   function wire2labels(){ root.querySelectorAll(".sc-add").forEach(function(b){ b.textContent=ct("Add"); }); }

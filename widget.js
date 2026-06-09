@@ -70,6 +70,7 @@
       "Would you like to add another candle to your order?":"Vuoi aggiungere un'altra candela all'ordine?",
       "➕ Add another":"➕ Aggiungi un'altra",
       "✓ That's all":"✓ È tutto",
+      "🛒 View cart & checkout":"🛒 Vedi carrello e ordina",
       "What would you like to add?":"Cosa vuoi aggiungere?",
       "Is this order a gift? 🎁":"È un regalo? 🎁",
       "🎁 Yes, it's a gift":"🎁 Sì, è un regalo",
@@ -147,6 +148,7 @@
       "Would you like to add another candle to your order?":"Quer adicionar outra vela ao pedido?",
       "➕ Add another":"➕ Adicionar outra",
       "✓ That's all":"✓ É só isso",
+      "🛒 View cart & checkout":"🛒 Ver carrinho e finalizar",
       "What would you like to add?":"O que você quer adicionar?",
       "Is this order a gift? 🎁":"Este pedido é um presente? 🎁",
       "🎁 Yes, it's a gift":"🎁 Sim, é presente",
@@ -283,18 +285,21 @@
   function send(text){ window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(text), "_blank", "noopener"); }
 
   /* ---------- cart ---------- */
+  function parseQty(q){ var n=parseInt(q,10); return isNaN(n)?1:n; }
   function itemShort(it){
-    if(it.intent==="pride") return it.model+" · "+it.colour+" ×"+it.qty;
-    if(it.intent==="custom") return "Custom — "+it.custom;
-    return it.scent+" · "+(it.model||"?")+" · "+it.colour+" ×"+it.qty;
+    var p=[]; if(it.model) p.push(it.model); if(it.colour) p.push(it.colour);
+    var s=it.name+(p.length?" · "+p.join(" · "):"");
+    if(it.qty>1) s+=" ×"+it.qty;
+    return s;
   }
   function renderCart(){
-    if(!state.items.length){ cartEl.className="se-cart"; cartEl.innerHTML=""; return; }
-    cartEl.className="se-cart show";
-    var html='<div class="ct-h">🛒 '+w("Your order")+' ('+state.items.length+')</div><ul>';
-    state.items.forEach(function(it,i){ html+='<li><span>'+itemShort(it).replace(/</g,"&lt;")+'</span><button data-i="'+i+'" title="'+w("Remove")+'">&times;</button></li>'; });
+    var items=(window.SECart&&window.SECart.items)?window.SECart.items():[];
+    if(!items.length){ cartEl.className="se-cart"; cartEl.innerHTML=""; cartEl.onclick=null; return; }
+    cartEl.className="se-cart show"; cartEl.style.cursor="pointer";
+    var html='<div class="ct-h">🛒 '+w("Your order")+' ('+items.length+')</div><ul>';
+    items.forEach(function(it){ html+='<li><span>'+itemShort(it).replace(/</g,"&lt;")+'</span></li>'; });
     html+='</ul>'; cartEl.innerHTML=html;
-    cartEl.querySelectorAll("button[data-i]").forEach(function(b){ b.onclick=function(){ state.items.splice(+b.getAttribute("data-i"),1); renderCart(); if(lastScreen==="final") finalize(); }; });
+    cartEl.onclick=function(){ if(window.SECart) window.SECart.open(); };
   }
 
   /* ---------- conversation ---------- */
@@ -428,13 +433,16 @@
 
   /* finish / multi-item */
   function finishItem(){
-    state.items.push({ intent:state.cur.intent, scent:state.cur.scent, model:state.cur.model, colour:state.cur.colour, qty:state.cur.qty, note:state.cur.note, price:state.cur.price, custom:state.cur.custom });
+    var c=state.cur, it;
+    if(c.intent==="pride") it={ coll:"Light Your Pride", name:c.model, colour:c.colour, price:(c.price?parseFloat(c.price):null), qty:parseQty(c.qty) };
+    else if(c.intent==="custom") it={ coll:"Custom", name:"Custom order", note:c.custom, price:null, qty:1 };
+    else it={ coll:"Scented", name:c.scent, model:c.model, colour:c.colour, note:c.note, price:null, qty:parseQty(c.qty) };
+    if(window.SECart) window.SECart.add(it);
     renderCart();
-    var it=state.items[state.items.length-1];
     bot(w("Added ✓  {s}").replace("{s}", itemShort(it)), function(){
       bot(w("Would you like to add another candle to your order?"), function(){
         chips([ { label:w("➕ Add another"), on:function(){ user(w("➕ Add another")); newItem(); } },
-                { label:w("✓ That's all"), cls:"go", on:function(){ user(w("✓ That's all")); askGift(); } } ]);
+                { label:w("🛒 View cart & checkout"), cls:"go", on:function(){ user(w("🛒 View cart & checkout")); if(window.SECart) window.SECart.open(); close(); } } ]);
       });
     });
   }
@@ -518,4 +526,5 @@
 
   /* restart on language change if open */
   window.addEventListener("se-lang", function(){ refreshSub(); renderCart(); if(root.classList.contains("open")) start(); });
+  window.addEventListener("se-cart", function(){ renderCart(); });
 })();
