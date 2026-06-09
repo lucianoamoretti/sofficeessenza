@@ -124,7 +124,21 @@
     "Or type another colour…":{it:"Oppure scrivi un altro colore…",pt:"Ou digite outra cor…"},
     "Send on WhatsApp":{it:"Invia su WhatsApp",pt:"Enviar no WhatsApp"},
     "Choose a model and colour to continue":{it:"Scegli modello e colore per continuare",pt:"Escolha modelo e cor para continuar"},
-    "Prefer to chat? Order with the assistant":{it:"Preferisci chattare? Ordina con l'assistente",pt:"Prefere conversar? Peça com o assistente"}
+    "Prefer to chat? Order with the assistant":{it:"Preferisci chattare? Ordina con l'assistente",pt:"Prefere conversar? Peça com o assistente"},
+    /* ===== Carezza ===== */
+    "Warmth you can feel.":{it:"Un calore che si sente.",pt:"Um calor que você sente."},
+    "Wellness and massage candles, hand-poured in soy and shea butter. Light one to unwind — or let a massage candle melt into a warm, nourishing oil for the skin.":{it:"Candele wellness e da massaggio, colate a mano in cera di soia e burro di karité. Accendine una per rilassarti — o lascia che una candela da massaggio si sciolga in un olio caldo e nutriente per la pelle.",pt:"Velas de bem-estar e de massagem, feitas à mão em cera de soja e manteiga de karité. Acenda uma para relaxar — ou deixe uma vela de massagem derreter num óleo morno e nutritivo para a pele."},
+    "A caress, in candle form.":{it:"Una carezza, in forma di candela.",pt:"Uma carícia em forma de vela."},
+    "Carezza is made for slowing down and taking care of yourself. Our wellness candles fill the room with calm, while our massage candles burn at a low, gentle heat and melt into a warm oil of soy and shea — ready to pour and massage into the skin. Soft, soothing and kind to you.":{it:"Carezza è pensata per rallentare e prendersi cura di sé. Le candele wellness riempiono la stanza di calma, mentre quelle da massaggio bruciano a un calore basso e delicato e si sciolgono in un olio caldo di soia e karité — pronto da versare e massaggiare sulla pelle. Morbida, lenitiva e gentile con te.",pt:"Carezza é feita para desacelerar e cuidar de você. As velas de bem-estar enchem o ambiente de calma, enquanto as de massagem queimam num calor baixo e suave e derretem num óleo morno de soja e karité — pronto para aplicar e massagear na pele. Suave, relaxante e gentil com você."},
+    "Three ways to unwind":{it:"Tre modi per rilassarsi",pt:"Três formas de relaxar"},
+    "Soy & shea wax":{it:"Cera di soia & karité",pt:"Cera de soja & karité"},
+    "Skin-safe":{it:"Sicura per la pelle",pt:"Segura para a pele"},
+    "Massage & wellness":{it:"Massaggio & wellness",pt:"Massagem & bem-estar"},
+    "Hand-poured":{it:"Colata a mano",pt:"Feita à mão"},
+    "Wellness":{it:"Wellness",pt:"Bem-estar"},
+    "Massage candle":{it:"Candela da massaggio",pt:"Vela de massagem"},
+    "Wellness & massage":{it:"Wellness & massaggio",pt:"Bem-estar & massagem"},
+    "Wellness and massage candles to soften the moment.":{it:"Candele wellness e da massaggio per addolcire il momento.",pt:"Velas de bem-estar e massagem para suavizar o momento."}
   };
 
   /* ---- engine ---- */

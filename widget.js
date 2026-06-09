@@ -39,6 +39,7 @@
       "🌊 A Mare candle":"🌊 Una candela Mare",
       "🐾 A Mini Pets candle":"🐾 Una candela Mini Pets",
       "🧘 A Namaste candle":"🧘 Una candela Namaste",
+      "🤲 A Carezza candle":"🤲 Una candela Carezza",
       "Hi! I'm {n} and I'd like to chat about Soffice Essenza candles.":"Ciao! Sono {n} e vorrei informazioni sulle candele Soffice Essenza.",
       "Great choice! Which scent family?":"Ottima scelta! Quale famiglia olfattiva?",
       "🔎 Search by name":"🔎 Cerca per nome",
@@ -115,6 +116,7 @@
       "🌊 A Mare candle":"🌊 Uma vela Mare",
       "🐾 A Mini Pets candle":"🐾 Uma vela Mini Pets",
       "🧘 A Namaste candle":"🧘 Uma vela Namaste",
+      "🤲 A Carezza candle":"🤲 Uma vela Carezza",
       "Hi! I'm {n} and I'd like to chat about Soffice Essenza candles.":"Oi! Sou {n} e gostaria de saber sobre as velas da Soffice Essenza.",
       "Great choice! Which scent family?":"Ótima escolha! Qual família de aroma?",
       "🔎 Search by name":"🔎 Buscar por nome",
@@ -301,6 +303,7 @@
     if(PAGE==="mare.html") return { label:w("🌊 A Mare candle"), on:function(){ user(w("🌊 A Mare candle")); state.cur={intent:"scented"}; askCategory(); } };
     if(PAGE==="minipets.html") return { label:w("🐾 A Mini Pets candle"), on:function(){ user(w("🐾 A Mini Pets candle")); state.cur={intent:"scented"}; askCategory(); } };
     if(PAGE==="namaste.html") return { label:w("🧘 A Namaste candle"), on:function(){ user(w("🧘 A Namaste candle")); state.cur={intent:"scented"}; askCategory(); } };
+    if(PAGE==="carezza.html") return { label:w("🤲 A Carezza candle"), on:function(){ user(w("🤲 A Carezza candle")); state.cur={intent:"scented"}; askCategory(); } };
     return null;
   }
   function nameInput(next){
