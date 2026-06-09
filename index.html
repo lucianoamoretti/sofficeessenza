@@ -149,6 +149,29 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .step h3{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--ink);margin-top:12px}
 .step p{font-size:14px;color:var(--ink-2);margin-top:10px;line-height:1.8;max-width:30ch;margin-left:auto;margin-right:auto}
 
+/* ============ SCENTS ============ */
+.scents{padding:clamp(70px,10vw,120px) 0;border-top:1px solid var(--line)}
+.scents .lead{font-size:14px;color:var(--ink-2);margin-top:14px;max-width:62ch;margin-left:auto;margin-right:auto;line-height:1.8}
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2.4vw,28px);margin-top:clamp(34px,5vw,52px)}
+@media(max-width:720px){.cats{grid-template-columns:1fr}}
+.cat{border:1px solid var(--line);border-radius:8px;padding:26px clamp(20px,2.4vw,30px);background:rgba(255,255,255,.45);transition:border-color .3s,box-shadow .3s}
+.cat:hover{border-color:var(--gold-2);box-shadow:0 12px 30px rgba(0,0,0,.05)}
+.cat.wide{grid-column:1/-1}
+.cat h3{font-family:var(--serif);font-weight:500;font-size:22px;color:var(--ink);letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.cat h3::before{content:'';width:7px;height:7px;transform:rotate(45deg);background:var(--gold-2);flex-shrink:0}
+.cat ul{list-style:none;margin-top:16px;columns:2;column-gap:24px}
+.cat.wide ul{columns:3}
+@media(max-width:480px){.cat ul,.cat.wide ul{columns:1}}
+.cat li{font-size:14px;color:var(--ink-2);padding:5px 0 5px 16px;position:relative;break-inside:avoid}
+.cat li::before{content:'·';position:absolute;left:2px;color:var(--gold);font-weight:700}
+.scent-extra{margin-top:clamp(34px,5vw,48px);text-align:center}
+.custom-pill{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--ink);border:1px solid var(--gold);padding:13px 28px;border-radius:40px}
+.custom-pill .h{color:var(--p-red)}
+.badges{display:flex;flex-wrap:wrap;justify-content:center;gap:14px clamp(20px,4vw,44px);margin-top:28px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-2)}
+.badges span{display:flex;align-items:center;gap:14px}
+.badges span::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold-2)}
+.badges span:first-child::before{display:none}
+
 /* ============ PORTAL ============ */
 .portal{padding:clamp(70px,10vw,120px) 0;border-top:1px solid var(--line)}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,28px);margin-top:clamp(34px,5vw,52px)}
@@ -357,6 +380,83 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
       <div class="step reveal"><div class="n">01</div><h3>Choose</h3><p>Pick your shape and colour — or order the full rainbow set.</p></div>
       <div class="step reveal"><div class="n">02</div><h3>Order</h3><p>Send a DM on Instagram or WhatsApp — we'll confirm and arrange delivery.</p></div>
       <div class="step reveal"><div class="n">03</div><h3>Celebrate</h3><p>Your candle arrives handcrafted, unique and ready to light up your space.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENTS -->
+<section class="scents" id="scents">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow reveal">Scented Candles</p>
+      <h2 class="reveal" style="font-family:var(--serif);font-weight:300;font-size:clamp(32px,5vw,60px);color:var(--ink)">Choose your favourite scent</h2>
+      <p class="lead reveal">Our scented candles come in over thirty fragrances, handcrafted in soy wax — pick your favourite for any collection or a custom order. <em>(Light Your Pride is decorative and unscented.)</em></p>
+    </div>
+    <div class="cats">
+
+      <div class="cat reveal">
+        <h3>Sweet &amp; Gourmand</h3>
+        <ul>
+          <li>Vanilla</li><li>Salted Caramel</li>
+          <li>Strawberry &amp; Rhubarb</li><li>Blueberry &amp; Vanilla</li>
+          <li>Matcha &amp; Coconut</li><li>Cinnamon</li>
+          <li>Christmas Spice</li><li>Vanilla Cream</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3>Floral</h3>
+        <ul>
+          <li>Rose &amp; Champagne</li><li>Lavender</li>
+          <li>Golden Mimosa &amp; Amber</li><li>BBW Japanese Cherry Blossom</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3>Citrus &amp; Fresh</h3>
+        <ul>
+          <li>Lemon</li><li>Passion Fruit &amp; Mango</li>
+          <li>Lemongrass</li><li>Watermelon Lemonade</li>
+          <li>Sweet Lime</li><li>Kyoto Matcha &amp; Coconut</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3>Aromatic &amp; Natural</h3>
+        <ul>
+          <li>Eucalyptus</li><li>Peppermint</li>
+          <li>Tea Tree</li><li>Sandalwood</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3>Soft &amp; Clean</h3>
+        <ul>
+          <li>Baby Powder</li><li>Spring Unstoppables</li>
+          <li>Cotton</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3>Warm &amp; Woody</h3>
+        <ul>
+          <li>Crackling Log Fire</li><li>Warming Cashmere</li>
+          <li>Mahogany Teakwood</li>
+        </ul>
+      </div>
+
+      <div class="cat wide reveal">
+        <h3>Signature</h3>
+        <ul>
+          <li>French Vanilla</li><li>Nag Champa</li><li>Euphoria Woman</li>
+          <li>Lavender, Chamomile &amp; Vanilla</li><li>Dove</li><li>Golden Mimosa</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="scent-extra">
+      <span class="custom-pill reveal"><span class="h">&#9829;</span> Custom orders available</span>
+      <div class="badges reveal"><span>Vegan Friendly</span><span>Natural Wax</span><span>Handcrafted</span></div>
     </div>
   </div>
 </section>
