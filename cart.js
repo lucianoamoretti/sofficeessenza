@@ -5,8 +5,8 @@
 
   /* ---- i18n (own, syncs with window.I18N.lang) ---- */
   var T = {
-    it:{ "Add":"Aggiungi","Add to cart":"Aggiungi al carrello","Added to cart ✓":"Aggiunto al carrello ✓","Your cart":"Il tuo carrello","Your cart is empty":"Il tuo carrello è vuoto","Add candles from any collection.":"Aggiungi candele da qualsiasi collezione.","Total":"Totale","Checkout on WhatsApp":"Ordina su WhatsApp","Clear":"Svuota","Remove":"Rimuovi","Some items will be priced on WhatsApp.":"Alcuni articoli verranno quotati su WhatsApp.","Cart":"Carrello","Choose":"Scegli","Choose your scent":"Scegli il profumo","Suggested":"Consigliati","Show all scents":"Mostra tutti i profumi","Hide scents":"Nascondi profumi","Colour":"Colore","Quantity":"Quantità","Decorative · unscented":"Decorativa · senza profumo","Other colour…":"Altro colore…","Choose a scent and colour":"Scegli profumo e colore","Choose a colour":"Scegli un colore","Order on WhatsApp":"Ordina su WhatsApp" },
-    pt:{ "Add":"Adicionar","Add to cart":"Adicionar ao carrinho","Added to cart ✓":"Adicionado ao carrinho ✓","Your cart":"Seu carrinho","Your cart is empty":"Seu carrinho está vazio","Add candles from any collection.":"Adicione velas de qualquer coleção.","Total":"Total","Checkout on WhatsApp":"Finalizar no WhatsApp","Clear":"Limpar","Remove":"Remover","Some items will be priced on WhatsApp.":"Alguns itens serão cotados no WhatsApp.","Cart":"Carrinho","Choose":"Escolher","Choose your scent":"Escolha o aroma","Suggested":"Sugeridos","Show all scents":"Ver todos os aromas","Hide scents":"Ocultar aromas","Colour":"Cor","Quantity":"Quantidade","Decorative · unscented":"Decorativa · sem perfume","Other colour…":"Outra cor…","Choose a scent and colour":"Escolha aroma e cor","Choose a colour":"Escolha uma cor","Order on WhatsApp":"Pedir no WhatsApp" }
+    it:{ "Add":"Aggiungi","Add to cart":"Aggiungi al carrello","Added to cart ✓":"Aggiunto al carrello ✓","Your cart":"Il tuo carrello","Your cart is empty":"Il tuo carrello è vuoto","Add candles from any collection.":"Aggiungi candele da qualsiasi collezione.","Total":"Totale","Checkout on WhatsApp":"Ordina su WhatsApp","Clear":"Svuota","Remove":"Rimuovi","Some items will be priced on WhatsApp.":"Alcuni articoli verranno quotati su WhatsApp.","Cart":"Carrello","Choose":"Scegli","Choose your scent":"Scegli il profumo","Suggested":"Consigliati","Show all scents":"Mostra tutti i profumi","Hide scents":"Nascondi profumi","Colour":"Colore","Quantity":"Quantità","Decorative · unscented":"Decorativa · senza profumo","Other colour…":"Altro colore…","Choose a scent and colour":"Scegli profumo e colore","Choose a colour":"Scegli un colore","Choose a scent":"Scegli un profumo","Order on WhatsApp":"Ordina su WhatsApp" },
+    pt:{ "Add":"Adicionar","Add to cart":"Adicionar ao carrinho","Added to cart ✓":"Adicionado ao carrinho ✓","Your cart":"Seu carrinho","Your cart is empty":"Seu carrinho está vazio","Add candles from any collection.":"Adicione velas de qualquer coleção.","Total":"Total","Checkout on WhatsApp":"Finalizar no WhatsApp","Clear":"Limpar","Remove":"Remover","Some items will be priced on WhatsApp.":"Alguns itens serão cotados no WhatsApp.","Cart":"Carrinho","Choose":"Escolher","Choose your scent":"Escolha o aroma","Suggested":"Sugeridos","Show all scents":"Ver todos os aromas","Hide scents":"Ocultar aromas","Colour":"Cor","Quantity":"Quantidade","Decorative · unscented":"Decorativa · sem perfume","Other colour…":"Outra cor…","Choose a scent and colour":"Escolha aroma e cor","Choose a colour":"Escolha uma cor","Choose a scent":"Escolha um aroma","Order on WhatsApp":"Pedir no WhatsApp" }
   };
   function lang(){ return (window.I18N && window.I18N.lang) || "en"; }
   function ct(s){ var L=lang(); if(L==="en") return s; return (T[L]&&T[L][s])||s; }
@@ -223,13 +223,13 @@
   var cfg={};
   function cClose(){ cOv.classList.remove("open"); cBox.classList.remove("open"); document.body.style.overflow=""; }
   function cUpd(){
-    var ok = cfg.colour && (cfg.isPride || cfg.scent);
+    var ok = cfg.isPride ? !!cfg.colour : (!!cfg.scent && (cfg.nocolour || !!cfg.colour));
     cAdd.disabled=!ok; cHint.style.display=ok?"none":"block";
   }
   function selScent(v){ cfg.scent=v; cfgRoot.querySelectorAll(".sc-scent .sc-cfg-chip").forEach(function(x){ x.classList.toggle("sel", x.getAttribute("data-s")===v); }); cUpd(); }
   function chip(v,sugg){ var b=document.createElement("button"); b.type="button"; b.className="sc-cfg-chip"+(sugg?" sugg":""); b.setAttribute("data-s",v); b.textContent=v; b.onclick=function(){ selScent(v); }; return b; }
   function openConfig(prod){
-    cfg={ prod:prod, scent:null, colour:null, qty:1, isPride:/pride/i.test(prod.coll) };
+    cfg={ prod:prod, scent:null, colour:null, qty:1, isPride:/pride/i.test(prod.coll), scents:(prod.scents&&prod.scents.length?prod.scents:null), nocolour:!!prod.nocolour };
     cCl.textContent=prod.coll; cNm.textContent=prod.name; cPr.textContent=(typeof prod.price==="number")?("€ "+prod.price):"";
     if(prod.img){ cThumb.style.display=""; cThumb.style.backgroundImage="url('"+prod.img+"')"; } else { cThumb.style.display="none"; }
     cOther.placeholder=ct("Other colour…"); cOther.value="";
@@ -237,27 +237,35 @@
     /* scent */
     if(cfg.isPride){ cScent.style.display="none"; }
     else {
-      cScent.style.display="";
-      cScentLbl.innerHTML=ct("Choose your scent")+' <span class="sg">· '+ct("Suggested")+'</span>';
-      cSugg.innerHTML=""; suggest(prod.coll).forEach(function(s){ cSugg.appendChild(chip(s,true)); });
-      cAll.innerHTML=""; ALLSC.forEach(function(s){ cAll.appendChild(chip(s,false)); });
-      cAll.hidden=true; cAllBtn.textContent=ct("Show all scents");
-      cAllBtn.onclick=function(){ cAll.hidden=!cAll.hidden; cAllBtn.textContent=cAll.hidden?ct("Show all scents"):ct("Hide scents"); };
+      cScent.style.display=""; cSugg.innerHTML="";
+      if(cfg.scents){
+        cScentLbl.textContent=ct("Choose your scent");
+        cfg.scents.forEach(function(s){ cSugg.appendChild(chip(s,true)); });
+        cAll.innerHTML=""; cAll.hidden=true; cAllBtn.style.display="none";
+      } else {
+        cScentLbl.innerHTML=ct("Choose your scent")+' <span class="sg">· '+ct("Suggested")+'</span>';
+        suggest(prod.coll).forEach(function(s){ cSugg.appendChild(chip(s,true)); });
+        cAll.innerHTML=""; ALLSC.forEach(function(s){ cAll.appendChild(chip(s,false)); });
+        cAll.hidden=true; cAllBtn.style.display=""; cAllBtn.textContent=ct("Show all scents");
+        cAllBtn.onclick=function(){ cAll.hidden=!cAll.hidden; cAllBtn.textContent=cAll.hidden?ct("Show all scents"):ct("Hide scents"); };
+      }
     }
     /* colour */
+    var hideCol=cfg.nocolour && !cfg.isPride;
+    cCollbl.style.display=hideCol?"none":""; cCols.style.display=hideCol?"none":""; cOther.style.display=hideCol?"none":"";
     cCollbl.textContent=ct("Colour");
-    var pal=cfg.isPride?PRIDE6:COLP;
-    cCols.innerHTML="";
+    var pal=cfg.isPride?PRIDE6:COLP; cCols.innerHTML="";
     pal.forEach(function(c){ var b=document.createElement("button"); b.type="button"; b.className="sc-cfg-col"; b.title=c[0]; b.style.background=c[1];
       b.onclick=function(){ cfgRoot.querySelectorAll(".sc-cfg-col").forEach(function(x){ x.classList.remove("sel"); }); b.classList.add("sel"); cOther.value=""; cfg.colour=c[0]; cUpd(); }; cCols.appendChild(b); });
-    cAdd.textContent=ct("Add to cart"); cHint.textContent=cfg.isPride?ct("Choose a colour"):ct("Choose a scent and colour");
+    cAdd.textContent=ct("Add to cart");
+    cHint.textContent=cfg.isPride?ct("Choose a colour"):(cfg.nocolour?ct("Choose a scent"):ct("Choose a scent and colour"));
     cUpd();
     cOv.classList.add("open"); cBox.classList.add("open"); document.body.style.overflow="hidden"; cBox.scrollTop=0;
   }
   cOther.addEventListener("input",function(){ var v=cOther.value.trim(); if(v){ cfgRoot.querySelectorAll(".sc-cfg-col").forEach(function(x){ x.classList.remove("sel"); }); cfg.colour=v; } else cfg.colour=null; cUpd(); });
   cfgRoot.querySelector(".sc-cfg-qty [data-u]").onclick=function(){ cfg.qty++; cQn.textContent=cfg.qty; };
   cfgRoot.querySelector(".sc-cfg-qty [data-d]").onclick=function(){ if(cfg.qty>1){ cfg.qty--; cQn.textContent=cfg.qty; } };
-  cAdd.onclick=function(){ if(cAdd.disabled) return; add({ coll:cfg.prod.coll, name:cfg.prod.name, scent:cfg.isPride?null:cfg.scent, colour:cfg.colour, price:(typeof cfg.prod.price==="number"?cfg.prod.price:null), qty:cfg.qty }); cClose(); };
+  cAdd.onclick=function(){ if(cAdd.disabled) return; add({ coll:cfg.prod.coll, name:cfg.prod.name, scent:cfg.isPride?null:cfg.scent, colour:(cfg.nocolour&&!cfg.isPride)?null:cfg.colour, price:(typeof cfg.prod.price==="number"?cfg.prod.price:null), qty:cfg.qty }); cClose(); };
   cOv.onclick=cClose; cfgRoot.querySelector(".sc-cfg-x").onclick=cClose;
   document.addEventListener("keydown",function(e){ if(e.key==="Escape" && cBox.classList.contains("open")) cClose(); });
 
@@ -269,7 +277,10 @@
       var coll=(card.querySelector(".product-coll")||{}).textContent||"";
       var price=num((card.querySelector(".product-price")||{}).textContent||"");
       var imgEl=card.querySelector(".product-media img");
-      var prod={ coll:coll.trim(), name:name.trim(), price:price, img:imgEl?imgEl.getAttribute("src"):null };
+      var ds=card.getAttribute("data-scents");
+      var prod={ coll:coll.trim(), name:name.trim(), price:price, img:imgEl?imgEl.getAttribute("src"):null,
+        scents: ds? ds.split("|").map(function(x){return x.trim();}) : null,
+        nocolour: card.getAttribute("data-nocolour")==="1" };
       var media=card.querySelector(".product-media");
       if(media) media.addEventListener("click",function(e){ e.preventDefault(); openConfig(prod); });
       var buy=card.querySelector(".btn-buy");
