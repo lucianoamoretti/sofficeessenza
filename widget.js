@@ -146,7 +146,7 @@
 
   /* ---------- conversation ---------- */
   function start(){
-    body.innerHTML = ""; clearFoot(); state = {};
+    body.innerHTML = ""; clearFoot(); state = { items: [] };
     bot("Hi there! I'm the Soffice Essenza assistant 🕯️", function(){
       bot("What's your name?", function(){
         input("Type your name…", function(v){ state.name=v; user(v); askIntent(); });
@@ -197,7 +197,7 @@
   }
   function askNote(){
     bot("Anything else? (a note, delivery area, gift message…) — or skip.", function(){
-      input("Add a note…", function(v){ state.note=v; if(v) user(v); finish(); }, true);
+      input("Add a note…", function(v){ state.note=v; if(v) user(v); finishItem(); }, true);
     });
   }
   /* pride branch */
@@ -217,30 +217,65 @@
   }
   function pQty(){
     bot("How many?", function(){
-      chips([1,2,3,4,5].map(function(n){ return { label:String(n), on:function(){ user(String(n)); state.qty=n; finish(); } }; })
-        .concat([{ label:"More…", cls:"alt", on:function(){ input("How many?", function(v){ state.qty=v; user(v); finish(); }); } }]));
+      chips([1,2,3,4,5].map(function(n){ return { label:String(n), on:function(){ user(String(n)); state.qty=n; finishItem(); } }; })
+        .concat([{ label:"More…", cls:"alt", on:function(){ input("How many?", function(v){ state.qty=v; user(v); finishItem(); }); } }]));
     });
   }
   /* custom branch */
   function custom(){
     bot("Tell me what you have in mind — scent, colour, size, occasion… anything:", function(){
-      input("Describe your idea…", function(v){ state.custom=v; user(v); finish(); });
+      input("Describe your idea…", function(v){ state.custom=v; user(v); finishItem(); });
     });
   }
-  /* finish */
-  function finish(){
-    var lines, msg;
-    if(state.intent==="pride"){
-      lines = ["Name: " + state.name, "Collection: Light Your Pride (decorative)", "Shape: " + state.model + " (€" + state.price + ")", "Colour: " + state.colour, "Quantity: " + state.qty];
-    } else if(state.intent==="custom"){
-      lines = ["Name: " + state.name, "Custom order", "Details: " + state.custom];
-    } else {
-      lines = ["Name: " + state.name, "Scent: " + state.scent, "Model: " + state.model, "Colour: " + state.colour, "Quantity: " + state.qty];
-      if(state.note) lines.push("Note: " + state.note);
-    }
-    bot("Perfect — here's your order:\n\n" + lines.join("\n"), function(){
+  /* finish one item, then offer to add more */
+  function clearItem(){ state.intent=state.scent=state.model=state.colour=state.qty=state.note=state.price=state.custom=undefined; }
+  function itemShort(it){
+    if(it.intent==="pride") return it.model + " · " + it.colour + " ×" + it.qty;
+    if(it.intent==="custom") return "Custom — " + it.custom;
+    return it.scent + " · " + it.model + " · " + it.colour + " ×" + it.qty;
+  }
+  function itemLines(it){
+    if(it.intent==="pride") return ["Light Your Pride — " + it.model + " (€" + it.price + ")", "Colour: " + it.colour, "Quantity: " + it.qty];
+    if(it.intent==="custom") return ["Custom order", "Details: " + it.custom];
+    var l = ["Scent: " + it.scent, "Model: " + it.model, "Colour: " + it.colour, "Quantity: " + it.qty];
+    if(it.note) l.push("Note: " + it.note);
+    return l;
+  }
+  function finishItem(){
+    state.items.push({ intent:state.intent, scent:state.scent, model:state.model, colour:state.colour, qty:state.qty, note:state.note, price:state.price, custom:state.custom });
+    var it = state.items[state.items.length - 1];
+    bot("Added ✓  " + itemShort(it), function(){
+      bot("Would you like to add another candle to your order?", function(){
+        chips([
+          { label:"➕ Add another", on:function(){ user("Add another"); newItem(); } },
+          { label:"✓ That's all", cls:"go", on:function(){ user("That's all"); finalize(); } }
+        ]);
+      });
+    });
+  }
+  function newItem(){
+    clearItem();
+    bot("What would you like to add?", function(){
+      chips([
+        { label:"🕯️ A scented candle", on:function(){ user("A scented candle"); state.intent="scented"; askCategory(); } },
+        { label:"🌈 Light Your Pride", on:function(){ user("Light Your Pride"); state.intent="pride"; pShape(); } },
+        { label:"✨ Custom order", on:function(){ user("Custom order"); state.intent="custom"; custom(); } }
+      ]);
+    });
+  }
+  function finalize(){
+    var multi = state.items.length > 1;
+    var parts = ["Hi! I'd like to order from Soffice Essenza.", "Name: " + state.name, ""];
+    var disp = [];
+    state.items.forEach(function(it, i){
+      parts.push(multi ? ("Candle " + (i + 1) + ":") : "Order:");
+      itemLines(it).forEach(function(l){ parts.push("  " + l); });
+      parts.push("");
+      disp.push((multi ? "• " : "") + itemShort(it));
+    });
+    var msg = parts.join("\n").replace(/\n+$/, "");
+    bot("Here's your order, " + state.name + ":\n\n" + disp.join("\n"), function(){
       bot("Tap below to send it to us on WhatsApp and we'll confirm everything 💛", function(){
-        msg = "Hi! I'd like to order from Soffice Essenza.\n\n" + lines.join("\n");
         chips([
           { label:"✓ Send on WhatsApp", cls:"go", on:function(){ send(msg); } },
           { label:"↺ Start over", cls:"alt", on:function(){ start(); } }
