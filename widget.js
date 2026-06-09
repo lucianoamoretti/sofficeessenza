@@ -265,15 +265,21 @@
   }
   function finalize(){
     var multi = state.items.length > 1;
+    var total = 0;
     var parts = ["Hi! I'd like to order from Soffice Essenza.", "Name: " + state.name, ""];
     var disp = [];
     state.items.forEach(function(it, i){
+      var q = parseInt(it.qty, 10); if(isNaN(q)) q = 1;
+      total += q;
       parts.push(multi ? ("Candle " + (i + 1) + ":") : "Order:");
       itemLines(it).forEach(function(l){ parts.push("  " + l); });
       parts.push("");
       disp.push((multi ? "• " : "") + itemShort(it));
     });
-    var msg = parts.join("\n").replace(/\n+$/, "");
+    var totalLine = "Total: " + total + (total === 1 ? " candle" : " candles");
+    parts.push(totalLine);
+    disp.push(totalLine);
+    var msg = parts.join("\n").replace(/\n{3,}/g, "\n\n").replace(/\n+$/, "");
     bot("Here's your order, " + state.name + ":\n\n" + disp.join("\n"), function(){
       bot("Tap below to send it to us on WhatsApp and we'll confirm everything 💛", function(){
         chips([
