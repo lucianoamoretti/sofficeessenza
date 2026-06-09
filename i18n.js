@@ -124,6 +124,7 @@
     "Or type another colour…":{it:"Oppure scrivi un altro colore…",pt:"Ou digite outra cor…"},
     "Send on WhatsApp":{it:"Invia su WhatsApp",pt:"Enviar no WhatsApp"},
     "Choose a model and colour to continue":{it:"Scegli modello e colore per continuare",pt:"Escolha modelo e cor para continuar"},
+    "Add to cart":{it:"Aggiungi al carrello",pt:"Adicionar ao carrinho"},
     "Prefer to chat? Order with the assistant":{it:"Preferisci chattare? Ordina con l'assistente",pt:"Prefere conversar? Peça com o assistente"},
     /* ===== Carezza ===== */
     "Warmth you can feel.":{it:"Un calore che si sente.",pt:"Um calor que você sente."},
