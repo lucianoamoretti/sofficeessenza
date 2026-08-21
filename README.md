@@ -1,29 +1,38 @@
 # Soffice Essenza
 
-Storefront for **Soffice Essenza by Paola**, artisan scented candles. A vibrant Pride home page that opens onto four collections.
+Storefront for **Soffice Essenza by Paola**, artisan candles handmade in Dublin, Ireland. A seasonal home page that opens onto the collections.
 
-Minimalist, editorial design (inspired by premium candle brands like Osar): off-white background, generous whitespace, refined serif + clean sans typography, subtle gold accents, product-centric grid. The home page adds modern, interactive movement for Pride Month.
+Minimalist, editorial design (inspired by premium candle brands like Osar): off-white background, generous whitespace, refined serif + clean sans typography, subtle gold accents, product-centric grid. The home page adds modern, interactive movement for the season on show.
+
+Live at **https://sofficeessenza.ie** (custom domain, `CNAME`).
 
 ## Pages
-- **Light Your Pride** (`index.html`) — **home / Pride** landing. Decorative, unscented soy-wax candles handmade in Dublin, in the six rainbow-flag colours. Three shapes — The Arc (157 g · €8), The Trunk (195 g · €10), The Pillar (187 g · €9) — each in 6 colours or as a full set. Animated rainbow aurora, flowing gradient headline, mouse parallax, marquee, count-up 10% donation, colour palette, how-to-order, portal to other collections. 🌈
+- **Autumn** (`index.html`) — **home / seasonal landing**. The Autumn Edit: six seasonal scents (Crackling Log Fire, Cinnamon, Salted Caramel, Mahogany Teakwood, Warming Cashmere, Christmas Spice) and three formats (Glass Jar, Travel Tin, Moulded Pillar). No fixed prices — the price is confirmed on WhatsApp. Warm aurora, falling leaves, flowing gradient headline, mouse parallax, marquee, autumn palette, how-to-order, portal to the other collections. 🍂
+- **Light Your Pride** (`pride.html`) — the Pride collection, archived off the main nav between seasons and linked from the footer and the home portal. Decorative, unscented soy-wax candles in the six rainbow-flag colours: The Arc (157 g · €8), The Trunk (195 g · €10), The Pillar (187 g · €9). **10% of every sale** goes to **Outhouse LGBTQ+ Centre, Dublin** (outhouse.ie). Returns to the home page each June.
 - **Mare** (`mare.html`) — sea, dusty-blue accent.
 - **Mini Pets** (`minipets.html`) — warm taupe accent, give-back (supports animals).
 - **Namaste** (`namaste.html`) — sage accent, meditative.
-- **Scents** (`scents.html`) — full fragrance menu (34 scents, 7 families) with live search, category filter and per-scent WhatsApp ordering. Linked from the nav on every page.
+- **Carezza** (`carezza.html`) — wellness and massage candles, soy & shea.
+- **Scents** (`scents.html`) — full fragrance menu (30+ scents, 7 families) with live search, category filter and per-scent ordering. Linked from the nav on every page.
 
-**Light Your Pride**: **10% of every sale** goes to **Outhouse LGBTQ+ Centre, Dublin** (outhouse.ie). Instagram: **@soffice.essenza** · Dublin, Ireland. Content from the official brochure.
+Instagram: **@soffice.essenza** · WhatsApp: **+353 83 440 8449** · Dublin, Ireland.
 
-Collection pages: sticky header with the **Soffice Essenza by Paola** logo, split hero, brand statement, 3-product grid (each "Buy" opens WhatsApp), specs strip and footer. Shared identity: official logo (`images/logo.png`), gold scallop-shell divider, gold accents, specs (Soy wax · 170 g · 20 h burn).
+## Shared scripts (on every page)
+- `cart.js` — site-wide cart in `localStorage`. Auto-wires every `.product` card: clicking opens a configurator (scent + colour + quantity), then a slide-in drawer checks out through WhatsApp. Cards may declare `data-scents="A|B|C"` to limit the scent list and `data-nocolour="1"` to skip the colour step; a card with no `.product-price` simply carries no price.
+- `widget.js` — floating WhatsApp button and chatbot. Name capture, page-aware shortcut, scent search, the Autumn flow, custom orders, quick FAQ; configured candles go into the same cart. UI is localised, the WhatsApp order message stays English.
+- `i18n.js` — EN (default) / IT / PT-BR. Injects the EN·IT·PT switcher into `.nav`, translates text nodes through the dictionary `D` (English source → `{it, pt}`), and remembers the choice. Proper nouns — collection names, scent names, colours — stay English by design.
 
-Product images are elegant placeholders (minimal CSS candle in a tinted tile). Swap any for a real photo: replace the inline `<svg class="candle">` with `<img src="images/your-photo.jpg" alt="">`.
+Load order on every page: `i18n.js`, then `cart.js`, then `widget.js` (all `defer`).
+
+## Swapping the seasonal home page
+The home page is whichever collection is in season. To rotate it: rename the current `index.html` to its own page (as `pride.html` was), drop the new landing in as `index.html`, then update the nav link and the footer "Collections" list on every page.
+
+Collection pages: sticky header with the **Soffice Essenza by Paola** logo, split hero, brand statement, 3-product grid, specs strip and footer. Shared identity: official logo (`images/logo.png`), gold scallop-shell divider, gold accents.
+
+Product images are elegant placeholders (minimal inline-SVG candle in a tinted tile). Swap any for a real photo: replace the inline `<svg class="shape">` / `<svg class="candle">` with `<img src="images/your-photo.jpg" alt="">`.
 
 ## Stack
-Plain HTML/CSS/JS, single file per page. Google Fonts: Cormorant Garamond, Inter, Pinyon Script. Brand logo: `images/logo.png`; flame favicon: `favicon.svg`.
+Plain HTML/CSS/JS, single file per page, no build step. Google Fonts: Cormorant Garamond, Inter, Pinyon Script. Flame favicon: `favicon.svg`.
 
 ## Hosting
-Served via GitHub Pages.
-
-## To customise
-- Instagram / WhatsApp links in each page footer
-- Candle names, scents and prices
-- Replace `favicon.svg` with the official logo PNG if desired
+GitHub Pages, custom domain `sofficeessenza.ie`.

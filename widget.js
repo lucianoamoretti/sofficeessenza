@@ -15,6 +15,8 @@
   };
   var ALL_SCENTS = []; Object.keys(SCENTS).forEach(function(k){ ALL_SCENTS = ALL_SCENTS.concat(SCENTS[k]); });
   var COLOURS = [["White","#f4f1ea"],["Cream","#efe2c8"],["Sand","#e3cfa3"],["Gold","#c9a86a"],["Yellow","#ffd166"],["Orange","#f4a261"],["Coral","#ff7f6b"],["Red","#e63946"],["Pink","#ff8fab"],["Fuchsia","#d6336c"],["Purple","#8338ec"],["Lavender","#b8a4e3"],["Navy","#2b3a67"],["Blue","#3a86ff"],["Sky","#7ec8e3"],["Teal","#2a9d8f"],["Green","#4caf50"],["Sage","#9caf88"],["Brown","#8a5a44"],["Grey","#9aa0a6"],["Black","#2b2b2b"]];
+  var AUTUMN = ["Crackling Log Fire","Cinnamon","Salted Caramel","Mahogany Teakwood","Warming Cashmere","Christmas Spice"];
+  var AUTUMN_FORMATS = ["Glass Jar","Travel Tin","Moulded Pillar"];
   var PRIDE = [["The Arc","8"],["The Trunk","10"],["The Pillar","9"]];
   var PRIDE_COLS = [["Red","#e63946"],["Orange","#f4a261"],["Yellow","#ffd166"],["Green","#2a9d8f"],["Blue","#3a86ff"],["Purple","#8338ec"]];
 
@@ -32,6 +34,11 @@
       "I'm someone else":"Sono un'altra persona",
       "Lovely to meet you, {n}! What can I help you with?":"Piacere, {n}! Come posso aiutarti?",
       "🕯️ A scented candle":"🕯️ Una candela profumata",
+      "🍂 An Autumn candle":"🍂 Una candela Autumn",
+      "Our Autumn edit 🍂 Which scent?":"La nostra selezione Autumn 🍂 Quale profumo?",
+      "Which format would you like?":"Quale formato preferisci?",
+      "🔎 Another scent":"🔎 Un altro profumo",
+      "Not sure yet":"Non lo so ancora",
       "🌈 Light Your Pride":"🌈 Light Your Pride",
       "✨ Custom order":"✨ Ordine personalizzato",
       "❓ Quick questions":"❓ Domande rapide",
@@ -110,6 +117,11 @@
       "I'm someone else":"Sou outra pessoa",
       "Lovely to meet you, {n}! What can I help you with?":"Prazer, {n}! Como posso ajudar?",
       "🕯️ A scented candle":"🕯️ Uma vela perfumada",
+      "🍂 An Autumn candle":"🍂 Uma vela Autumn",
+      "Our Autumn edit 🍂 Which scent?":"Nossa seleção Autumn 🍂 Qual aroma?",
+      "Which format would you like?":"Qual formato você prefere?",
+      "🔎 Another scent":"🔎 Outro aroma",
+      "Not sure yet":"Ainda não sei",
       "🌈 Light Your Pride":"🌈 Light Your Pride",
       "✨ Custom order":"✨ Pedido personalizado",
       "❓ Quick questions":"❓ Perguntas rápidas",
@@ -309,6 +321,7 @@
     if(PAGE==="minipets.html") return { label:w("🐾 A Mini Pets candle"), on:function(){ user(w("🐾 A Mini Pets candle")); state.cur={intent:"scented"}; askCategory(); } };
     if(PAGE==="namaste.html") return { label:w("🧘 A Namaste candle"), on:function(){ user(w("🧘 A Namaste candle")); state.cur={intent:"scented"}; askCategory(); } };
     if(PAGE==="carezza.html") return { label:w("🤲 A Carezza candle"), on:function(){ user(w("🤲 A Carezza candle")); state.cur={intent:"scented"}; askCategory(); } };
+    if(PAGE==="pride.html") return { label:w("🌈 Light Your Pride"), on:function(){ user(w("🌈 Light Your Pride")); state.cur={intent:"pride"}; pShape(); } };
     return null;
   }
   function nameInput(next){
@@ -336,7 +349,7 @@
       chips([
         ctxChip(),
         { label:w("🕯️ A scented candle"), on:function(){ user(w("🕯️ A scented candle")); state.cur={intent:"scented"}; askCategory(); } },
-        { label:w("🌈 Light Your Pride"), on:function(){ user(w("🌈 Light Your Pride")); state.cur={intent:"pride"}; pShape(); } },
+        { label:w("🍂 An Autumn candle"), on:function(){ user(w("🍂 An Autumn candle")); state.cur={intent:"autumn"}; aScent(); } },
         { label:w("✨ Custom order"), on:function(){ user(w("✨ Custom order")); state.cur={intent:"custom"}; custom(); } },
         { label:w("❓ Quick questions"), on:function(){ user(w("❓ Quick questions")); faq(); } },
         { label:w("💬 Talk on WhatsApp"), cls:"go", on:function(){ send(w("Hi! I'm {n} and I'd like to chat about Soffice Essenza candles.").replace("{n}",state.name||"")); } }
@@ -397,6 +410,21 @@
       input(w("Add a note…"), function(v){ state.cur.note=v; if(v) user(v); finishItem(); }, true);
     });
   }
+  /* autumn */
+  function aScent(){
+    bot(w("Our Autumn edit 🍂 Which scent?"), function(){
+      var opts = AUTUMN.map(function(s){ return { label:s, on:function(){ user(s); state.cur.scent=s; aFormat(); } }; });
+      opts.push({ label:w("🔎 Another scent"), cls:"alt", on:function(){ state.cur={intent:"scented"}; askCategory(); } });
+      chips(opts);
+    });
+  }
+  function aFormat(){
+    bot(w("Which format would you like?"), function(){
+      var opts = AUTUMN_FORMATS.map(function(m){ return { label:m, on:function(){ user(m); state.cur.model=m; askColour(); } }; });
+      opts.push({ label:w("Not sure yet"), cls:"alt", on:function(){ user(w("Not sure yet")); state.cur.model="To be confirmed"; askColour(); } });
+      chips(opts);
+    });
+  }
   /* pride */
   function pShape(){
     bot(w("The Light Your Pride candles are decorative and unscented 🌈 Which shape?"), function(){
@@ -434,7 +462,8 @@
   /* finish / multi-item */
   function finishItem(){
     var c=state.cur, it;
-    if(c.intent==="pride") it={ coll:"Light Your Pride", name:c.model, colour:c.colour, price:(c.price?parseFloat(c.price):null), qty:parseQty(c.qty) };
+    if(c.intent==="autumn") it={ coll:"Autumn", name:c.scent, model:c.model, colour:c.colour, note:c.note, price:null, qty:parseQty(c.qty) };
+    else if(c.intent==="pride") it={ coll:"Light Your Pride", name:c.model, colour:c.colour, price:(c.price?parseFloat(c.price):null), qty:parseQty(c.qty) };
     else if(c.intent==="custom") it={ coll:"Custom", name:"Custom order", note:c.custom, price:null, qty:1 };
     else it={ coll:"Scented", name:c.scent, model:c.model, colour:c.colour, note:c.note, price:null, qty:parseQty(c.qty) };
     if(window.SECart) window.SECart.add(it);
@@ -451,7 +480,7 @@
     bot(w("What would you like to add?"), function(){
       chips([
         { label:w("🕯️ A scented candle"), on:function(){ user(w("🕯️ A scented candle")); state.cur={intent:"scented"}; askCategory(); } },
-        { label:w("🌈 Light Your Pride"), on:function(){ user(w("🌈 Light Your Pride")); state.cur={intent:"pride"}; pShape(); } },
+        { label:w("🍂 An Autumn candle"), on:function(){ user(w("🍂 An Autumn candle")); state.cur={intent:"autumn"}; aScent(); } },
         { label:w("✨ Custom order"), on:function(){ user(w("✨ Custom order")); state.cur={intent:"custom"}; custom(); } }
       ]);
     });

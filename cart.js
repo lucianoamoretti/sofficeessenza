@@ -169,6 +169,7 @@
   var COLP=[["White","#f4f1ea"],["Cream","#efe2c8"],["Sand","#e3cfa3"],["Gold","#c9a86a"],["Yellow","#ffd166"],["Orange","#f4a261"],["Coral","#ff7f6b"],["Red","#e63946"],["Pink","#ff8fab"],["Fuchsia","#d6336c"],["Purple","#8338ec"],["Lavender","#b8a4e3"],["Navy","#2b3a67"],["Blue","#3a86ff"],["Sky","#7ec8e3"],["Teal","#2a9d8f"],["Green","#4caf50"],["Sage","#9caf88"],["Brown","#8a5a44"],["Grey","#9aa0a6"],["Black","#2b2b2b"]];
   var PRIDE6=[["Red","#e63946"],["Orange","#f4a261"],["Yellow","#ffd166"],["Green","#2a9d8f"],["Blue","#3a86ff"],["Purple","#8338ec"]];
   function suggest(coll){ var c=(coll||"").toLowerCase();
+    if(c.indexOf("autumn")>=0) return ["Crackling Log Fire","Cinnamon","Salted Caramel","Mahogany Teakwood","Warming Cashmere","Christmas Spice"];
     if(c.indexOf("mare")>=0) return ["Sweet Lime","Lemongrass","Passion Fruit & Mango","Watermelon Lemonade","Sandalwood"];
     if(c.indexOf("mini")>=0) return ["Vanilla","Baby Powder","Cotton","Vanilla Cream","Spring Unstoppables"];
     if(c.indexOf("namast")>=0) return ["Sandalwood","Lavender","Nag Champa","Lavender, Chamomile & Vanilla","French Vanilla"];

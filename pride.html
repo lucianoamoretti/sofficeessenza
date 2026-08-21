@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Soffice Essenza — Light Your Pride · Pride Collection</title>
+<meta name="description" content="Light Your Pride — handcrafted decorative candles in the colours of the rainbow flag, made by hand in Dublin. A candle for every colour of who you are. 10% of every sale goes to Outhouse LGBTQ+ Centre, Dublin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+/* ============ TOKENS ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f4ef;--bg-soft:#f1ece4;--ink:#1b1916;--ink-2:#6b6358;--ink-3:#9c948860;--line:#e6ded3;
+  --gold:#a8843f;--gold-2:#c9a86a;
+  --p-red:#e63946;--p-orange:#f4a261;--p-yellow:#ffd166;--p-green:#2a9d8f;--p-blue:#3a86ff;--p-violet:#8338ec;
+  --serif:'Cormorant Garamond',serif;--sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;font-weight:300;overflow-x:hidden}
+::selection{background:var(--p-violet);color:#fff}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+.eyebrow{font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);font-weight:500}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ HEADER ============ */
+.header{position:sticky;top:0;z-index:60;background:rgba(247,244,239,.82);backdrop-filter:blur(12px);transition:box-shadow .3s}
+.header.scrolled{box-shadow:0 1px 0 var(--line)}
+.header-in{display:flex;align-items:center;justify-content:space-between;gap:clamp(14px,3vw,32px);height:78px}
+.brand{display:inline-flex;align-items:center;line-height:0;flex:0 0 auto}
+.brand-logo{height:60px;width:auto;display:block}
+.nav{display:flex;align-items:center;gap:clamp(16px,2.6vw,36px)}
+.nav a{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-2);font-weight:400;position:relative;padding:4px 0;transition:color .2s}
+.nav a::after{content:'';position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--gold);transition:width .3s}
+.nav a:hover{color:var(--ink)}.nav a:hover::after{width:100%}
+.nav a.active{color:var(--ink)}
+.nav a.pride{font-weight:600;background:linear-gradient(90deg,var(--p-red),var(--p-orange),var(--p-green),var(--p-blue),var(--p-violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav a.autumn{font-weight:600;background:linear-gradient(90deg,#b5502f,#c8862f,#c9a227);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.season-note{background:#f1ece4;border-bottom:1px solid var(--line);text-align:center;padding:12px 0;font-size:12.5px;color:var(--ink-2)}
+.season-note a{color:#b5502f;font-weight:600;border-bottom:1px solid rgba(181,80,47,.4);padding-bottom:1px}
+.season-note a:hover{color:#8f3d22}
+.nav a.pride.active::after{width:100%;background:linear-gradient(90deg,var(--p-red),var(--p-violet))}
+@media(max-width:680px){.brand-logo{height:36px}.header-in{height:64px}.nav{gap:13px}.nav a{font-size:10px;letter-spacing:1px}}
+
+/* ============ MARQUEE ============ */
+.marquee{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-soft);padding:11px 0}
+.marquee-track{display:inline-flex;white-space:nowrap;will-change:transform;animation:slide 32s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee span{font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:500;padding:0 26px;color:var(--ink)}
+.marquee span b{background:linear-gradient(90deg,var(--p-red),var(--p-orange),var(--p-yellow),var(--p-green),var(--p-blue),var(--p-violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;padding:60px 0}
+.aurora{position:absolute;inset:-20%;z-index:0;pointer-events:none;filter:blur(70px);opacity:.85}
+.blob{position:absolute;width:46vw;height:46vw;border-radius:50%;mix-blend-mode:multiply;animation:floaty 18s ease-in-out infinite}
+.blob.b1{background:radial-gradient(circle,var(--p-red),transparent 70%);top:-6%;left:-4%}
+.blob.b2{background:radial-gradient(circle,var(--p-violet),transparent 70%);top:6%;right:-8%;animation-delay:-4s}
+.blob.b3{background:radial-gradient(circle,var(--p-blue),transparent 70%);bottom:-12%;left:18%;animation-delay:-8s}
+.blob.b4{background:radial-gradient(circle,var(--p-orange),transparent 70%);bottom:0;right:14%;animation-delay:-12s}
+.blob.b5{background:radial-gradient(circle,var(--p-green),transparent 70%);top:30%;left:34%;width:34vw;height:34vw;animation-delay:-6s}
+@keyframes floaty{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(4vw,-3vw) scale(1.12)}66%{transform:translate(-3vw,3vw) scale(.92)}}
+.hero-in{position:relative;z-index:2;width:100%;text-align:center}
+.hero .kick{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--ink);font-weight:600;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);padding:9px 18px;border-radius:40px;backdrop-filter:blur(6px)}
+.hero .kick .pulse{width:8px;height:8px;border-radius:50%;background:linear-gradient(90deg,var(--p-red),var(--p-violet));animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(52px,10vw,150px);line-height:.92;letter-spacing:1px;margin:26px auto 0;max-width:16ch;
+  background:linear-gradient(90deg,var(--p-red),var(--p-orange),var(--p-yellow),var(--p-green),var(--p-blue),var(--p-violet),var(--p-red));
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 8s linear infinite}
+@keyframes flow{to{background-position:200% center}}
+.hero .sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(20px,2.8vw,34px);color:var(--ink);margin-top:10px}
+.hero .desc{font-size:16px;color:var(--ink-2);max-width:56ch;margin:24px auto 0;line-height:1.85}
+.hero .loc{margin-top:22px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-2)}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;padding:15px 30px;border-radius:40px;transition:transform .25s,box-shadow .25s,background .25s,color .25s}
+.btn-primary{color:#fff;background:linear-gradient(90deg,var(--p-red),var(--p-orange),var(--p-green),var(--p-blue),var(--p-violet));background-size:200% auto;box-shadow:0 10px 30px rgba(131,56,236,.25);animation:flow 6s linear infinite}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(131,56,236,.35)}
+.btn-ghost{color:var(--ink);border:1px solid var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff;transform:translateY(-3px)}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint .ln{width:1px;height:34px;background:linear-gradient(var(--ink-2),transparent);animation:drop 2s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ============ ABOUT ============ */
+.about{padding:clamp(70px,10vw,130px) 0;text-align:center}
+.about h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.5vw,54px);line-height:1.15;color:var(--ink)}
+.about .eyebrow{margin-bottom:18px}
+.about p{font-size:15.5px;color:var(--ink-2);max-width:58ch;margin:26px auto 0;line-height:2}
+.tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:30px}
+.tags span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);padding:8px 16px;border-radius:40px}
+
+/* ============ COLLECTION (shapes) ============ */
+.products{padding:0 0 clamp(50px,7vw,90px)}
+.sec-head{text-align:center;margin-bottom:clamp(34px,5vw,56px)}
+.sec-head .eyebrow{margin-bottom:12px}
+.sec-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,5vw,60px);line-height:1.1;color:var(--ink)}
+.sec-head .lead{font-size:14px;color:var(--ink-2);margin-top:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
+@media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.grid{grid-template-columns:1fr;max-width:360px;margin:0 auto}}
+.product-media{display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;border-radius:3px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fff,#f1ece4)}
+.product-media::before{content:'';position:absolute;inset:0;opacity:.12;transition:opacity .5s;background:linear-gradient(135deg,var(--p-red),var(--p-orange),var(--p-green),var(--p-blue),var(--p-violet));background-size:200% 200%;animation:flow 9s linear infinite}
+.product:hover .product-media::before{opacity:.24}
+.product-media .shape{position:relative;z-index:1;width:55%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.product:hover .product-media .shape{transform:translateY(-6px) scale(1.05)}
+.product-media .tag{position:absolute;left:16px;top:16px;z-index:1;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#fff;font-weight:600;background:rgba(27,25,22,.5);padding:5px 11px;border-radius:20px;backdrop-filter:blur(4px)}
+.product-info{padding-top:20px}
+.product-coll{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600}
+.product-name{font-family:var(--serif);font-size:27px;font-weight:500;color:var(--ink);margin-top:6px}
+.product-notes{font-size:13px;color:var(--ink-2);margin-top:6px}
+.product-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.product-price{font-size:18px;color:var(--ink);letter-spacing:.5px}
+.btn-buy{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#fff;border:none;background:linear-gradient(90deg,var(--p-violet),var(--p-blue));background-size:200% auto;padding:10px 22px;border-radius:40px;transition:transform .25s,background-position .4s}
+.btn-buy:hover{transform:translateY(-2px);background-position:right center}
+.give-line{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-top:12px}
+.set-note{text-align:center;margin-top:clamp(34px,5vw,52px);font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.4vw,26px);color:var(--ink-2)}
+
+/* ============ PALETTE ============ */
+.palette{padding:clamp(70px,10vw,120px) 0;border-top:1px solid var(--line);text-align:center}
+.palette h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.5vw,54px);color:var(--ink)}
+.palette .eyebrow{margin-bottom:14px}
+.swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:clamp(34px,5vw,52px)}
+@media(max-width:760px){.swatches{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:420px){.swatches{grid-template-columns:repeat(2,1fr)}}
+.swatch{display:flex;flex-direction:column;align-items:center;gap:14px;padding:26px 10px;border:1px solid var(--line);border-radius:6px;transition:transform .3s,box-shadow .3s,border-color .3s}
+.swatch:hover{transform:translateY(-6px);box-shadow:0 14px 34px rgba(0,0,0,.07)}
+.swatch .dot{width:44px;height:44px;border-radius:50%;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.swatch b{font-family:var(--serif);font-size:19px;font-weight:500;color:var(--ink)}
+.swatch span{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-2)}
+
+/* ============ GIVING ============ */
+.give{text-align:center;padding:clamp(70px,10vw,130px) 0;border-top:1px solid var(--line)}
+.give .num{font-family:var(--serif);font-weight:300;font-size:clamp(110px,20vw,260px);line-height:.85;
+  background:linear-gradient(120deg,var(--p-red),var(--p-orange),var(--p-yellow),var(--p-green),var(--p-blue),var(--p-violet));
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 7s linear infinite}
+.give .cap{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--ink-2);margin-top:6px}
+.give h2{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(26px,4vw,44px);color:var(--ink);margin-top:22px;line-height:1.35}
+.give p{font-size:15px;color:var(--ink-2);max-width:58ch;margin:24px auto 0;line-height:1.95}
+.give .ngo{display:inline-flex;align-items:center;gap:8px;margin-top:26px;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--ink);border:1px solid var(--ink);padding:13px 26px;border-radius:40px;transition:background .25s,color .25s,transform .25s}
+.give .ngo:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
+
+/* ============ HOW TO ORDER ============ */
+.order{padding:clamp(70px,10vw,120px) 0;border-top:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,4vw,48px);margin-top:clamp(34px,5vw,56px)}
+@media(max-width:760px){.steps{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
+.step{text-align:center}
+.step .n{font-family:var(--serif);font-weight:300;font-size:64px;line-height:1;
+  background:linear-gradient(120deg,var(--p-red),var(--p-violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.step h3{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--ink);margin-top:12px}
+.step p{font-size:14px;color:var(--ink-2);margin-top:10px;line-height:1.8;max-width:30ch;margin-left:auto;margin-right:auto}
+
+/* ============ SCENTS ============ */
+.scents{padding:clamp(70px,10vw,120px) 0;border-top:1px solid var(--line)}
+.scents .lead{font-size:14px;color:var(--ink-2);margin-top:14px;max-width:62ch;margin-left:auto;margin-right:auto;line-height:1.8}
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2.4vw,28px);margin-top:clamp(34px,5vw,52px)}
+@media(max-width:720px){.cats{grid-template-columns:1fr}}
+.cat{border:1px solid var(--line);border-radius:8px;padding:26px clamp(20px,2.4vw,30px);background:rgba(255,255,255,.45);transition:border-color .3s,box-shadow .3s}
+.cat:hover{border-color:var(--gold-2);box-shadow:0 12px 30px rgba(0,0,0,.05)}
+.cat.wide{grid-column:1/-1}
+.cat h3{font-family:var(--serif);font-weight:500;font-size:22px;color:var(--ink);letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:13px}
+.cat-ic{width:38px;height:38px;border:1px solid var(--gold-2);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.cat-ic svg{width:20px;height:20px;fill:none;stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.cat ul{list-style:none;margin-top:16px;columns:2;column-gap:24px}
+.cat.wide ul{columns:3}
+@media(max-width:480px){.cat ul,.cat.wide ul{columns:1}}
+.cat li{font-size:14px;color:var(--ink-2);padding:5px 0 5px 16px;position:relative;break-inside:avoid}
+.cat li::before{content:'·';position:absolute;left:2px;color:var(--gold);font-weight:700}
+.scent-extra{margin-top:clamp(34px,5vw,48px);text-align:center}
+.custom-pill{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--ink);border:1px solid var(--gold);padding:13px 28px;border-radius:40px}
+.custom-pill .h{color:var(--p-red)}
+.badges{display:flex;flex-wrap:wrap;justify-content:center;gap:14px clamp(20px,4vw,44px);margin-top:28px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-2)}
+.badges span{display:flex;align-items:center;gap:14px}
+.badges span::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold-2)}
+.badges span:first-child::before{display:none}
+
+/* ============ PORTAL ============ */
+.portal{padding:clamp(70px,10vw,120px) 0;border-top:1px solid var(--line)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,28px);margin-top:clamp(34px,5vw,52px)}
+@media(max-width:820px){.cards{grid-template-columns:1fr}}
+.coll-card{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:300px;padding:30px;border-radius:4px;overflow:hidden;background:var(--ct);transition:transform .4s}
+.coll-card:hover{transform:translateY(-6px)}
+.coll-card .cc-flame{position:absolute;right:22px;top:22px;width:26px;opacity:.5;transition:transform .5s}
+.coll-card:hover .cc-flame{transform:translateY(-4px) scale(1.1)}
+.coll-card .cc-eyebrow{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ca);font-weight:600}
+.coll-card h3{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4vw,46px);color:var(--ink);margin-top:6px;line-height:1}
+.coll-card p{font-size:13px;color:var(--ink-2);margin-top:10px;max-width:30ch}
+.coll-card .go{margin-top:18px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--ink);display:inline-flex;gap:8px;transition:gap .25s}
+.coll-card:hover .go{gap:14px}
+.c-aut{--ct:#f0e2d0;--ca:#b5502f}.c-mare{--ct:#e4ebee;--ca:#5f7d92}.c-pets{--ct:#ece3d7;--ca:#9c7c5c}.c-nama{--ct:#e6e7df;--ca:#7d8472}.c-care{--ct:#efe3da;--ca:#bb8f7a}
+
+/* ============ FOOTER ============ */
+.footer{padding:clamp(56px,8vw,96px) 0 36px;border-top:1px solid var(--line)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;padding-bottom:48px}
+.footer h5{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:18px}
+.footer ul{list-style:none}.footer li{margin-bottom:11px}
+.footer li a,.footer-note{font-size:13px;color:var(--ink-2);transition:color .2s}
+.footer li a:hover{color:var(--gold)}
+.footer-brand .brand{margin-bottom:18px}.footer-brand .brand-logo{height:88px}
+.footer-note{max-width:34ch;line-height:1.8}
+.footer-social{display:flex;gap:10px;margin-top:18px}
+.footer-social a{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);border:1px solid var(--line);padding:9px 16px;border-radius:2px;transition:border-color .2s,color .2s}
+.footer-social a:hover{border-color:var(--gold);color:var(--gold)}
+.footer-bottom{border-top:1px solid var(--line);padding-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:11px;letter-spacing:1px;color:var(--ink-3)}
+@media(max-width:760px){.footer-grid{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}}
+@media(max-width:460px){.footer-grid{grid-template-columns:1fr}}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none}}
+.nav{min-width:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:0 0 auto;white-space:nowrap}
+
+@media(max-width:680px){
+.header-in{flex-direction:column;height:auto;gap:10px;padding:12px 0}
+.brand{align-self:center}
+.brand-logo{height:38px}
+.nav{width:100%;justify-content:center;flex-wrap:wrap;overflow:visible;gap:10px 18px;min-width:0}
+.nav a{font-size:11px;letter-spacing:1.2px}
+.se-lang{margin-left:0}
+.tools{position:static}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="wrap header-in">
+    <a class="brand" href="index.html"><img class="brand-logo" src="images/logo-wide.png" alt="Soffice Essenza by Paola — Scented Candles"></a>
+    <nav class="nav">
+      <a href="index.html" class="autumn">Autumn</a>
+      <a href="pride.html" class="pride active">Pride</a>
+      <a href="mare.html">Mare</a>
+      <a href="minipets.html">Mini Pets</a>
+      <a href="namaste.html">Namaste</a>
+      <a href="carezza.html">Carezza</a>
+      <a href="scents.html">Scents</a>
+    </nav>
+  </div>
+</header>
+
+<!-- SEASONAL NOTE -->
+<div class="season-note">
+  <div class="wrap">A seasonal collection — Light Your Pride returns every June. <a href="index.html">Discover the Autumn Collection →</a></div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Light Your Pride</span><span><b>Handcrafted in Dublin</b></span><span>10% to Outhouse</span><span>A candle for every colour</span><span><b>No two alike</b></span>
+    <span>Light Your Pride</span><span><b>Handcrafted in Dublin</b></span><span>10% to Outhouse</span><span>A candle for every colour</span><span><b>No two alike</b></span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="aurora" id="aurora">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span><span class="blob b5"></span>
+  </div>
+  <div class="wrap hero-in">
+    <span class="kick reveal"><span class="pulse"></span> Pride Collection · Handcrafted in Dublin</span>
+    <h1 class="reveal">Light Your Pride</h1>
+    <p class="sub reveal">A candle for every colour of who you are.</p>
+    <p class="desc reveal">A collection of handcrafted decorative candles, each one a celebration of identity, love and community. Part of every sale goes directly to Outhouse LGBTQ+ Centre, Dublin.</p>
+    <p class="loc reveal">Dublin · Ireland · 🏳️‍🌈</p>
+    <div class="hero-cta reveal">
+      <a href="#collection" class="btn btn-primary">See the collection</a>
+      <a href="#give" class="btn btn-ghost">How we give back</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>scroll</span><span class="ln"></span></div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="wrap">
+    <p class="eyebrow reveal">About the collection</p>
+    <h2 class="reveal">Born from colour,<br>shaped with intention</h2>
+    <p class="reveal">Light Your Pride is a collection of decorative soy wax candles, handcrafted in Dublin in the colours of the rainbow flag. Each piece is made by hand — no two are exactly alike. Designed to be displayed, gifted and cherished, they carry no fragrance — only colour, form and meaning. A quiet celebration of pride, every single day.</p>
+    <div class="tags reveal"><span>Handmade in Dublin</span><span>Decorative</span><span>Unscented</span><span>Soy wax</span><span>One of a kind</span></div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section class="products" id="collection">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow reveal">The Collection</p>
+      <h2 class="reveal">Three shapes, six colours</h2>
+      <p class="lead reveal">Each candle is handcrafted in one of the six colours of the rainbow flag — available individually or as a complete set.</p>
+    </div>
+    <div class="grid">
+
+      <article class="product reveal">
+        <a class="product-media" href="https://wa.me/353834408449?text=Hi%2C%20I%27d%20like%20to%20order%20The%20Arc%20(Light%20Your%20Pride).%20My%20colour%3A%20" target="_blank" rel="noopener">
+          <span class="tag">6 colours</span>
+          <svg class="shape" viewBox="0 0 120 116" aria-hidden="true">
+            <g fill="none" stroke-width="8.5" stroke-linecap="round">
+              <path d="M12 104 A48 48 0 0 1 108 104" stroke="#e63946"/>
+              <path d="M23 104 A37 37 0 0 1 97 104" stroke="#f4a261"/>
+              <path d="M33 104 A27 27 0 0 1 87 104" stroke="#ffd166"/>
+              <path d="M43 104 A17 17 0 0 1 77 104" stroke="#2a9d8f"/>
+              <path d="M51 104 A9 9 0 0 1 69 104" stroke="#3a86ff"/>
+              <path d="M56 104 A4 4 0 0 1 64 104" stroke="#8338ec"/>
+            </g>
+          </svg>
+        </a>
+        <div class="product-info">
+          <p class="product-coll">Light Your Pride</p>
+          <h3 class="product-name">The Arc</h3>
+          <p class="product-notes">157 g · Decorative · Unscented</p>
+          <div class="product-foot"><span class="product-price">€ 8</span><a class="btn-buy" href="https://wa.me/353834408449?text=Hi%2C%20I%27d%20like%20to%20order%20The%20Arc%20(Light%20Your%20Pride).%20My%20colour%3A%20" target="_blank" rel="noopener">Order</a></div>
+          <p class="give-line">10% donated to Outhouse</p>
+        </div>
+      </article>
+
+      <article class="product reveal">
+        <a class="product-media" href="https://wa.me/353834408449?text=Hi%2C%20I%27d%20like%20to%20order%20The%20Trunk%20(Light%20Your%20Pride).%20My%20colour%3A%20" target="_blank" rel="noopener">
+          <span class="tag">6 colours</span>
+          <svg class="shape" viewBox="0 0 120 140" aria-hidden="true">
+            <defs><linearGradient id="lgTrunk" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#e63946"/><stop offset=".2" stop-color="#f4a261"/><stop offset=".4" stop-color="#ffd166"/><stop offset=".6" stop-color="#2a9d8f"/><stop offset=".8" stop-color="#3a86ff"/><stop offset="1" stop-color="#8338ec"/>
+            </linearGradient></defs>
+            <ellipse cx="60" cy="132" rx="40" ry="6" fill="#000" opacity=".06"/>
+            <path d="M26 56 Q60 38 94 56 L94 122 Q60 134 26 122 Z" fill="url(#lgTrunk)"/>
+            <line x1="60" y1="44" x2="60" y2="58" stroke="#7a6b50" stroke-width="2.5"/>
+            <path d="M60 26 C69 39 66 50 60 54 C54 50 51 39 60 26 Z" fill="#caa14d"/>
+          </svg>
+        </a>
+        <div class="product-info">
+          <p class="product-coll">Light Your Pride</p>
+          <h3 class="product-name">The Trunk</h3>
+          <p class="product-notes">195 g · Decorative · Unscented</p>
+          <div class="product-foot"><span class="product-price">€ 10</span><a class="btn-buy" href="https://wa.me/353834408449?text=Hi%2C%20I%27d%20like%20to%20order%20The%20Trunk%20(Light%20Your%20Pride).%20My%20colour%3A%20" target="_blank" rel="noopener">Order</a></div>
+          <p class="give-line">10% donated to Outhouse</p>
+        </div>
+      </article>
+
+      <article class="product reveal">
+        <a class="product-media" href="https://wa.me/353834408449?text=Hi%2C%20I%27d%20like%20to%20order%20The%20Pillar%20(Light%20Your%20Pride).%20My%20colour%3A%20" target="_blank" rel="noopener">
+          <span class="tag">6 colours</span>
+          <svg class="shape" viewBox="0 0 120 150" aria-hidden="true">
+            <defs><linearGradient id="lgPillar" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#e63946"/><stop offset=".2" stop-color="#f4a261"/><stop offset=".4" stop-color="#ffd166"/><stop offset=".6" stop-color="#2a9d8f"/><stop offset=".8" stop-color="#3a86ff"/><stop offset="1" stop-color="#8338ec"/>
+            </linearGradient></defs>
+            <ellipse cx="60" cy="143" rx="30" ry="5" fill="#000" opacity=".06"/>
+            <rect x="38" y="42" width="44" height="98" rx="9" fill="url(#lgPillar)"/>
+            <ellipse cx="60" cy="42" rx="22" ry="6" fill="#fff" fill-opacity=".25"/>
+            <line x1="60" y1="30" x2="60" y2="44" stroke="#7a6b50" stroke-width="2.5"/>
+            <path d="M60 12 C69 25 66 36 60 40 C54 36 51 25 60 12 Z" fill="#caa14d"/>
+          </svg>
+        </a>
+        <div class="product-info">
+          <p class="product-coll">Light Your Pride</p>
+          <h3 class="product-name">The Pillar</h3>
+          <p class="product-notes">187 g · Decorative · Unscented</p>
+          <div class="product-foot"><span class="product-price">€ 9</span><a class="btn-buy" href="https://wa.me/353834408449?text=Hi%2C%20I%27d%20like%20to%20order%20The%20Pillar%20(Light%20Your%20Pride).%20My%20colour%3A%20" target="_blank" rel="noopener">Order</a></div>
+          <p class="give-line">10% donated to Outhouse</p>
+        </div>
+      </article>
+
+    </div>
+    <p class="set-note reveal">Or take home the full rainbow — all six colours as a set.</p>
+  </div>
+</section>
+
+<!-- PALETTE -->
+<section class="palette">
+  <div class="wrap">
+    <p class="eyebrow reveal">Colour palette</p>
+    <h2 class="reveal">Every colour has a voice</h2>
+    <div class="swatches">
+      <div class="swatch reveal"><span class="dot" style="background:#e63946"></span><b>Red</b><span>Life</span></div>
+      <div class="swatch reveal"><span class="dot" style="background:#f4a261"></span><b>Orange</b><span>Healing</span></div>
+      <div class="swatch reveal"><span class="dot" style="background:#ffd166"></span><b>Yellow</b><span>Sun</span></div>
+      <div class="swatch reveal"><span class="dot" style="background:#2a9d8f"></span><b>Green</b><span>Nature</span></div>
+      <div class="swatch reveal"><span class="dot" style="background:#3a86ff"></span><b>Blue</b><span>Harmony</span></div>
+      <div class="swatch reveal"><span class="dot" style="background:#8338ec"></span><b>Purple</b><span>Spirit</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GIVING -->
+<section class="give" id="give">
+  <div class="wrap">
+    <p class="eyebrow reveal">Giving back</p>
+    <div class="num" id="giveNum" data-target="10">0%</div>
+    <p class="cap reveal">of every sale donated</p>
+    <h2 class="reveal">A small flame for a bigger cause.</h2>
+    <p class="reveal">For every Light Your Pride candle sold, 10% goes directly to Outhouse LGBTQ+ Centre in Dublin — a safe space for the community since 1997.</p>
+    <a class="ngo" href="https://outhouse.ie" target="_blank" rel="noopener">Outhouse LGBTQ+ Centre · Dublin →</a>
+  </div>
+</section>
+
+<!-- HOW TO ORDER -->
+<section class="order">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow reveal">How to order</p>
+      <h2 class="reveal">Simple, personal, handcrafted for you</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">01</div><h3>Choose</h3><p>Pick your shape and colour — or order the full rainbow set.</p></div>
+      <div class="step reveal"><div class="n">02</div><h3>Order</h3><p>Send a DM on Instagram or WhatsApp — we'll confirm and arrange delivery.</p></div>
+      <div class="step reveal"><div class="n">03</div><h3>Celebrate</h3><p>Your candle arrives handcrafted, unique and ready to light up your space.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENTS -->
+<section class="scents" id="scents">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow reveal">Scented Candles</p>
+      <h2 class="reveal" style="font-family:var(--serif);font-weight:300;font-size:clamp(32px,5vw,60px);color:var(--ink)">Choose your favourite scent</h2>
+      <p class="lead reveal">Our scented candles come in over thirty fragrances, handcrafted in natural soy wax — pick your favourite for any collection or a custom order. <em>(Light Your Pride is decorative and unscented.)</em></p>
+    </div>
+    <div class="cats">
+
+      <div class="cat reveal">
+        <h3><span class="cat-ic"><svg viewBox="0 0 24 24"><path d="M6 10h12l-1.4 9H7.4z"/><path d="M7 10a5 5 0 0 1 10 0"/><path d="M12 4.5v1.5"/></svg></span>Sweet &amp; Gourmand</h3>
+        <ul>
+          <li>Vanilla</li><li>Salted Caramel</li>
+          <li>Strawberry &amp; Rhubarb</li><li>Blueberry &amp; Vanilla</li>
+          <li>Matcha &amp; Coconut</li><li>Cinnamon</li>
+          <li>Christmas Spice</li><li>Vanilla Cream</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3><span class="cat-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M12 11.2V20"/><path d="M12 15c-2.4 0-4-1.4-4-3.4 2.4 0 4 1.4 4 3.4z"/><path d="M12 17c2.4 0 4-1.4 4-3.4-2.4 0-4 1.4-4 3.4z"/></svg></span>Floral</h3>
+        <ul>
+          <li>Rose &amp; Champagne</li><li>Lavender</li>
+          <li>Golden Mimosa &amp; Amber</li><li>BBW Japanese Cherry Blossom</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3><span class="cat-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16M6.3 6.3l11.4 11.4M17.7 6.3 6.3 17.7"/></svg></span>Citrus &amp; Fresh</h3>
+        <ul>
+          <li>Lemon</li><li>Passion Fruit &amp; Mango</li>
+          <li>Lemongrass</li><li>Watermelon Lemonade</li>
+          <li>Sweet Lime</li><li>Kyoto Matcha &amp; Coconut</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3><span class="cat-ic"><svg viewBox="0 0 24 24"><path d="M12 21V6"/><path d="M12 11c-3 0-5-2-5-5 3 0 5 2 5 5z"/><path d="M12 14c3 0 5-2 5-5-3 0-5 2-5 5z"/></svg></span>Aromatic &amp; Natural</h3>
+        <ul>
+          <li>Sandalwood</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3><span class="cat-ic"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></span>Soft &amp; Clean</h3>
+        <ul>
+          <li>Baby Powder</li><li>Spring Unstoppables</li>
+          <li>Cotton</li>
+        </ul>
+      </div>
+
+      <div class="cat reveal">
+        <h3><span class="cat-ic"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="14" r="3.6"/><circle cx="15.5" cy="14" r="3.6"/><path d="M8.5 14h.01M15.5 14h.01"/></svg></span>Warm &amp; Woody</h3>
+        <ul>
+          <li>Crackling Log Fire</li><li>Warming Cashmere</li>
+          <li>Mahogany Teakwood</li>
+        </ul>
+      </div>
+
+      <div class="cat wide reveal">
+        <h3><span class="cat-ic"><svg viewBox="0 0 24 24"><path d="M5 19c0-7.7 6.3-14 14-14 0 7.7-6.3 14-14 14z"/><path d="M5 19C9 15 13 11 17 9"/></svg></span>Signature</h3>
+        <ul>
+          <li>French Vanilla</li><li>Nag Champa</li><li>Euphoria Woman</li>
+          <li>Lavender, Chamomile &amp; Vanilla</li><li>Dove</li><li>Golden Mimosa</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="scent-extra">
+      <span class="custom-pill reveal"><span class="h">&#9829;</span> Custom orders available</span>
+      <div class="badges reveal"><span>Vegan Friendly</span><span>Natural Wax</span><span>Handcrafted</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL -->
+<section class="portal">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow reveal">Explore</p>
+      <h2 class="reveal" style="font-family:var(--serif);font-weight:300;font-size:clamp(32px,5vw,60px);color:var(--ink)">Our other collections</h2>
+    </div>
+    <div class="cards">
+      <a class="coll-card c-aut reveal" href="index.html">
+        <img class="cc-flame" src="favicon.svg" alt="">
+        <span class="cc-eyebrow">In season</span><h3>Autumn</h3>
+        <p>Spiced, smoky and golden — warm light for shorter days.</p><span class="go">Discover →</span>
+      </a>
+      <a class="coll-card c-mare reveal" href="mare.html">
+        <img class="cc-flame" src="favicon.svg" alt="">
+        <span class="cc-eyebrow">The sea</span><h3>Mare</h3>
+        <p>Salt, driftwood and warm sea air.</p><span class="go">Discover →</span>
+      </a>
+      <a class="coll-card c-pets reveal" href="minipets.html">
+        <img class="cc-flame" src="favicon.svg" alt="">
+        <span class="cc-eyebrow">Comfort &amp; cause</span><h3>Mini Pets</h3>
+        <p>Soft comforts — supporting animals in need.</p><span class="go">Discover →</span>
+      </a>
+      <a class="coll-card c-nama reveal" href="namaste.html">
+        <img class="cc-flame" src="favicon.svg" alt="">
+        <span class="cc-eyebrow">Stillness</span><h3>Namaste</h3>
+        <p>Grounding, meditative scents for calm.</p><span class="go">Discover →</span>
+      </a>
+      <a class="coll-card c-care reveal" href="carezza.html">
+        <img class="cc-flame" src="favicon.svg" alt="">
+        <span class="cc-eyebrow">Wellness & massage</span><h3>Carezza</h3>
+        <p>Wellness and massage candles to soften the moment.</p><span class="go">Discover →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><img class="brand-logo" src="images/logo.png" alt="Soffice Essenza by Paola — Scented Candles"></a>
+        <p class="footer-note">Handcrafted candles, made by hand in Dublin, Ireland. Displayed, gifted and cherished.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/soffice.essenza" target="_blank" rel="noopener">@soffice.essenza</a>
+          <a href="https://wa.me/353834408449" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div><h5>Collections</h5><ul><li><a href="index.html">Autumn</a></li><li><a href="pride.html">Light Your Pride</a></li><li><a href="mare.html">Mare</a></li><li><a href="minipets.html">Mini Pets</a></li><li><a href="namaste.html">Namaste</a></li><li><a href="carezza.html">Carezza</a></li><li><a href="scents.html">Scents</a></li></ul></div>
+      <div><h5>Light Your Pride</h5><ul><li class="footer-note">Decorative · Unscented</li><li class="footer-note">Handmade in Dublin</li><li class="footer-note">€8 – €10 · 6 colours</li><li class="footer-note">10% to Outhouse LGBTQ+ Centre</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© <span id="yr"></span> Soffice Essenza by Paola · Dublin, Ireland</span><span>Light Your Pride · Pride Collection</span></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+const header=document.getElementById('header');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.14});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,5)*70)+'ms';io.observe(el);});
+
+const aurora=document.getElementById('aurora');
+if(matchMedia('(prefers-reduced-motion: no-preference)').matches){
+  addEventListener('mousemove',e=>{
+    const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);
+    aurora.style.transform=`translate(${x*40}px,${y*40}px)`;
+  },{passive:true});
+}
+
+const num=document.getElementById('giveNum');
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    const target=+num.dataset.target;let t0=null;
+    const step=ts=>{if(!t0)t0=ts;const p=Math.min((ts-t0)/1100,1);
+      num.textContent=Math.round(p*target)+'%';if(p<1)requestAnimationFrame(step);};
+    requestAnimationFrame(step);cio.unobserve(e.target);
+  }
+}),{threshold:.6});
+cio.observe(num);
+</script>
+<script src="i18n.js" defer></script>
+<script src="cart.js" defer></script>
+<script src="widget.js" defer></script>
+</body>
+</html>

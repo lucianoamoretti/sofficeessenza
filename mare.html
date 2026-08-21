@@ -41,9 +41,9 @@ img{max-width:100%;display:block}
 /* ============ HEADER ============ */
 .header{position:sticky;top:0;z-index:50;background:rgba(247,244,239,.85);backdrop-filter:blur(10px);transition:box-shadow .3s,background .3s}
 .header.scrolled{box-shadow:0 1px 0 var(--line)}
-.header-in{display:flex;align-items:center;justify-content:space-between;height:78px}
+.header-in{display:flex;align-items:center;justify-content:space-between;gap:clamp(14px,3vw,32px);height:78px}
 /* logo lockup */
-.brand{display:inline-flex;align-items:center;line-height:0}.brand-logo{height:60px;width:auto;display:block}.footer-brand .brand-logo{height:88px}
+.brand{display:inline-flex;align-items:center;line-height:0;flex:0 0 auto}.brand-logo{height:60px;width:auto;display:block}.footer-brand .brand-logo{height:88px}
 .brand-flame{width:22px;flex-shrink:0}
 .brand-text{display:flex;flex-direction:column;line-height:1.05}
 .brand-name{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.4px;
@@ -134,7 +134,7 @@ img{max-width:100%;display:block}
 @media(max-width:460px){.footer-grid{grid-template-columns:1fr}}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none}}
-.nav a.pride{font-weight:600;background:linear-gradient(90deg,#e63946,#f4a261,#2a9d8f,#3a86ff,#8338ec);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav a.autumn{font-weight:600;background:linear-gradient(90deg,#b5502f,#c8862f,#c9a227);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .nav{min-width:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .nav::-webkit-scrollbar{display:none}
 .nav a{flex:0 0 auto;white-space:nowrap}
@@ -157,7 +157,7 @@ img{max-width:100%;display:block}
   <div class="wrap header-in">
     <a class="brand" href="index.html"><img class="brand-logo" src="images/logo-wide.png" alt="Soffice Essenza by Paola — Scented Candles"></a>
     <nav class="nav">
-      <a href="index.html" class="pride">Pride</a>
+      <a href="index.html" class="autumn">Autumn</a>
       <a href="mare.html" class="active">Mare</a>
       <a href="minipets.html">Mini Pets</a>
       <a href="namaste.html">Namaste</a>
@@ -263,7 +263,7 @@ img{max-width:100%;display:block}
       </div>
       <div>
         <h5>Collections</h5>
-        <ul><li><a href="index.html">Light Your Pride</a></li><li><a href="mare.html">Mare</a></li><li><a href="minipets.html">Mini Pets</a></li><li><a href="namaste.html">Namaste</a></li><li><a href="carezza.html">Carezza</a></li><li><a href="scents.html">Scents</a></li></ul>
+        <ul><li><a href="index.html">Autumn</a></li><li><a href="pride.html">Light Your Pride</a></li><li><a href="mare.html">Mare</a></li><li><a href="minipets.html">Mini Pets</a></li><li><a href="namaste.html">Namaste</a></li><li><a href="carezza.html">Carezza</a></li><li><a href="scents.html">Scents</a></li></ul>
       </div>
       <div>
         <h5>Details</h5>
