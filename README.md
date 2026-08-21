@@ -39,6 +39,9 @@ Collection pages: sticky header with the **Soffice Essenza by Paola** logo, spli
 
 Product images are elegant placeholders (minimal inline-SVG candle in a tinted tile). Swap any for a real photo: replace the inline `<svg class="shape">` / `<svg class="candle">` with `<img src="images/your-photo.jpg" alt="">`.
 
+## Link previews
+Every page carries Open Graph / Twitter tags, so a link pasted into WhatsApp, Instagram, iMessage or Facebook shows a card with the page's own title and description. The shared image is `images/og-autumn.jpg` — a 1200×630 crop of the lit Jesmonite Pumpkin, kept small (~60 KB) because WhatsApp skips thumbnails on heavy images. Swap that file when the season changes; WhatsApp caches previews for days, so test with a query string (`?v=2`) to force a refresh.
+
 ## Stack
 Plain HTML/CSS/JS, single file per page, no build step. Google Fonts: Cormorant Garamond, Inter, Pinyon Script. Flame favicon: `favicon.svg`.
 
