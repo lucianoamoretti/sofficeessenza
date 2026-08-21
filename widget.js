@@ -17,7 +17,6 @@
   var COLOURS = [["White","#f4f1ea"],["Cream","#efe2c8"],["Sand","#e3cfa3"],["Gold","#c9a86a"],["Yellow","#ffd166"],["Orange","#f4a261"],["Coral","#ff7f6b"],["Red","#e63946"],["Pink","#ff8fab"],["Fuchsia","#d6336c"],["Purple","#8338ec"],["Lavender","#b8a4e3"],["Navy","#2b3a67"],["Blue","#3a86ff"],["Sky","#7ec8e3"],["Teal","#2a9d8f"],["Green","#4caf50"],["Sage","#9caf88"],["Brown","#8a5a44"],["Grey","#9aa0a6"],["Black","#2b2b2b"]];
   var AUTUMN = ["Pumpkin Spice","Warming Cashmere","Espresso Martini","Dark Honey & Tobacco","Wood Fire","Cinnamon & Apple"];
   var AUTUMN_SHAPES = ["Jesmonite Pumpkin","Wax Pumpkin","Mushroom","Zen Ghost","Ghost","Ghost Dog","Ghost Cat"];
-  var AUTUMN_NOSCENT = "Jesmonite Pumpkin";
   var PRIDE = [["The Arc","8"],["The Trunk","10"],["The Pillar","9"]];
   var PRIDE_COLS = [["Red","#e63946"],["Orange","#f4a261"],["Yellow","#ffd166"],["Green","#2a9d8f"],["Blue","#3a86ff"],["Purple","#8338ec"]];
 
@@ -38,7 +37,6 @@
       "🍂 An Autumn candle":"🍂 Una candela Autumn",
       "Our Autumn shapes 🎃 Which one?":"Le nostre forme Autumn 🎃 Quale preferisci?",
       "And which autumn scent?":"E quale profumo autunnale?",
-      "Lovely choice — the jesmonite pumpkin is a decorative piece, so no wax and no scent 🎃":"Ottima scelta — la zucca in jesmonite è un pezzo decorativo, quindi niente cera e niente profumo 🎃",
       "🔎 Another scent":"🔎 Un altro profumo",
       "Not sure yet":"Non lo so ancora",
       "🌈 Light Your Pride":"🌈 Light Your Pride",
@@ -122,7 +120,6 @@
       "🍂 An Autumn candle":"🍂 Uma vela Autumn",
       "Our Autumn shapes 🎃 Which one?":"Nossos formatos Autumn 🎃 Qual você prefere?",
       "And which autumn scent?":"E qual aroma de outono?",
-      "Lovely choice — the jesmonite pumpkin is a decorative piece, so no wax and no scent 🎃":"Ótima escolha — a abóbora de jesmonite é uma peça decorativa, então não tem cera nem perfume 🎃",
       "🔎 Another scent":"🔎 Outro aroma",
       "Not sure yet":"Ainda não sei",
       "🌈 Light Your Pride":"🌈 Light Your Pride",
@@ -416,11 +413,7 @@
   /* autumn */
   function aShape(){
     bot(w("Our Autumn shapes 🎃 Which one?"), function(){
-      var opts = AUTUMN_SHAPES.map(function(m){ return { label:m, on:function(){
-        user(m); state.cur.model=m;
-        if(m===AUTUMN_NOSCENT){ bot(w("Lovely choice — the jesmonite pumpkin is a decorative piece, so no wax and no scent 🎃"), function(){ askColour(); }); }
-        else aScent();
-      } }; });
+      var opts = AUTUMN_SHAPES.map(function(m){ return { label:m, on:function(){ user(m); state.cur.model=m; aScent(); } }; });
       opts.push({ label:w("Not sure yet"), cls:"alt", on:function(){ user(w("Not sure yet")); state.cur.model="To be confirmed"; aScent(); } });
       chips(opts);
     });
