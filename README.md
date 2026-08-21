@@ -16,7 +16,7 @@ Live at **https://sofficeessenza.ie** (custom domain, `CNAME`).
 - **Mini Pets** (`minipets.html`) — warm taupe accent, give-back (supports animals).
 - **Namaste** (`namaste.html`) — sage accent, meditative.
 - **Carezza** (`carezza.html`) — wellness and massage candles, soy & shea.
-- **Old Collections** (`old-collections.html`) — the archive of past seasons, in the nav between Carezza and Scents. Two cards lead to the collections that are out of season but still made to order:
+- **Old Collections** (`old-collections.html`) — the archive of past seasons, in the nav between Carezza and Scents. Two cards lead to the collections that are out of season but still made to order — the page states plainly that nothing is kept in stock and that past-collection pieces take **longer to produce** than the season on show:
   - **Mare** (`mare.html`) — Summer Edition, sea, dusty-blue accent.
   - **Light Your Pride** (`pride.html`) — the Pride collection. Decorative, unscented soy-wax candles in the six rainbow-flag colours: The Arc (157 g · €8), The Trunk (195 g · €10), The Pillar (187 g · €9). **10% of every sale** goes to **Outhouse LGBTQ+ Centre, Dublin** (outhouse.ie). Returns to the home page each June.
 
