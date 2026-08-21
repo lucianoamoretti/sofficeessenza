@@ -427,9 +427,7 @@
   }
   function aScent(){
     bot(w("And which autumn scent?"), function(){
-      var opts = AUTUMN.map(function(s){ return { label:s, on:function(){ user(s); state.cur.scent=s; askColour(); } }; });
-      opts.push({ label:w("🔎 Another scent"), cls:"alt", on:function(){ state.cur={intent:"scented"}; askCategory(); } });
-      chips(opts);
+      chips(AUTUMN.map(function(s){ return { label:s, on:function(){ user(s); state.cur.scent=s; askColour(); } }; }));
     });
   }
   /* pride */
