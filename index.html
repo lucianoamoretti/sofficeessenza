@@ -137,9 +137,9 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .product:hover .product-media::before{opacity:.26}
 .product-media .shape{position:relative;z-index:1;width:56%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .product:hover .product-media .shape{transform:translateY(-6px) scale(1.05)}
-.product-media.photo{background:#fff}
+.product-media.photo{background:#efece7}
 .product-media.photo::before{display:none}
-.product-media.photo img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.product-media.photo img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
 .product:hover .product-media.photo img{transform:scale(1.04)}
 .product-media .tag{position:absolute;left:16px;top:16px;z-index:1;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#fff;font-weight:600;background:rgba(34,28,21,.5);padding:5px 11px;border-radius:20px;backdrop-filter:blur(4px)}
 .product-info{padding-top:20px}
@@ -151,12 +151,13 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .btn-buy{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#fff;border:none;cursor:pointer;font-family:inherit;background:linear-gradient(90deg,var(--cocoa),var(--rust));background-size:200% auto;padding:10px 22px;border-radius:40px;transition:transform .25s,background-position .4s}
 .btn-buy:hover{transform:translateY(-2px);background-position:right center}
 .set-note{text-align:center;margin-top:clamp(34px,5vw,52px);font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.4vw,26px);color:var(--ink-2)}
-.shots{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.5vw,32px);margin-top:clamp(34px,5vw,56px)}
-@media(max-width:620px){.shots{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
-.shot{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;transition:box-shadow .35s,transform .35s}
+.shots{display:grid;grid-template-columns:repeat(3,1fr);align-items:start;gap:clamp(14px,2.2vw,26px);margin-top:clamp(34px,5vw,56px)}
+@media(max-width:880px){.shots{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.shots{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
+.shot{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;transition:box-shadow .35s,transform .35s}
 .shot:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(91,58,41,.09)}
-.shot img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#fff;display:block}
-.shot figcaption{font-size:13px;color:var(--ink-2);text-align:center;padding:0 18px 20px}
+.shot img{width:100%;height:auto;display:block}
+.shot figcaption{font-size:12.5px;color:var(--ink-2);text-align:center;padding:14px 16px 16px}
 
 /* ============ PALETTE ============ */
 .palette{padding:clamp(70px,10vw,120px) 0;border-top:1px solid var(--line);text-align:center}
@@ -521,12 +522,24 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 
     <div class="shots">
       <figure class="shot reveal">
-        <img src="images/autumn-pumpkin-open.jpg" alt="The jesmonite pumpkin with its lid off, showing the soy wax and wooden wick" loading="lazy">
+        <img src="images/autumn-pumpkin-open.jpg" alt="The jesmonite pumpkin with its lid off, showing the soy wax and the wooden wick" loading="lazy">
         <figcaption>Lid off — soy wax and a wooden wick.</figcaption>
       </figure>
       <figure class="shot reveal">
-        <img src="images/autumn-pumpkin-lit.jpg" alt="The jesmonite pumpkin candle burning, with a warm flame" loading="lazy">
-        <figcaption>Lit — the wick crackles as it burns.</figcaption>
+        <img src="images/autumn-pumpkin-lid.jpg" alt="The jesmonite pumpkin seen from above with the lid resting beside it" loading="lazy">
+        <figcaption>Marbled by hand — no two are alike.</figcaption>
+      </figure>
+      <figure class="shot reveal">
+        <img src="images/autumn-pumpkin-pine.jpg" alt="The pumpkin candle burning beside a pine branch" loading="lazy">
+        <figcaption>Lit — the wooden wick crackles.</figcaption>
+      </figure>
+      <figure class="shot reveal">
+        <img src="images/autumn-pumpkin-night.jpg" alt="The pumpkin candle glowing against the colours of an autumn evening" loading="lazy">
+        <figcaption>An autumn evening, indoors.</figcaption>
+      </figure>
+      <figure class="shot reveal">
+        <img src="images/autumn-pumpkin-box.jpg" alt="The pumpkin candle boxed in printed tissue, labelled Autumn Collection" loading="lazy">
+        <figcaption>Boxed in printed tissue, ready to give.</figcaption>
       </figure>
     </div>
   </div>

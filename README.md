@@ -9,7 +9,7 @@ Live at **https://sofficeessenza.ie** (custom domain, `CNAME`).
 ## Pages
 - **Autumn** (`index.html`) — **home / seasonal landing**. 🍂
   - **Six scents**: Pumpkin Spice, Warming Cashmere, Espresso Martini, Dark Honey & Tobacco, Wood Fire, Cinnamon & Apple.
-  - **Seven shapes**: Jesmonite Pumpkin, Wax Pumpkin, Mushroom, Zen Ghost, Ghost, Ghost Dog, Ghost Cat. The Jesmonite Pumpkin and the Mushroom are cast in **jesmonite**; the pumpkin is a lidded vessel with soy wax and a wooden wick (115 g / 4 oz) and has real photos (`images/autumn-pumpkin*.jpg`, shot on white). The rest are inline SVG illustrations until photos exist.
+  - **Seven shapes**: Jesmonite Pumpkin, Wax Pumpkin, Mushroom, Zen Ghost, Ghost, Ghost Dog, Ghost Cat. The Jesmonite Pumpkin and the Mushroom are cast in **jesmonite**; the pumpkin is a lidded vessel with soy wax and a wooden wick (115 g / 4 oz) and has Paola's own photos (`images/autumn-pumpkin*.jpg` — used exactly as framed, only resized for web); one on the card, the other five in a gallery under the shapes. The rest are inline SVG illustrations until photos exist.
   - The autumn shapes take **only** those six scents — the 30+ menu is for the other collections. Each card's `data-scents` enforces it, and the chatbot's autumn flow has no way out to the full list.
   - No fixed prices — every card says "Ask for a price" and the price is confirmed on WhatsApp.
   - Warm aurora, falling leaves, flowing gradient headline, mouse parallax, marquee, autumn palette, how-to-order, portal to the other collections.
