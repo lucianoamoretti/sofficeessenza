@@ -100,7 +100,7 @@
     "Lid off — soy wax and a wooden wick.":{it:"Senza coperchio — cera di soia e stoppino in legno.",pt:"Sem a tampa — cera de soja e pavio de madeira."},
     "Marbled by hand — no two are alike.":{it:"Marmorizzata a mano — non ce ne sono due uguali.",pt:"Marmorizada à mão — não há duas iguais."},
     "Lit — the wooden wick crackles.":{it:"Accesa — lo stoppino di legno crepita.",pt:"Acesa — o pavio de madeira estala."},
-    "An autumn evening, indoors.":{it:"Una sera d'autunno, in casa.",pt:"Uma noite de outono, em casa."},
+    "Lid on — cream and rust, marbled through.":{it:"Col coperchio — crema e ruggine, marmorizzata fin dentro.",pt:"Com a tampa — creme e ferrugem, marmorizada por inteiro."},
     "Boxed in printed tissue, ready to give.":{it:"Confezionata in carta velina stampata, pronta da regalare.",pt:"Embalada em papel de seda estampado, pronta para presentear."},
     "Calm":{it:"Calma",pt:"Calma"},
     "Classic":{it:"Classico",pt:"Clássico"},
