@@ -8,11 +8,14 @@ Live at **https://sofficeessenza.ie** (custom domain, `CNAME`).
 
 ## Pages
 - **Autumn** (`index.html`) — **home / seasonal landing**. The Autumn Edit: six seasonal scents (Crackling Log Fire, Cinnamon, Salted Caramel, Mahogany Teakwood, Warming Cashmere, Christmas Spice) and three formats (Glass Jar, Travel Tin, Moulded Pillar). No fixed prices — the price is confirmed on WhatsApp. Warm aurora, falling leaves, flowing gradient headline, mouse parallax, marquee, autumn palette, how-to-order, portal to the other collections. 🍂
-- **Light Your Pride** (`pride.html`) — the Pride collection, archived off the main nav between seasons and linked from the footer and the home portal. Decorative, unscented soy-wax candles in the six rainbow-flag colours: The Arc (157 g · €8), The Trunk (195 g · €10), The Pillar (187 g · €9). **10% of every sale** goes to **Outhouse LGBTQ+ Centre, Dublin** (outhouse.ie). Returns to the home page each June.
-- **Mare** (`mare.html`) — sea, dusty-blue accent.
 - **Mini Pets** (`minipets.html`) — warm taupe accent, give-back (supports animals).
 - **Namaste** (`namaste.html`) — sage accent, meditative.
 - **Carezza** (`carezza.html`) — wellness and massage candles, soy & shea.
+- **Old Collections** (`old-collections.html`) — the archive of past seasons, in the nav between Carezza and Scents. Two cards lead to the collections that are out of season but still made to order:
+  - **Mare** (`mare.html`) — Summer Edition, sea, dusty-blue accent.
+  - **Light Your Pride** (`pride.html`) — the Pride collection. Decorative, unscented soy-wax candles in the six rainbow-flag colours: The Arc (157 g · €8), The Trunk (195 g · €10), The Pillar (187 g · €9). **10% of every sale** goes to **Outhouse LGBTQ+ Centre, Dublin** (outhouse.ie). Returns to the home page each June.
+
+  Both pages keep a `.season-note` bar under the header pointing back here, and their nav highlights **Old Collections**.
 - **Scents** (`scents.html`) — full fragrance menu (30+ scents, 7 families) with live search, category filter and per-scent ordering. Linked from the nav on every page.
 
 Instagram: **@soffice.essenza** · WhatsApp: **+353 83 440 8449** · Dublin, Ireland.
@@ -25,7 +28,7 @@ Instagram: **@soffice.essenza** · WhatsApp: **+353 83 440 8449** · Dublin, Ire
 Load order on every page: `i18n.js`, then `cart.js`, then `widget.js` (all `defer`).
 
 ## Swapping the seasonal home page
-The home page is whichever collection is in season. To rotate it: rename the current `index.html` to its own page (as `pride.html` was), drop the new landing in as `index.html`, then update the nav link and the footer "Collections" list on every page.
+The home page is whichever collection is in season. To rotate it: rename the current `index.html` to its own page (as `pride.html` was), drop the new landing in as `index.html`, then update the nav link and the footer "Collections" list on every page. The collection leaving the spotlight joins `old-collections.html` — add a card there and a `.season-note` bar to its page.
 
 Collection pages: sticky header with the **Soffice Essenza by Paola** logo, split hero, brand statement, 3-product grid, specs strip and footer. Shared identity: official logo (`images/logo.png`), gold scallop-shell divider, gold accents.
 
