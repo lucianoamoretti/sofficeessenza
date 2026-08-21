@@ -139,8 +139,20 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .product:hover .product-media .shape{transform:translateY(-6px) scale(1.05)}
 .product-media.photo{background:#efece7}
 .product-media.photo::before{display:none}
-.product-media.photo img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
-.product:hover .product-media.photo img{transform:scale(1.04)}
+.product-media.photo img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover}
+/* carousel: every photo stacked, only the current one visible */
+.product-media.carousel img{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
+.product-media.carousel img.on{opacity:1}
+.cnav{position:absolute;z-index:3;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,.82);color:var(--ink);font-size:19px;line-height:1;display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .25s,background .2s;backdrop-filter:blur(4px)}
+.cnav.prev{left:12px}.cnav.next{right:12px}
+.cnav:hover{background:#fff}
+.product-media.carousel:hover .cnav,.cnav:focus-visible{opacity:1}
+@media(hover:none){.product-media.carousel .cnav{opacity:.9}}
+.cdots{position:absolute;z-index:3;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:7px}
+.cdots button{width:7px;height:7px;padding:0;border:none;border-radius:50%;cursor:pointer;background:rgba(255,255,255,.55);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:background .2s,transform .2s}
+.cdots button.on{background:#fff;transform:scale(1.3)}
 .product-media .tag{position:absolute;left:16px;top:16px;z-index:1;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#fff;font-weight:600;background:rgba(34,28,21,.5);padding:5px 11px;border-radius:20px;backdrop-filter:blur(4px)}
 .product-info{padding-top:20px}
 .product-coll{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600}
@@ -151,13 +163,6 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .btn-buy{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#fff;border:none;cursor:pointer;font-family:inherit;background:linear-gradient(90deg,var(--cocoa),var(--rust));background-size:200% auto;padding:10px 22px;border-radius:40px;transition:transform .25s,background-position .4s}
 .btn-buy:hover{transform:translateY(-2px);background-position:right center}
 .set-note{text-align:center;margin-top:clamp(34px,5vw,52px);font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.4vw,26px);color:var(--ink-2)}
-.shots{display:grid;grid-template-columns:repeat(3,1fr);align-items:start;gap:clamp(14px,2.2vw,26px);margin-top:clamp(34px,5vw,56px)}
-@media(max-width:880px){.shots{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.shots{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
-.shot{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;transition:box-shadow .35s,transform .35s}
-.shot:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(91,58,41,.09)}
-.shot img{width:100%;height:auto;display:block}
-.shot figcaption{font-size:12.5px;color:var(--ink-2);text-align:center;padding:14px 16px 16px}
 
 /* ============ PALETTE ============ */
 .palette{padding:clamp(70px,10vw,120px) 0;border-top:1px solid var(--line);text-align:center}
@@ -362,15 +367,23 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <div class="grid">
 
       <article class="product reveal" data-scents="Pumpkin Spice|Warming Cashmere|Espresso Martini|Dark Honey &amp; Tobacco|Wood Fire|Cinnamon &amp; Apple">
-        <div class="product-media photo">
+        <div class="product-media photo carousel">
           <span class="tag">Jesmonite</span>
-          <img src="images/autumn-pumpkin-night.jpg" alt="The Jesmonite Pumpkin candle lit, glowing against the colours of an autumn evening">
+          <img src="images/autumn-pumpkin-night.jpg" class="on" alt="The Jesmonite Pumpkin candle lit, glowing against the colours of an autumn evening">
+          <img src="images/autumn-pumpkin.jpg" alt="The jesmonite pumpkin with its lid on, marbled in cream and rust" loading="lazy">
+          <img src="images/autumn-pumpkin-open.jpg" alt="The pumpkin with its lid off, showing the soy wax and the wooden wick" loading="lazy">
+          <img src="images/autumn-pumpkin-lid.jpg" alt="The pumpkin seen from above with the lid resting beside it" loading="lazy">
+          <img src="images/autumn-pumpkin-pine.jpg" alt="The pumpkin candle burning beside a pine branch" loading="lazy">
+          <img src="images/autumn-pumpkin-box.jpg" alt="The pumpkin candle boxed in printed tissue, labelled Autumn Collection" loading="lazy">
+          <button class="cnav prev" type="button" aria-label="Previous photo">&#8249;</button>
+          <button class="cnav next" type="button" aria-label="Next photo">&#8250;</button>
+          <div class="cdots"></div>
         </div>
         <div class="product-info">
           <p class="product-coll">Autumn</p>
           <h3 class="product-name">Jesmonite Pumpkin</h3>
           <p class="product-notes">Jesmonite vessel with lid · wooden wick · 115 g / 4 oz</p>
-          <div class="product-foot"><span class="product-ask">Ask for a price</span><button class="btn-buy" type="button">Choose</button></div>
+          <div class="product-foot"><span class="product-price">€ 19.90</span><button class="btn-buy" type="button">Choose</button></div>
         </div>
       </article>
 
@@ -520,29 +533,6 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     </div>
     <p class="set-note reveal">A pumpkin and a little ghost make a good pair — tell us and we'll wrap them together.</p>
 
-    <div class="shots">
-      <figure class="shot reveal">
-        <img src="images/autumn-pumpkin.jpg" alt="The jesmonite pumpkin with its lid on, marbled in cream and rust" loading="lazy">
-        <figcaption>Lid on — cream and rust, marbled through.</figcaption>
-      </figure>
-      <figure class="shot reveal">
-        <img src="images/autumn-pumpkin-open.jpg" alt="The jesmonite pumpkin with its lid off, showing the soy wax and the wooden wick" loading="lazy">
-        <figcaption>Lid off — soy wax and a wooden wick.</figcaption>
-      </figure>
-      <figure class="shot reveal">
-        <img src="images/autumn-pumpkin-lid.jpg" alt="The jesmonite pumpkin seen from above with the lid resting beside it" loading="lazy">
-        <figcaption>Marbled by hand — no two are alike.</figcaption>
-      </figure>
-      <figure class="shot reveal">
-        <img src="images/autumn-pumpkin-pine.jpg" alt="The pumpkin candle burning beside a pine branch" loading="lazy">
-        <figcaption>Lit — the wooden wick crackles.</figcaption>
-      </figure>
-      <figure class="shot reveal">
-        <img src="images/autumn-pumpkin-box.jpg" alt="The pumpkin candle boxed in printed tissue, labelled Autumn Collection" loading="lazy">
-        <figcaption>Boxed in printed tissue, ready to give.</figcaption>
-      </figure>
-    </div>
-  </div>
 </section>
 
 <!-- PALETTE -->
@@ -675,6 +665,34 @@ if(!reduced){
     box.appendChild(el);
   }
 })();
+
+/* photo carousel on a product card — the controls must not open the cart configurator */
+document.querySelectorAll('.product-media.carousel').forEach(box=>{
+  const shots=[...box.querySelectorAll('img')], dots=box.querySelector('.cdots');
+  if(shots.length<2) return;
+  let at=0;
+  shots.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.type='button'; d.setAttribute('aria-label','Photo '+(i+1));
+    if(i===0) d.className='on';
+    d.addEventListener('click',e=>{ e.stopPropagation(); e.preventDefault(); go(i); });
+    dots.appendChild(d);
+  });
+  const go=i=>{
+    at=(i+shots.length)%shots.length;
+    shots.forEach((s,n)=>s.classList.toggle('on',n===at));
+    [...dots.children].forEach((d,n)=>d.classList.toggle('on',n===at));
+  };
+  box.querySelector('.prev').addEventListener('click',e=>{ e.stopPropagation(); e.preventDefault(); go(at-1); });
+  box.querySelector('.next').addEventListener('click',e=>{ e.stopPropagation(); e.preventDefault(); go(at+1); });
+  let x0=null;
+  box.addEventListener('touchstart',e=>{ x0=e.touches[0].clientX; },{passive:true});
+  box.addEventListener('touchend',e=>{
+    if(x0===null) return;
+    const dx=e.changedTouches[0].clientX-x0; x0=null;
+    if(Math.abs(dx)>40){ e.stopPropagation(); go(dx<0?at+1:at-1); }
+  });
+});
 
 /* scent cards → chatbot prefill, with a fallback to the scents page */
 document.querySelectorAll('.scent-card').forEach(card=>{

@@ -115,12 +115,12 @@
         + (i.note?'<div class="mt">“'+esc(i.note)+'”</div>':'')
         + '<button class="sc-rm" data-rm="'+idx+'">'+ct("Remove")+'</button>'
         + '</div><div class="sc-it-r">'
-        + '<div class="sc-pr">'+(price!=null?('€ '+(price*i.qty)):'—')+'</div>'
+        + '<div class="sc-pr">'+(price!=null?('€ '+money(price*i.qty)):'—')+'</div>'
         + '<div class="sc-qty"><button data-dec="'+idx+'">−</button><span>'+i.qty+'</span><button data-inc="'+idx+'">+</button></div>'
         + '</div></div>';
     });
     itemsEl.innerHTML=html;
-    var foot = '<div class="sc-tot"><span>'+ct("Total")+'</span><b>€ '+total+(anyNull?'+':'')+'</b></div>';
+    var foot = '<div class="sc-tot"><span>'+ct("Total")+'</span><b>€ '+money(total)+(anyNull?'+':'')+'</b></div>';
     if(anyNull) foot += '<div class="sc-note">'+ct("Some items will be priced on WhatsApp.")+'</div>';
     foot += '<button class="sc-co"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>'+ct("Checkout on WhatsApp")+'</button>';
     foot += '<button class="sc-clear">'+ct("Clear")+'</button>';
@@ -142,10 +142,10 @@
       var p=(typeof i.price==="number")?i.price:null; if(p!=null) total+=p*i.qty; else anyNull=true;
       var l="• "+i.qty+"× "+i.name+" ("+(i.coll||"")+")"; var opt=lineLabel(i); if(opt) l+=" — "+opt;
       if(i.note) l+=" — “"+i.note+"”";
-      if(p!=null) l+=" — €"+(p*i.qty);
+      if(p!=null) l+=" — €"+money(p*i.qty);
       lines.push(l);
     });
-    lines.push(""); lines.push("Total: €"+total+(anyNull?" + items to confirm":""));
+    lines.push(""); lines.push("Total: €"+money(total)+(anyNull?" + items to confirm":""));
     window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(lines.join("\n")), "_blank", "noopener");
   }
 
@@ -156,6 +156,8 @@
 
   /* ---- product configurator (scent + colour) ---- */
   function num(s){ var m=(""+s).replace(",",".").match(/\d+(\.\d+)?/); return m? parseFloat(m[0]) : null; }
+  /* whole euros stay bare (€ 8), anything else keeps its cents (€ 19.90) */
+  function money(n){ return (Math.round(n*100)/100).toFixed(2).replace(/\.00$/,""); }
   var SCENTS={
     "Sweet & Gourmand":["Vanilla","Salted Caramel","Strawberry & Rhubarb","Blueberry & Vanilla","Matcha & Coconut","Cinnamon","Christmas Spice","Vanilla Cream"],
     "Floral":["Rose & Champagne","Golden Mimosa & Amber","Lavender","BBW Japanese Cherry Blossom"],
@@ -235,7 +237,7 @@
   function openConfig(prod){
     cfg={ prod:prod, scent:null, colour:null, qty:1, isPride:/pride/i.test(prod.coll), scents:(prod.scents&&prod.scents.length?prod.scents:null), nocolour:!!prod.nocolour };
     cfg.noscent = cfg.isPride || !!prod.noscent;
-    cCl.textContent=prod.coll; cNm.textContent=prod.name; cPr.textContent=(typeof prod.price==="number")?("€ "+prod.price):"";
+    cCl.textContent=prod.coll; cNm.textContent=prod.name; cPr.textContent=(typeof prod.price==="number")?("€ "+money(prod.price)):"";
     if(prod.img){ cThumb.style.display=""; cThumb.style.backgroundImage="url('"+prod.img+"')"; } else { cThumb.style.display="none"; }
     cOther.placeholder=ct("Other colour…"); cOther.value="";
     cQtyLbl.textContent=ct("Quantity"); cQn.textContent="1";
