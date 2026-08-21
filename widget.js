@@ -15,8 +15,9 @@
   };
   var ALL_SCENTS = []; Object.keys(SCENTS).forEach(function(k){ ALL_SCENTS = ALL_SCENTS.concat(SCENTS[k]); });
   var COLOURS = [["White","#f4f1ea"],["Cream","#efe2c8"],["Sand","#e3cfa3"],["Gold","#c9a86a"],["Yellow","#ffd166"],["Orange","#f4a261"],["Coral","#ff7f6b"],["Red","#e63946"],["Pink","#ff8fab"],["Fuchsia","#d6336c"],["Purple","#8338ec"],["Lavender","#b8a4e3"],["Navy","#2b3a67"],["Blue","#3a86ff"],["Sky","#7ec8e3"],["Teal","#2a9d8f"],["Green","#4caf50"],["Sage","#9caf88"],["Brown","#8a5a44"],["Grey","#9aa0a6"],["Black","#2b2b2b"]];
-  var AUTUMN = ["Crackling Log Fire","Cinnamon","Salted Caramel","Mahogany Teakwood","Warming Cashmere","Christmas Spice"];
-  var AUTUMN_FORMATS = ["Glass Jar","Travel Tin","Moulded Pillar"];
+  var AUTUMN = ["Pumpkin Spice","Warming Cashmere","Espresso Martini","Dark Honey & Tobacco","Wood Fire","Cinnamon & Apple"];
+  var AUTUMN_SHAPES = ["Jesmonite Pumpkin","Wax Pumpkin","Zen Ghost","Ghost","Ghost Dog","Ghost Cat"];
+  var AUTUMN_NOSCENT = "Jesmonite Pumpkin";
   var PRIDE = [["The Arc","8"],["The Trunk","10"],["The Pillar","9"]];
   var PRIDE_COLS = [["Red","#e63946"],["Orange","#f4a261"],["Yellow","#ffd166"],["Green","#2a9d8f"],["Blue","#3a86ff"],["Purple","#8338ec"]];
 
@@ -35,8 +36,9 @@
       "Lovely to meet you, {n}! What can I help you with?":"Piacere, {n}! Come posso aiutarti?",
       "🕯️ A scented candle":"🕯️ Una candela profumata",
       "🍂 An Autumn candle":"🍂 Una candela Autumn",
-      "Our Autumn edit 🍂 Which scent?":"La nostra selezione Autumn 🍂 Quale profumo?",
-      "Which format would you like?":"Quale formato preferisci?",
+      "Our Autumn shapes 🎃 Which one?":"Le nostre forme Autumn 🎃 Quale preferisci?",
+      "And which autumn scent?":"E quale profumo autunnale?",
+      "Lovely choice — the jesmonite pumpkin is a decorative piece, so no wax and no scent 🎃":"Ottima scelta — la zucca in jesmonite è un pezzo decorativo, quindi niente cera e niente profumo 🎃",
       "🔎 Another scent":"🔎 Un altro profumo",
       "Not sure yet":"Non lo so ancora",
       "🌈 Light Your Pride":"🌈 Light Your Pride",
@@ -118,8 +120,9 @@
       "Lovely to meet you, {n}! What can I help you with?":"Prazer, {n}! Como posso ajudar?",
       "🕯️ A scented candle":"🕯️ Uma vela perfumada",
       "🍂 An Autumn candle":"🍂 Uma vela Autumn",
-      "Our Autumn edit 🍂 Which scent?":"Nossa seleção Autumn 🍂 Qual aroma?",
-      "Which format would you like?":"Qual formato você prefere?",
+      "Our Autumn shapes 🎃 Which one?":"Nossos formatos Autumn 🎃 Qual você prefere?",
+      "And which autumn scent?":"E qual aroma de outono?",
+      "Lovely choice — the jesmonite pumpkin is a decorative piece, so no wax and no scent 🎃":"Ótima escolha — a abóbora de jesmonite é uma peça decorativa, então não tem cera nem perfume 🎃",
       "🔎 Another scent":"🔎 Outro aroma",
       "Not sure yet":"Ainda não sei",
       "🌈 Light Your Pride":"🌈 Light Your Pride",
@@ -349,7 +352,7 @@
       chips([
         ctxChip(),
         { label:w("🕯️ A scented candle"), on:function(){ user(w("🕯️ A scented candle")); state.cur={intent:"scented"}; askCategory(); } },
-        { label:w("🍂 An Autumn candle"), on:function(){ user(w("🍂 An Autumn candle")); state.cur={intent:"autumn"}; aScent(); } },
+        { label:w("🍂 An Autumn candle"), on:function(){ user(w("🍂 An Autumn candle")); state.cur={intent:"autumn"}; aShape(); } },
         { label:w("✨ Custom order"), on:function(){ user(w("✨ Custom order")); state.cur={intent:"custom"}; custom(); } },
         { label:w("❓ Quick questions"), on:function(){ user(w("❓ Quick questions")); faq(); } },
         { label:w("💬 Talk on WhatsApp"), cls:"go", on:function(){ send(w("Hi! I'm {n} and I'd like to chat about Soffice Essenza candles.").replace("{n}",state.name||"")); } }
@@ -411,17 +414,21 @@
     });
   }
   /* autumn */
-  function aScent(){
-    bot(w("Our Autumn edit 🍂 Which scent?"), function(){
-      var opts = AUTUMN.map(function(s){ return { label:s, on:function(){ user(s); state.cur.scent=s; aFormat(); } }; });
-      opts.push({ label:w("🔎 Another scent"), cls:"alt", on:function(){ state.cur={intent:"scented"}; askCategory(); } });
+  function aShape(){
+    bot(w("Our Autumn shapes 🎃 Which one?"), function(){
+      var opts = AUTUMN_SHAPES.map(function(m){ return { label:m, on:function(){
+        user(m); state.cur.model=m;
+        if(m===AUTUMN_NOSCENT){ bot(w("Lovely choice — the jesmonite pumpkin is a decorative piece, so no wax and no scent 🎃"), function(){ askColour(); }); }
+        else aScent();
+      } }; });
+      opts.push({ label:w("Not sure yet"), cls:"alt", on:function(){ user(w("Not sure yet")); state.cur.model="To be confirmed"; aScent(); } });
       chips(opts);
     });
   }
-  function aFormat(){
-    bot(w("Which format would you like?"), function(){
-      var opts = AUTUMN_FORMATS.map(function(m){ return { label:m, on:function(){ user(m); state.cur.model=m; askColour(); } }; });
-      opts.push({ label:w("Not sure yet"), cls:"alt", on:function(){ user(w("Not sure yet")); state.cur.model="To be confirmed"; askColour(); } });
+  function aScent(){
+    bot(w("And which autumn scent?"), function(){
+      var opts = AUTUMN.map(function(s){ return { label:s, on:function(){ user(s); state.cur.scent=s; askColour(); } }; });
+      opts.push({ label:w("🔎 Another scent"), cls:"alt", on:function(){ state.cur={intent:"scented"}; askCategory(); } });
       chips(opts);
     });
   }
@@ -462,7 +469,7 @@
   /* finish / multi-item */
   function finishItem(){
     var c=state.cur, it;
-    if(c.intent==="autumn") it={ coll:"Autumn", name:c.scent, model:c.model, colour:c.colour, note:c.note, price:null, qty:parseQty(c.qty) };
+    if(c.intent==="autumn") it={ coll:"Autumn", name:(c.model||c.scent), model:(c.model?c.scent:null), colour:c.colour, note:c.note, price:null, qty:parseQty(c.qty) };
     else if(c.intent==="pride") it={ coll:"Light Your Pride", name:c.model, colour:c.colour, price:(c.price?parseFloat(c.price):null), qty:parseQty(c.qty) };
     else if(c.intent==="custom") it={ coll:"Custom", name:"Custom order", note:c.custom, price:null, qty:1 };
     else it={ coll:"Scented", name:c.scent, model:c.model, colour:c.colour, note:c.note, price:null, qty:parseQty(c.qty) };
@@ -480,7 +487,7 @@
     bot(w("What would you like to add?"), function(){
       chips([
         { label:w("🕯️ A scented candle"), on:function(){ user(w("🕯️ A scented candle")); state.cur={intent:"scented"}; askCategory(); } },
-        { label:w("🍂 An Autumn candle"), on:function(){ user(w("🍂 An Autumn candle")); state.cur={intent:"autumn"}; aScent(); } },
+        { label:w("🍂 An Autumn candle"), on:function(){ user(w("🍂 An Autumn candle")); state.cur={intent:"autumn"}; aShape(); } },
         { label:w("✨ Custom order"), on:function(){ user(w("✨ Custom order")); state.cur={intent:"custom"}; custom(); } }
       ]);
     });

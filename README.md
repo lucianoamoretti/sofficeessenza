@@ -7,7 +7,11 @@ Minimalist, editorial design (inspired by premium candle brands like Osar): off-
 Live at **https://sofficeessenza.ie** (custom domain, `CNAME`).
 
 ## Pages
-- **Autumn** (`index.html`) — **home / seasonal landing**. The Autumn Edit: six seasonal scents (Crackling Log Fire, Cinnamon, Salted Caramel, Mahogany Teakwood, Warming Cashmere, Christmas Spice) and three formats (Glass Jar, Travel Tin, Moulded Pillar). No fixed prices — the price is confirmed on WhatsApp. Warm aurora, falling leaves, flowing gradient headline, mouse parallax, marquee, autumn palette, how-to-order, portal to the other collections. 🍂
+- **Autumn** (`index.html`) — **home / seasonal landing**. 🍂
+  - **Six scents**: Pumpkin Spice, Warming Cashmere, Espresso Martini, Dark Honey & Tobacco, Wood Fire, Cinnamon & Apple.
+  - **Six shapes**: Jesmonite Pumpkin, Wax Pumpkin, Zen Ghost, Ghost, Ghost Dog, Ghost Cat — each drawn as an inline SVG. The **Jesmonite Pumpkin is a decorative piece, not a candle**: its card carries `data-noscent="1"` so the configurator and the chatbot skip the scent step for it.
+  - No fixed prices — every card says "Ask for a price" and the price is confirmed on WhatsApp.
+  - Warm aurora, falling leaves, flowing gradient headline, mouse parallax, marquee, autumn palette, how-to-order, portal to the other collections.
 - **Mini Pets** (`minipets.html`) — warm taupe accent, give-back (supports animals).
 - **Namaste** (`namaste.html`) — sage accent, meditative.
 - **Carezza** (`carezza.html`) — wellness and massage candles, soy & shea.

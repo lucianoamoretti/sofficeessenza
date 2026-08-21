@@ -169,7 +169,7 @@
   var COLP=[["White","#f4f1ea"],["Cream","#efe2c8"],["Sand","#e3cfa3"],["Gold","#c9a86a"],["Yellow","#ffd166"],["Orange","#f4a261"],["Coral","#ff7f6b"],["Red","#e63946"],["Pink","#ff8fab"],["Fuchsia","#d6336c"],["Purple","#8338ec"],["Lavender","#b8a4e3"],["Navy","#2b3a67"],["Blue","#3a86ff"],["Sky","#7ec8e3"],["Teal","#2a9d8f"],["Green","#4caf50"],["Sage","#9caf88"],["Brown","#8a5a44"],["Grey","#9aa0a6"],["Black","#2b2b2b"]];
   var PRIDE6=[["Red","#e63946"],["Orange","#f4a261"],["Yellow","#ffd166"],["Green","#2a9d8f"],["Blue","#3a86ff"],["Purple","#8338ec"]];
   function suggest(coll){ var c=(coll||"").toLowerCase();
-    if(c.indexOf("autumn")>=0) return ["Crackling Log Fire","Cinnamon","Salted Caramel","Mahogany Teakwood","Warming Cashmere","Christmas Spice"];
+    if(c.indexOf("autumn")>=0) return ["Pumpkin Spice","Warming Cashmere","Espresso Martini","Dark Honey & Tobacco","Wood Fire","Cinnamon & Apple"];
     if(c.indexOf("mare")>=0) return ["Sweet Lime","Lemongrass","Passion Fruit & Mango","Watermelon Lemonade","Sandalwood"];
     if(c.indexOf("mini")>=0) return ["Vanilla","Baby Powder","Cotton","Vanilla Cream","Spring Unstoppables"];
     if(c.indexOf("namast")>=0) return ["Sandalwood","Lavender","Nag Champa","Lavender, Chamomile & Vanilla","French Vanilla"];
@@ -227,19 +227,20 @@
   var cfg={};
   function cClose(){ cOv.classList.remove("open"); cBox.classList.remove("open"); document.body.style.overflow=""; }
   function cUpd(){
-    var ok = cfg.isPride ? !!cfg.colour : (!!cfg.scent && (cfg.nocolour || !!cfg.colour));
+    var ok = cfg.noscent ? !!cfg.colour : (!!cfg.scent && (cfg.nocolour || !!cfg.colour));
     cAdd.disabled=!ok; cHint.style.display=ok?"none":"block";
   }
   function selScent(v){ cfg.scent=v; cfgRoot.querySelectorAll(".sc-scent .sc-cfg-chip").forEach(function(x){ x.classList.toggle("sel", x.getAttribute("data-s")===v); }); cUpd(); }
   function chip(v,sugg){ var b=document.createElement("button"); b.type="button"; b.className="sc-cfg-chip"+(sugg?" sugg":""); b.setAttribute("data-s",v); b.textContent=v; b.onclick=function(){ selScent(v); }; return b; }
   function openConfig(prod){
     cfg={ prod:prod, scent:null, colour:null, qty:1, isPride:/pride/i.test(prod.coll), scents:(prod.scents&&prod.scents.length?prod.scents:null), nocolour:!!prod.nocolour };
+    cfg.noscent = cfg.isPride || !!prod.noscent;
     cCl.textContent=prod.coll; cNm.textContent=prod.name; cPr.textContent=(typeof prod.price==="number")?("€ "+prod.price):"";
     if(prod.img){ cThumb.style.display=""; cThumb.style.backgroundImage="url('"+prod.img+"')"; } else { cThumb.style.display="none"; }
     cOther.placeholder=ct("Other colour…"); cOther.value="";
     cQtyLbl.textContent=ct("Quantity"); cQn.textContent="1";
     /* scent */
-    if(cfg.isPride){ cScent.style.display="none"; }
+    if(cfg.noscent){ cScent.style.display="none"; }
     else {
       cScent.style.display=""; cSugg.innerHTML="";
       if(cfg.scents){
@@ -255,21 +256,21 @@
       }
     }
     /* colour */
-    var hideCol=cfg.nocolour && !cfg.isPride;
+    var hideCol=cfg.nocolour && !cfg.noscent;
     cCollbl.style.display=hideCol?"none":""; cCols.style.display=hideCol?"none":""; cOther.style.display=hideCol?"none":"";
     cCollbl.textContent=ct("Colour");
     var pal=cfg.isPride?PRIDE6:COLP; cCols.innerHTML="";
     pal.forEach(function(c){ var b=document.createElement("button"); b.type="button"; b.className="sc-cfg-col"; b.title=c[0]; b.style.background=c[1];
       b.onclick=function(){ cfgRoot.querySelectorAll(".sc-cfg-col").forEach(function(x){ x.classList.remove("sel"); }); b.classList.add("sel"); cOther.value=""; cfg.colour=c[0]; cUpd(); }; cCols.appendChild(b); });
     cAdd.textContent=ct("Add to cart");
-    cHint.textContent=cfg.isPride?ct("Choose a colour"):(cfg.nocolour?ct("Choose a scent"):ct("Choose a scent and colour"));
+    cHint.textContent=cfg.noscent?ct("Choose a colour"):(cfg.nocolour?ct("Choose a scent"):ct("Choose a scent and colour"));
     cUpd();
     cOv.classList.add("open"); cBox.classList.add("open"); document.body.style.overflow="hidden"; cBox.scrollTop=0;
   }
   cOther.addEventListener("input",function(){ var v=cOther.value.trim(); if(v){ cfgRoot.querySelectorAll(".sc-cfg-col").forEach(function(x){ x.classList.remove("sel"); }); cfg.colour=v; } else cfg.colour=null; cUpd(); });
   cfgRoot.querySelector(".sc-cfg-qty [data-u]").onclick=function(){ cfg.qty++; cQn.textContent=cfg.qty; };
   cfgRoot.querySelector(".sc-cfg-qty [data-d]").onclick=function(){ if(cfg.qty>1){ cfg.qty--; cQn.textContent=cfg.qty; } };
-  cAdd.onclick=function(){ if(cAdd.disabled) return; add({ coll:cfg.prod.coll, name:cfg.prod.name, scent:cfg.isPride?null:cfg.scent, colour:(cfg.nocolour&&!cfg.isPride)?null:cfg.colour, price:(typeof cfg.prod.price==="number"?cfg.prod.price:null), qty:cfg.qty }); cClose(); };
+  cAdd.onclick=function(){ if(cAdd.disabled) return; add({ coll:cfg.prod.coll, name:cfg.prod.name, scent:cfg.noscent?null:cfg.scent, colour:(cfg.nocolour&&!cfg.noscent)?null:cfg.colour, price:(typeof cfg.prod.price==="number"?cfg.prod.price:null), qty:cfg.qty }); cClose(); };
   cOv.onclick=cClose; cfgRoot.querySelector(".sc-cfg-x").onclick=cClose;
   document.addEventListener("keydown",function(e){ if(e.key==="Escape" && cBox.classList.contains("open")) cClose(); });
 
@@ -284,7 +285,7 @@
       var ds=card.getAttribute("data-scents");
       var prod={ coll:coll.trim(), name:name.trim(), price:price, img:imgEl?imgEl.getAttribute("src"):null,
         scents: ds? ds.split("|").map(function(x){return x.trim();}) : null,
-        nocolour: card.getAttribute("data-nocolour")==="1" };
+        nocolour: card.getAttribute("data-nocolour")==="1", noscent: card.getAttribute("data-noscent")==="1" };
       var media=card.querySelector(".product-media");
       if(media) media.addEventListener("click",function(e){ e.preventDefault(); openConfig(prod); });
       var buy=card.querySelector(".btn-buy");
